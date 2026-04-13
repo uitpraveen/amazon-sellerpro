@@ -4,10 +4,6 @@ import { useActionState } from "react";
 import { useSearchParams } from "next/navigation";
 import { submitContactForm, type ContactActionResult } from "./actions";
 import { SERVICE_INQUIRY_LABELS, type ServiceInquiryType } from "@/lib/types";
-import StatusPill from "@/components/ui/StatusPill";
-import FramedBlock from "@/components/ui/FramedBlock";
-import MonoLabel from "@/components/ui/MonoLabel";
-import TacticalButton from "@/components/ui/TacticalButton";
 
 const INQUIRY_OPTIONS: ServiceInquiryType[] = [
   "product_safety_compliance_advice",
@@ -34,29 +30,32 @@ export default function ContactForm() {
 
   if (state?.ok) {
     return (
-      <FramedBlock
-        bracketColor="var(--ok)"
-        className="bg-[var(--paper)]"
+      <div
+        className="rounded-xl p-8"
+        style={{
+          backgroundColor: "#E8F0EC",
+          border: "1px solid #1B4332",
+        }}
       >
-        <div className="flex items-center gap-3">
-          <StatusPill tone="ok">TRANSMITTED</StatusPill>
-          <span className="font-mono text-[12px] uppercase tracking-widest text-[var(--ink-3)]">
-            ACK · 200 OK
-          </span>
-        </div>
-        <h3 className="mt-6 text-2xl font-bold text-[var(--ink)]">
-          Message received. Stand by.
+        <h3
+          className="text-2xl"
+          style={{ fontFamily: "var(--font-dm-serif)", color: "#1B4332" }}
+        >
+          Message received. We&rsquo;ll be in touch.
         </h3>
-        <p className="mt-3 text-[var(--ink-2)]">
+        <p
+          className="mt-3 text-base leading-relaxed"
+          style={{ fontFamily: "var(--font-outfit)", color: "#2D2A26" }}
+        >
           A member of our team will respond within 1 business day.
         </p>
-      </FramedBlock>
+      </div>
     );
   }
 
   return (
     <form action={formAction} className="space-y-6" noValidate>
-      {/* Honeypot */}
+      {/* Honeypot — keep exactly as-is */}
       <input
         type="text"
         name="website"
@@ -123,7 +122,19 @@ export default function ContactForm() {
           name="message"
           required
           rows={6}
-          className="mt-2 block w-full border border-[var(--rule)] bg-[var(--paper)] px-4 py-3 font-sans text-[17px] text-[var(--ink)] transition-colors focus:border-[var(--signal)] focus:outline-none focus:ring-1 focus:ring-[var(--signal)]"
+          className="mt-1.5 block w-full rounded-lg border px-4 py-3 text-base transition-colors focus:outline-none focus:ring-2"
+          style={{
+            fontFamily: "var(--font-outfit)",
+            color: "#2D2A26",
+            backgroundColor: "#FAF7F2",
+            borderColor: "#E8E0D4",
+          }}
+          onFocus={(e) => {
+            e.currentTarget.style.borderColor = "#B8860B";
+          }}
+          onBlur={(e) => {
+            e.currentTarget.style.borderColor = "#E8E0D4";
+          }}
         />
         {state?.fieldErrors?.message && (
           <FieldError>{state.fieldErrors.message}</FieldError>
@@ -131,22 +142,41 @@ export default function ContactForm() {
       </div>
 
       {state?.ok === false && !state.fieldErrors && (
-        <FramedBlock
-          bracketColor="var(--alert)"
-          className="bg-[var(--paper)] py-4"
+        <div
+          className="rounded-lg border p-4"
+          style={{
+            borderColor: "#9B1C1C",
+            backgroundColor: "#FEE2E2",
+          }}
         >
-          <div className="flex items-center gap-3">
-            <StatusPill tone="alert">ERROR</StatusPill>
-            <p className="text-sm text-[var(--ink-2)]">{state.error}</p>
-          </div>
-        </FramedBlock>
+          <p
+            className="text-sm"
+            style={{ fontFamily: "var(--font-outfit)", color: "#9B1C1C" }}
+          >
+            {state.error}
+          </p>
+        </div>
       )}
 
-      <div className="flex items-center gap-4 pt-2">
-        <TacticalButton type="submit" disabled={isPending}>
-          {isPending ? "Transmitting…" : "Transmit Message"}
-        </TacticalButton>
-        <MonoLabel>// SECURE · NO TRACKERS</MonoLabel>
+      <div className="flex items-center gap-5 pt-2">
+        <button
+          type="submit"
+          disabled={isPending}
+          className="inline-block rounded-full px-8 py-3.5 text-sm font-semibold text-white transition-colors disabled:opacity-60"
+          style={{
+            fontFamily: "var(--font-outfit)",
+            backgroundColor: isPending ? "#9A7209" : "#B8860B",
+            cursor: isPending ? "not-allowed" : "pointer",
+          }}
+        >
+          {isPending ? "Sending…" : "Send Message"}
+        </button>
+        <span
+          className="text-xs"
+          style={{ fontFamily: "var(--font-outfit)", color: "#6B6560" }}
+        >
+          Secure · No trackers
+        </span>
       </div>
     </form>
   );
@@ -175,7 +205,19 @@ function Field({
         type={type}
         name={name}
         required={required}
-        className="mt-2 block w-full border border-[var(--rule)] bg-[var(--paper)] px-4 py-3 font-sans text-[17px] text-[var(--ink)] transition-colors focus:border-[var(--signal)] focus:outline-none focus:ring-1 focus:ring-[var(--signal)]"
+        className="mt-1.5 block w-full rounded-lg border px-4 py-3 text-base transition-colors focus:outline-none"
+        style={{
+          fontFamily: "var(--font-outfit)",
+          color: "#2D2A26",
+          backgroundColor: "#FAF7F2",
+          borderColor: error ? "#9B1C1C" : "#E8E0D4",
+        }}
+        onFocus={(e) => {
+          if (!error) e.currentTarget.style.borderColor = "#B8860B";
+        }}
+        onBlur={(e) => {
+          if (!error) e.currentTarget.style.borderColor = "#E8E0D4";
+        }}
       />
       {error && <FieldError>{error}</FieldError>}
     </div>
@@ -200,13 +242,25 @@ function SelectField({
       <FieldLabel htmlFor={name} required={required}>
         {label}
       </FieldLabel>
-      <div className="relative mt-2">
+      <div className="relative mt-1.5">
         <select
           id={name}
           name={name}
           required={required}
           defaultValue={defaultValue}
-          className="block w-full appearance-none border border-[var(--rule)] bg-[var(--paper)] px-4 py-3 pr-10 font-sans text-[17px] text-[var(--ink)] transition-colors focus:border-[var(--signal)] focus:outline-none focus:ring-1 focus:ring-[var(--signal)]"
+          className="block w-full appearance-none rounded-lg border px-4 py-3 pr-10 text-base transition-colors focus:outline-none"
+          style={{
+            fontFamily: "var(--font-outfit)",
+            color: "#2D2A26",
+            backgroundColor: "#FAF7F2",
+            borderColor: "#E8E0D4",
+          }}
+          onFocus={(e) => {
+            e.currentTarget.style.borderColor = "#B8860B";
+          }}
+          onBlur={(e) => {
+            e.currentTarget.style.borderColor = "#E8E0D4";
+          }}
         >
           {options.map((opt) => (
             <option key={opt.value} value={opt.value}>
@@ -216,7 +270,8 @@ function SelectField({
         </select>
         <span
           aria-hidden
-          className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 font-mono text-xs text-[var(--ink-3)]"
+          className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-xs"
+          style={{ color: "#6B6560" }}
         >
           ▼
         </span>
@@ -237,19 +292,26 @@ function FieldLabel({
   return (
     <label
       htmlFor={htmlFor}
-      className="flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.15em] text-[var(--ink-3)]"
+      className="flex items-center gap-1 text-sm font-medium"
+      style={{ fontFamily: "var(--font-outfit)", color: "#6B6560" }}
     >
-      <span className="text-[var(--signal)]">→</span>
       {children}
-      {required && <span className="text-[var(--alert)]">*</span>}
+      {required && (
+        <span style={{ color: "#B8860B" }} aria-label="required">
+          *
+        </span>
+      )}
     </label>
   );
 }
 
 function FieldError({ children }: { children: React.ReactNode }) {
   return (
-    <p className="mt-2 font-mono text-[12px] uppercase tracking-widest text-[var(--alert)]">
-      [ ERROR ] {children}
+    <p
+      className="mt-1.5 text-sm"
+      style={{ fontFamily: "var(--font-outfit)", color: "#9B1C1C" }}
+    >
+      {children}
     </p>
   );
 }

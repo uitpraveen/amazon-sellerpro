@@ -1,13 +1,8 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import MonoLabel from "@/components/ui/MonoLabel";
-import RevealOnScroll from "@/components/ui/RevealOnScroll";
-import HairlineDivider from "@/components/ui/HairlineDivider";
-import FramedBlock from "@/components/ui/FramedBlock";
-import TacticalButton from "@/components/ui/TacticalButton";
-import TransmissionRow from "@/components/ui/TransmissionRow";
 import ServicesGridSection from "@/components/sections/ServicesGridSection";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Pricing — Amazon Safety Pro",
@@ -15,74 +10,155 @@ export const metadata: Metadata = {
     "Our services are quoted on a fixed-fee or hourly basis, agreed in writing prior to engagement.",
 };
 
+const infoRows = [
+  { label: "Engagement", value: "Fixed Fee / Hourly" },
+  { label: "Agreement", value: "Written Quote" },
+  { label: "Currency", value: "USD / Multi-currency" },
+  { label: "Payment", value: "In Advance" },
+  { label: "First Review", value: "Free" },
+];
+
 export default function PricingPage() {
   return (
     <>
       <Navbar />
-      <main>
-        <section className="border-b border-[var(--rule)] bg-[var(--paper)]">
-          <div className="mx-auto max-w-7xl px-6 pt-32 pb-20 lg:px-12 lg:pt-40 lg:pb-24">
-            <div className="grid gap-12 lg:grid-cols-12">
-              <RevealOnScroll className="lg:col-span-7" showLine={false}>
-                <MonoLabel prefix="→">QUOTE PROTOCOL // OPEN</MonoLabel>
-                <h1 className="mt-6 text-5xl font-black leading-[0.98] tracking-[-0.02em] text-[var(--ink)] sm:text-6xl lg:text-7xl">
+      <main style={{ backgroundColor: "#FAF7F2" }}>
+        {/* Hero */}
+        <section style={{ borderBottom: "1px solid #E8E0D4" }}>
+          <div className="mx-auto max-w-7xl px-6 pt-32 pb-20 lg:px-12 lg:pt-40 lg:pb-28">
+            <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+              {/* Heading + description */}
+              <div className="lg:col-span-7">
+                <p
+                  className="text-sm font-medium uppercase tracking-widest"
+                  style={{
+                    fontFamily: "var(--font-outfit)",
+                    color: "#B8860B",
+                  }}
+                >
                   Request a Quote
-                </h1>
-                <p className="mt-8 max-w-2xl text-lg leading-relaxed text-[var(--ink-2)]">
-                  Our services are offered on a fixed-fee or hourly basis,
-                  agreed and communicated to you in writing prior to
-                  engagement. Tell us about your case and we&rsquo;ll come
-                  back with a quotation tailored to your specific situation.
                 </p>
-              </RevealOnScroll>
+                <h1
+                  className="mt-4 text-5xl leading-[1.05] sm:text-6xl lg:text-7xl"
+                  style={{
+                    fontFamily: "var(--font-dm-serif)",
+                    color: "#2D2A26",
+                  }}
+                >
+                  Transparent Pricing,<br />Agreed in Writing
+                </h1>
+                <p
+                  className="mt-6 max-w-2xl text-lg leading-relaxed"
+                  style={{ fontFamily: "var(--font-outfit)", color: "#6B6560" }}
+                >
+                  Our services are offered on a fixed-fee or hourly basis,
+                  agreed and communicated to you in writing prior to engagement.
+                  Tell us about your case and we&rsquo;ll come back with a
+                  quotation tailored to your specific situation.
+                </p>
+              </div>
 
-              <RevealOnScroll className="lg:col-span-5" showLine={false}>
-                <FramedBlock className="bg-[var(--paper-edge)]/60">
-                  <MonoLabel prefix="→">PROTOCOL</MonoLabel>
-                  <div className="mt-4 space-y-0">
-                    <TransmissionRow label="Engagement" value="Fixed Fee / Hourly" />
-                    <TransmissionRow label="Agreement" value="Written Quote" />
-                    <TransmissionRow label="Currency" value="USD / Multi" />
-                    <TransmissionRow label="Payment" value="In Advance" />
-                    <TransmissionRow label="First Review" value="Free" />
+              {/* Info card */}
+              <div className="lg:col-span-5">
+                <div
+                  className="rounded-2xl p-8"
+                  style={{
+                    backgroundColor: "#fff",
+                    border: "1px solid #E8E0D4",
+                  }}
+                >
+                  <p
+                    className="mb-6 text-xs font-semibold uppercase tracking-widest"
+                    style={{
+                      fontFamily: "var(--font-outfit)",
+                      color: "#B8860B",
+                    }}
+                  >
+                    Engagement Details
+                  </p>
+                  <div className="space-y-0">
+                    {infoRows.map((row, i) => (
+                      <div
+                        key={row.label}
+                        className="flex items-center justify-between py-3"
+                        style={{
+                          borderBottom:
+                            i < infoRows.length - 1
+                              ? "1px solid #E8E0D4"
+                              : "none",
+                        }}
+                      >
+                        <span
+                          className="text-sm"
+                          style={{
+                            fontFamily: "var(--font-outfit)",
+                            color: "#B8860B",
+                            fontWeight: 500,
+                          }}
+                        >
+                          {row.label}
+                        </span>
+                        <span
+                          className="text-sm font-medium"
+                          style={{
+                            fontFamily: "var(--font-outfit)",
+                            color: "#2D2A26",
+                          }}
+                        >
+                          {row.value}
+                        </span>
+                      </div>
+                    ))}
                   </div>
-                </FramedBlock>
-              </RevealOnScroll>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
+        {/* Services grid */}
         <section>
           <div className="mx-auto max-w-7xl px-6 py-24 lg:px-12">
-            <HairlineDivider label="AVAILABLE SERVICES // 05" />
-            <div className="mt-12">
-              <ServicesGridSection />
-            </div>
+            <ServicesGridSection />
           </div>
         </section>
 
-        <section className="border-t border-[var(--rule)] bg-[var(--paper-edge)]/40">
+        {/* Bottom CTA */}
+        <section style={{ borderTop: "1px solid #E8E0D4" }}>
           <div className="mx-auto max-w-7xl px-6 py-24 lg:px-12">
-            <RevealOnScroll showLine={false}>
-              <FramedBlock
-                bracketColor="var(--signal)"
-                className="bg-[var(--paper)] text-center"
+            <div
+              className="rounded-2xl px-10 py-16 text-center"
+              style={{
+                backgroundColor: "#fff",
+                border: "1px solid #E8E0D4",
+              }}
+            >
+              <h2
+                className="text-3xl sm:text-4xl"
+                style={{
+                  fontFamily: "var(--font-dm-serif)",
+                  color: "#2D2A26",
+                }}
               >
-                <MonoLabel prefix="→">FREE FIRST REVIEW</MonoLabel>
-                <h2 className="mt-4 text-3xl font-black sm:text-4xl">
-                  Not sure which service you need?
-                </h2>
-                <p className="mx-auto mt-4 max-w-2xl text-[var(--ink-2)]">
-                  Submit your documents for a free review and our team will
-                  guide you to the right engagement.
-                </p>
-                <div className="mt-8 flex justify-center">
-                  <TacticalButton href="/free-validation">
-                    Submit for a free review
-                  </TacticalButton>
-                </div>
-              </FramedBlock>
-            </RevealOnScroll>
+                Not sure which service you need?
+              </h2>
+              <p
+                className="mx-auto mt-4 max-w-xl text-lg leading-relaxed"
+                style={{ fontFamily: "var(--font-outfit)", color: "#6B6560" }}
+              >
+                Submit your documents for a free review and our team will guide
+                you to the right engagement — no obligation.
+              </p>
+              <div className="mt-8 flex justify-center">
+                <Link
+                  href="/free-validation"
+                  className="inline-block rounded-full bg-signal px-8 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-signal-deep"
+                  style={{ fontFamily: "var(--font-outfit)" }}
+                >
+                  Submit for a free review
+                </Link>
+              </div>
+            </div>
           </div>
         </section>
       </main>

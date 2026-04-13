@@ -1,84 +1,162 @@
 import { Suspense } from "react";
 import ContactForm from "@/app/contact/ContactForm";
-import MonoLabel from "@/components/ui/MonoLabel";
-import RevealOnScroll from "@/components/ui/RevealOnScroll";
-import FramedBlock from "@/components/ui/FramedBlock";
-import TransmissionRow from "@/components/ui/TransmissionRow";
-import StatusPill from "@/components/ui/StatusPill";
+
+const sidebarRows = [
+  { label: "Response", value: "< 1 Business Day" },
+  { label: "Reviewed By", value: "Ex-Amazonian" },
+  { label: "Confidentiality", value: "Strict" },
+  { label: "First Review", value: "Free" },
+  { label: "Channels", value: "Email · Zoom" },
+];
+
+const trustPoints = [
+  "Response within 1 business day",
+  "Strict confidentiality on all seller and product information",
+  "No obligation — your first document review is free",
+];
 
 export default function ContactSplitSection() {
   return (
-    <section>
+    <section style={{ backgroundColor: "#FAF7F2" }}>
       <div className="mx-auto max-w-7xl px-6 pt-32 pb-24 lg:px-12 lg:pt-40">
-        <RevealOnScroll showLine={false}>
-          <MonoLabel prefix="→">CONTACT // 02 // OPEN TRANSMISSION</MonoLabel>
-          <h1 className="mt-6 max-w-4xl text-4xl font-black leading-[1.02] tracking-[-0.02em] text-[var(--ink)] sm:text-5xl lg:text-6xl">
-            Get in Touch — We&rsquo;re Ready for Your Case
+        {/* Hero */}
+        <div className="max-w-3xl">
+          <h1
+            className="text-4xl leading-[1.05] sm:text-5xl lg:text-6xl"
+            style={{ fontFamily: "var(--font-dm-serif)", color: "#2D2A26" }}
+          >
+            Get in Touch
           </h1>
-          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-[var(--ink-2)]">
-            Whether you have a quick compliance question or a complex case
-            that needs immediate attention, our team of tenured ex-Amazonians
-            is here to help. Fill out the form below and a member of our team
-            will respond within 1 business day.
+          <p
+            className="mt-6 max-w-2xl text-lg leading-relaxed"
+            style={{ fontFamily: "var(--font-outfit)", color: "#6B6560" }}
+          >
+            Whether you have a quick compliance question or a complex case that
+            needs immediate attention, our team of tenured ex-Amazonians is here
+            to help. Fill out the form below and a member of our team will
+            respond within 1 business day.
           </p>
-        </RevealOnScroll>
+        </div>
 
-        <div className="mt-16 grid gap-12 lg:grid-cols-12">
-          {/* Form */}
-          <RevealOnScroll className="lg:col-span-8" showLine={false}>
-            <FramedBlock className="bg-[var(--paper)]">
-              <div className="mb-8 flex items-center justify-between">
-                <MonoLabel prefix="→">FORM // CONTACT</MonoLabel>
-                <StatusPill tone="ok">OPEN</StatusPill>
-              </div>
+        {/* 2-column layout */}
+        <div className="mt-16 grid gap-10 lg:grid-cols-12">
+          {/* Form — 8 cols */}
+          <div className="lg:col-span-8">
+            <div
+              className="rounded-2xl p-8 sm:p-10"
+              style={{
+                backgroundColor: "#fff",
+                border: "1px solid #E8E0D4",
+              }}
+            >
               <Suspense fallback={null}>
                 <ContactForm />
               </Suspense>
-            </FramedBlock>
-          </RevealOnScroll>
+            </div>
+          </div>
 
-          {/* Sidebar */}
+          {/* Sidebar — 4 cols */}
           <aside className="lg:col-span-4">
-            <div className="lg:sticky lg:top-32 space-y-6">
-              <RevealOnScroll showLine={false}>
-                <FramedBlock className="bg-[var(--paper-edge)]/60">
-                  <MonoLabel prefix="→">TRANSMISSION DETAILS</MonoLabel>
-                  <div className="mt-6 space-y-0">
-                    <TransmissionRow label="Response" value="< 1 Business Day" />
-                    <TransmissionRow label="Reviewed By" value="Ex-Amazonian" />
-                    <TransmissionRow label="Confidentiality" value="Strict" />
-                    <TransmissionRow label="First Review" value="Free" />
-                    <TransmissionRow label="Channels" value="Email · Zoom" />
-                  </div>
-                </FramedBlock>
-              </RevealOnScroll>
-
-              <RevealOnScroll showLine={false} delay={0.05}>
-                <div className="border border-[var(--rule)] bg-[var(--paper)] p-6">
-                  <MonoLabel prefix="→">WHY SELLERS TRUST US</MonoLabel>
-                  <p className="mt-4 text-sm text-[var(--ink-2)]">
-                    Every message we receive is reviewed by a real,
-                    experienced ex-Amazonian. We do not use automated
-                    responses for compliance queries — your case is too
-                    important for that.
-                  </p>
-                  <ul className="mt-6 space-y-3">
-                    {[
-                      "Response within 1 business day",
-                      "Strict confidentiality on all seller and product information",
-                      "No obligation — your first document review is free",
-                    ].map((item) => (
-                      <li
-                        key={item}
-                        className="flex gap-3 font-mono text-[12px] uppercase tracking-wider text-[var(--ink-2)]"
+            <div className="space-y-6 lg:sticky lg:top-32">
+              {/* Details card */}
+              <div
+                className="rounded-2xl p-7"
+                style={{
+                  backgroundColor: "#fff",
+                  border: "1px solid #E8E0D4",
+                }}
+              >
+                <p
+                  className="mb-5 text-xs font-semibold uppercase tracking-widest"
+                  style={{
+                    fontFamily: "var(--font-outfit)",
+                    color: "#B8860B",
+                  }}
+                >
+                  What to expect
+                </p>
+                <div className="space-y-0">
+                  {sidebarRows.map((row, i) => (
+                    <div
+                      key={row.label}
+                      className="flex items-center justify-between py-3"
+                      style={{
+                        borderBottom:
+                          i < sidebarRows.length - 1
+                            ? "1px solid #E8E0D4"
+                            : "none",
+                      }}
+                    >
+                      <span
+                        className="text-sm"
+                        style={{
+                          fontFamily: "var(--font-outfit)",
+                          color: "#B8860B",
+                          fontWeight: 500,
+                        }}
                       >
-                        <span className="text-[var(--ok)]">[✓]</span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
+                        {row.label}
+                      </span>
+                      <span
+                        className="text-sm font-medium"
+                        style={{
+                          fontFamily: "var(--font-outfit)",
+                          color: "#2D2A26",
+                        }}
+                      >
+                        {row.value}
+                      </span>
+                    </div>
+                  ))}
                 </div>
-              </RevealOnScroll>
+              </div>
+
+              {/* Trust card */}
+              <div
+                className="rounded-2xl p-7"
+                style={{
+                  backgroundColor: "#fff",
+                  border: "1px solid #E8E0D4",
+                }}
+              >
+                <h2
+                  className="text-xl"
+                  style={{
+                    fontFamily: "var(--font-dm-serif)",
+                    color: "#2D2A26",
+                  }}
+                >
+                  Why Sellers Trust Us
+                </h2>
+                <p
+                  className="mt-3 text-sm leading-relaxed"
+                  style={{ fontFamily: "var(--font-outfit)", color: "#6B6560" }}
+                >
+                  Every message we receive is reviewed by a real, experienced
+                  ex-Amazonian. We do not use automated responses for compliance
+                  queries — your case is too important for that.
+                </p>
+                <ul className="mt-5 space-y-3">
+                  {trustPoints.map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-start gap-3 text-sm leading-snug"
+                      style={{
+                        fontFamily: "var(--font-outfit)",
+                        color: "#6B6560",
+                      }}
+                    >
+                      <span
+                        className="mt-0.5 shrink-0 font-semibold"
+                        style={{ color: "#B8860B" }}
+                      >
+                        ✓
+                      </span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </aside>
         </div>
