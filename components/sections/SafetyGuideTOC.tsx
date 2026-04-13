@@ -32,35 +32,56 @@ export default function SafetyGuideTOC({ items }: { items: TOCItem[] }) {
 
   return (
     <nav aria-label="Section navigation">
-      <div className="font-mono text-[12px] uppercase tracking-widest text-[var(--ink-3)]">
-        → CONTENTS
-      </div>
-      <ul className="mt-4 space-y-1 border-l border-[var(--rule)]">
-        {items.map((item) => {
-          const isActive = active === item.id;
-          return (
-            <li key={item.id}>
-              <a
-                href={`#${item.id}`}
-                className={`group relative -ml-px block border-l py-2 pl-4 font-mono text-[12px] uppercase tracking-wider transition-colors ${
-                  isActive
-                    ? "border-[var(--signal)] text-[var(--signal)]"
-                    : "border-transparent text-[var(--ink-3)] hover:text-[var(--ink-2)]"
-                }`}
-              >
-                <span
-                  className={`mr-2 ${
-                    isActive ? "text-[var(--signal)]" : "text-[var(--ink-3)]"
-                  }`}
+      <div
+        className="rounded-2xl p-6"
+        style={{ background: "#FAF7F2", border: "1px solid #E8E0D4" }}
+      >
+        <p
+          className="mb-5 text-xs font-semibold uppercase tracking-widest"
+          style={{ color: "#B8860B", fontFamily: "Outfit, sans-serif" }}
+        >
+          Contents
+        </p>
+        <ul className="space-y-1">
+          {items.map((item) => {
+            const isActive = active === item.id;
+            return (
+              <li key={item.id}>
+                <a
+                  href={`#${item.id}`}
+                  className="group flex items-center gap-3 rounded-lg px-3 py-2.5 transition-all"
+                  style={{
+                    background: isActive ? "#FAF7F2" : "transparent",
+                    boxShadow: isActive
+                      ? "inset 0 0 0 1px #E8E0D4"
+                      : "none",
+                    fontFamily: "Outfit, sans-serif",
+                  }}
                 >
-                  [{item.number}]
-                </span>
-                {item.label}
-              </a>
-            </li>
-          );
-        })}
-      </ul>
+                  <span
+                    className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[11px] font-bold transition-colors"
+                    style={{
+                      background: isActive ? "#B8860B" : "#E8E0D4",
+                      color: isActive ? "#FAF7F2" : "#6B6560",
+                    }}
+                  >
+                    {item.number.replace("·", "·")}
+                  </span>
+                  <span
+                    className="text-sm leading-snug transition-colors"
+                    style={{
+                      color: isActive ? "#B8860B" : "#6B6560",
+                      fontWeight: isActive ? 600 : 400,
+                    }}
+                  >
+                    {item.label}
+                  </span>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     </nav>
   );
 }
