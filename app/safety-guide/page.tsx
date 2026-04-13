@@ -97,7 +97,7 @@ export default function SafetyGuidePage() {
       <Navbar />
       <main>
         {/* Page header */}
-        <section className="border-b border-[var(--rule)] bg-[var(--paper-sage)]">
+        <section className="border-b border-[var(--rule)] bg-[var(--paper)]">
           <div className="mx-auto max-w-7xl px-6 pt-32 pb-20 lg:px-12 lg:pt-40 lg:pb-24">
             <RevealOnScroll showLine={false}>
               <div className="flex flex-wrap items-center gap-3">

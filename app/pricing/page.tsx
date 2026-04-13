@@ -20,7 +20,7 @@ export default function PricingPage() {
     <>
       <Navbar />
       <main>
-        <section className="border-b border-[var(--rule)] bg-[var(--paper-cool)]">
+        <section className="border-b border-[var(--rule)] bg-[var(--paper)]">
           <div className="mx-auto max-w-7xl px-6 pt-32 pb-20 lg:px-12 lg:pt-40 lg:pb-24">
             <div className="grid gap-12 lg:grid-cols-12">
               <RevealOnScroll className="lg:col-span-7" showLine={false}>

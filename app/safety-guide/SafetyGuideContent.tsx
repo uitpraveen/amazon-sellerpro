@@ -27,7 +27,7 @@ const fadeInUp = {
 const sections: GuideSection[] = [
   {
     id: "what-is-product-safety",
-    icon: <ShieldCheck className="h-6 w-6 text-[#2563EB]" />,
+    icon: <ShieldCheck className="h-6 w-6 text-[var(--signal)]" />,
     title: "What is Product Safety?",
     keyPoints: [
       "Products must meet all applicable federal, state, and international regulations",
@@ -53,7 +53,7 @@ const sections: GuideSection[] = [
   },
   {
     id: "global-policies",
-    icon: <Globe className="h-6 w-6 text-[#2563EB]" />,
+    icon: <Globe className="h-6 w-6 text-[var(--signal)]" />,
     title: "Global Policies",
     keyPoints: [
       "US: CPSC oversees safety via CPSIA with third-party testing requirements",
@@ -62,7 +62,7 @@ const sections: GuideSection[] = [
     ],
     content: (
       <>
-        <h3 className="mt-2 text-lg font-semibold text-[#1E293B]">
+        <h3 className="mt-2 text-lg font-semibold text-[var(--ink)]">
           United States (US)
         </h3>
         <p className="mt-2">
@@ -73,7 +73,7 @@ const sections: GuideSection[] = [
           and specific lead and phthalate limits.
         </p>
 
-        <h3 className="mt-6 text-lg font-semibold text-[#1E293B]">
+        <h3 className="mt-6 text-lg font-semibold text-[var(--ink)]">
           Canada (CA)
         </h3>
         <p className="mt-2">
@@ -83,7 +83,7 @@ const sections: GuideSection[] = [
           required for children&apos;s products, electronics, and textiles.
         </p>
 
-        <h3 className="mt-6 text-lg font-semibold text-[#1E293B]">
+        <h3 className="mt-6 text-lg font-semibold text-[var(--ink)]">
           European Union (EU)
         </h3>
         <p className="mt-2">
@@ -97,7 +97,7 @@ const sections: GuideSection[] = [
   },
   {
     id: "product-restrictions",
-    icon: <AlertTriangle className="h-6 w-6 text-[#F59E0B]" />,
+    icon: <AlertTriangle className="h-6 w-6 text-[var(--signal)]" />,
     title: "Product Restrictions at Amazon",
     keyPoints: [
       "Amazon has its own safety policies on top of government regulations",
@@ -122,7 +122,7 @@ const sections: GuideSection[] = [
             "Hazardous materials and chemicals",
           ].map((item) => (
             <li key={item} className="flex items-start gap-2">
-              <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#F59E0B]" />
+              <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[var(--signal)]" />
               {item}
             </li>
           ))}
@@ -137,7 +137,7 @@ const sections: GuideSection[] = [
   },
   {
     id: "amazon-tic-policy",
-    icon: <ClipboardCheck className="h-6 w-6 text-[#2563EB]" />,
+    icon: <ClipboardCheck className="h-6 w-6 text-[var(--signal)]" />,
     title: "Amazon TIC Policy",
     keyPoints: [
       "Documents must come from Amazon-recognized accredited laboratories",
@@ -168,7 +168,7 @@ const sections: GuideSection[] = [
   },
   {
     id: "product-recalls",
-    icon: <Bell className="h-6 w-6 text-[#DC2626]" />,
+    icon: <Bell className="h-6 w-6 text-[var(--alert)]" />,
     title: "Product Recalls",
     keyPoints: [
       "CPSC issues mandatory and voluntary recalls for safety hazards",
@@ -177,7 +177,7 @@ const sections: GuideSection[] = [
     ],
     content: (
       <>
-        <h3 className="mt-2 text-lg font-semibold text-[#1E293B]">
+        <h3 className="mt-2 text-lg font-semibold text-[var(--ink)]">
           CPSC Recalls (US)
         </h3>
         <p className="mt-2">
@@ -188,7 +188,7 @@ const sections: GuideSection[] = [
           consequences.
         </p>
 
-        <h3 className="mt-6 text-lg font-semibold text-[#1E293B]">
+        <h3 className="mt-6 text-lg font-semibold text-[var(--ink)]">
           Health Canada Recalls (CA)
         </h3>
         <p className="mt-2">
@@ -198,7 +198,7 @@ const sections: GuideSection[] = [
           monitoring recall notices relevant to their product categories.
         </p>
 
-        <h3 className="mt-6 text-lg font-semibold text-[#1E293B]">
+        <h3 className="mt-6 text-lg font-semibold text-[var(--ink)]">
           EU RAPEX / Safety Gate
         </h3>
         <p className="mt-2">
@@ -224,23 +224,21 @@ export default function SafetyGuideContent() {
   return (
     <>
       {/* Hero */}
-      <section className="py-20 bg-gradient-to-br from-[#EFF6FF] to-[#F8FAFC]">
+      <section className="py-20 bg-[var(--paper)]">
         <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-4xl font-bold sm:text-5xl"
+            className="text-4xl font-bold text-[var(--ink)] sm:text-5xl"
           >
-            <span className="bg-gradient-to-r from-[#2563EB] to-[#7C3AED] bg-clip-text text-transparent">
-              Product Safety Guide
-            </span>
+            Product Safety Guide
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.15 }}
-            className="mt-4 text-lg text-[#475569]"
+            className="mt-4 text-lg text-[var(--ink-2)]"
           >
             Everything you need to know about product safety compliance on
             Amazon.
@@ -254,8 +252,8 @@ export default function SafetyGuideContent() {
           {/* Sticky TOC Sidebar */}
           <div className="lg:w-72 flex-shrink-0">
             <div className="lg:sticky lg:top-24">
-              <div className="rounded-2xl border border-[#E2E8F0] bg-white p-6 shadow-sm">
-                <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-[#64748B]">
+              <div className="border border-[var(--rule)] bg-[var(--paper)] p-6">
+                <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-[var(--ink-3)]">
                   Contents
                 </h2>
                 <ul className="space-y-2">
@@ -263,10 +261,10 @@ export default function SafetyGuideContent() {
                     <li key={s.id}>
                       <button
                         onClick={() => handleTocClick(s.id)}
-                        className={`block w-full text-left text-sm rounded-lg px-3 py-2 transition-colors ${
+                        className={`block w-full text-left text-sm px-3 py-2 transition-colors ${
                           activeSection === s.id
-                            ? "bg-[#2563EB]/10 text-[#2563EB] font-medium"
-                            : "text-[#475569] hover:bg-[#F1F5F9] hover:text-[#1E293B]"
+                            ? "bg-[var(--signal-soft)] text-[var(--signal)] font-medium"
+                            : "text-[var(--ink-2)] hover:bg-[var(--paper-edge)] hover:text-[var(--ink)]"
                         }`}
                       >
                         {s.title}
@@ -289,22 +287,22 @@ export default function SafetyGuideContent() {
                 whileInView="visible"
                 viewport={{ once: true }}
                 onViewportEnter={() => setActiveSection(section.id)}
-                className="scroll-mt-24 rounded-2xl border border-[#E2E8F0] bg-white p-8 shadow-sm"
+                className="scroll-mt-24 border border-[var(--rule)] bg-[var(--paper)] p-8"
               >
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#F1F5F9]">
+                  <div className="flex h-10 w-10 items-center justify-center bg-[var(--paper-edge)]">
                     {section.icon}
                   </div>
-                  <h2 className="text-2xl font-bold text-[#1E293B]">
+                  <h2 className="text-2xl font-bold text-[var(--ink)]">
                     {section.title}
                   </h2>
                 </div>
 
                 {/* Key Points Callout */}
-                <div className="mt-5 rounded-xl border border-[#DBEAFE] bg-[#EFF6FF] p-5">
+                <div className="mt-5 border border-[var(--signal)]/30 bg-[var(--signal-soft)]/40 p-5">
                   <div className="flex items-center gap-2 mb-3">
-                    <Info className="h-4 w-4 text-[#2563EB]" />
-                    <span className="text-xs font-semibold uppercase tracking-wider text-[#2563EB]">
+                    <Info className="h-4 w-4 text-[var(--signal)]" />
+                    <span className="text-xs font-semibold uppercase tracking-wider text-[var(--signal)]">
                       Key Points
                     </span>
                   </div>
@@ -312,16 +310,16 @@ export default function SafetyGuideContent() {
                     {section.keyPoints.map((point) => (
                       <li
                         key={point}
-                        className="flex items-start gap-2 text-sm text-[#1E40AF]"
+                        className="flex items-start gap-2 text-sm text-[var(--ink-2)]"
                       >
-                        <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#2563EB]" />
+                        <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[var(--signal)]" />
                         {point}
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                <div className="mt-5 leading-relaxed text-[#475569]">
+                <div className="mt-5 leading-relaxed text-[var(--ink-2)]">
                   {section.content}
                 </div>
               </motion.div>
