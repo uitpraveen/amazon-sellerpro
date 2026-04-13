@@ -1,80 +1,263 @@
+"use client";
+
 import Link from "next/link";
+import { motion } from "framer-motion";
 import type { ServiceDef } from "@/lib/services-data";
-import FramedBlock from "@/components/ui/FramedBlock";
-import NumberMarker from "@/components/ui/NumberMarker";
 
-export default function ServiceCard({ service }: { service: ServiceDef }) {
+export default function ServiceCard({ service, index }: { service: ServiceDef; index: number }) {
+  const num = String(service.number).padStart(2, "0");
+
   return (
-    <FramedBlock className="group h-full bg-[var(--paper)] transition-all duration-300 hover:bg-[var(--signal-soft)]/30">
-      <div className="flex items-baseline justify-between">
-        <NumberMarker n={service.number} total={5} />
-        <span className="font-mono text-[12px] uppercase tracking-widest text-[var(--ink-3)]">
-          [ {service.code.toUpperCase()} ]
-        </span>
-      </div>
-
-      <h3 className="mt-6 text-2xl font-bold leading-tight text-[var(--ink)]">
-        {service.title}
-      </h3>
-
-      <div className="mt-4">
-        <span className="font-mono text-[12px] uppercase tracking-widest text-[var(--ink-3)]">
-          → WHAT IT IS
-        </span>
-        <p className="mt-2 text-[var(--ink-2)]">{service.what}</p>
-      </div>
-
-      {service.who && (
-        <div className="mt-6">
-          <span className="font-mono text-[12px] uppercase tracking-widest text-[var(--ink-3)]">
-            → WHO NEEDS IT
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.55, delay: (index % 2) * 0.1, ease: "easeOut" }}
+      style={{
+        background: "#FFFFFF",
+        border: "1px solid #E8E0D4",
+        borderRadius: "16px",
+        borderTop: "2px solid #B8860B",
+        display: "flex",
+        flexDirection: "column",
+        height: "100%",
+      }}
+    >
+      <div style={{ padding: "32px" }}>
+        {/* Gold numbered badge */}
+        <div
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "44px",
+            height: "44px",
+            borderRadius: "50%",
+            background: "rgba(184,134,11,0.10)",
+            border: "1.5px solid #B8860B",
+            marginBottom: "20px",
+          }}
+        >
+          <span
+            style={{
+              fontFamily: "var(--font-outfit)",
+              fontSize: "13px",
+              fontWeight: 600,
+              color: "#B8860B",
+              letterSpacing: "0.04em",
+            }}
+          >
+            {num}
           </span>
-          <p className="mt-2 text-[var(--ink-2)]">{service.who}</p>
         </div>
-      )}
 
-      {service.whyMatters && (
-        <div className="mt-6">
-          <span className="font-mono text-[12px] uppercase tracking-widest text-[var(--alert)]">
-            → WHY IT MATTERS
-          </span>
-          <p className="mt-2 text-[var(--ink-2)]">{service.whyMatters}</p>
+        {/* Title */}
+        <h3
+          style={{
+            fontFamily: "var(--font-dm-serif)",
+            fontSize: "22px",
+            fontWeight: 400,
+            lineHeight: 1.25,
+            color: "#2D2A26",
+            marginBottom: "20px",
+          }}
+        >
+          {service.title}
+        </h3>
+
+        {/* What it is */}
+        <div style={{ marginBottom: "18px" }}>
+          <p
+            style={{
+              fontFamily: "var(--font-outfit)",
+              fontSize: "11px",
+              fontWeight: 600,
+              letterSpacing: "0.1em",
+              textTransform: "uppercase",
+              color: "#B8860B",
+              marginBottom: "8px",
+            }}
+          >
+            What it is
+          </p>
+          <p
+            style={{
+              fontFamily: "var(--font-outfit)",
+              fontSize: "14.5px",
+              lineHeight: 1.7,
+              color: "#6B6560",
+            }}
+          >
+            {service.what}
+          </p>
         </div>
-      )}
 
-      <div className="mt-6">
-        <span className="font-mono text-[12px] uppercase tracking-widest text-[var(--signal)]">
-          → SCOPE OF WORK
-        </span>
-        <ul className="mt-3 space-y-2">
-          {service.includes.map((item, i) => (
-            <li
-              key={i}
-              className="flex gap-3 text-sm leading-relaxed text-[var(--ink-2)]"
+        {/* Who needs it */}
+        {service.who && (
+          <div style={{ marginBottom: "18px" }}>
+            <p
+              style={{
+                fontFamily: "var(--font-outfit)",
+                fontSize: "11px",
+                fontWeight: 600,
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                color: "#6B6560",
+                marginBottom: "8px",
+              }}
             >
-              <span className="mt-1 font-mono text-[var(--signal)]">→</span>
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
+              Who needs it
+            </p>
+            <p
+              style={{
+                fontFamily: "var(--font-outfit)",
+                fontSize: "14.5px",
+                lineHeight: 1.7,
+                color: "#6B6560",
+              }}
+            >
+              {service.who}
+            </p>
+          </div>
+        )}
+
+        {/* Why it matters */}
+        {service.whyMatters && (
+          <div
+            style={{
+              marginBottom: "18px",
+              background: "rgba(184,134,11,0.06)",
+              borderLeft: "3px solid #B8860B",
+              borderRadius: "0 8px 8px 0",
+              padding: "14px 16px",
+            }}
+          >
+            <p
+              style={{
+                fontFamily: "var(--font-outfit)",
+                fontSize: "11px",
+                fontWeight: 600,
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                color: "#B8860B",
+                marginBottom: "6px",
+              }}
+            >
+              Why it matters
+            </p>
+            <p
+              style={{
+                fontFamily: "var(--font-outfit)",
+                fontSize: "14px",
+                lineHeight: 1.7,
+                color: "#6B6560",
+              }}
+            >
+              {service.whyMatters}
+            </p>
+          </div>
+        )}
+
+        {/* Scope of work */}
+        <div style={{ marginBottom: "18px" }}>
+          <p
+            style={{
+              fontFamily: "var(--font-outfit)",
+              fontSize: "11px",
+              fontWeight: 600,
+              letterSpacing: "0.1em",
+              textTransform: "uppercase",
+              color: "#1B4332",
+              marginBottom: "10px",
+            }}
+          >
+            Scope of work
+          </p>
+          <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "8px" }}>
+            {service.includes.map((item, i) => (
+              <li
+                key={i}
+                style={{
+                  display: "flex",
+                  gap: "10px",
+                  alignItems: "flex-start",
+                }}
+              >
+                <span
+                  style={{
+                    flexShrink: 0,
+                    marginTop: "3px",
+                    color: "#B8860B",
+                    fontSize: "14px",
+                    lineHeight: 1,
+                  }}
+                >
+                  ✓
+                </span>
+                <span
+                  style={{
+                    fontFamily: "var(--font-outfit)",
+                    fontSize: "14px",
+                    lineHeight: 1.65,
+                    color: "#6B6560",
+                  }}
+                >
+                  {item}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Closing note */}
+        {service.closingNote && (
+          <p
+            style={{
+              fontFamily: "var(--font-outfit)",
+              fontSize: "14px",
+              fontStyle: "italic",
+              lineHeight: 1.65,
+              color: "#2D2A26",
+              borderLeft: "2px solid #E8E0D4",
+              paddingLeft: "14px",
+              marginBottom: "18px",
+            }}
+          >
+            {service.closingNote}
+          </p>
+        )}
       </div>
 
-      {service.closingNote && (
-        <p className="mt-6 border-l-2 border-[var(--signal)] pl-4 text-sm italic text-[var(--ink-2)]">
-          {service.closingNote}
-        </p>
-      )}
-
-      <div className="mt-8 border-t border-dashed border-[var(--rule)] pt-6">
+      {/* CTA */}
+      <div
+        style={{
+          marginTop: "auto",
+          padding: "20px 32px 28px",
+          borderTop: "1px solid #E8E0D4",
+        }}
+      >
         <Link
           href={`/contact?inquiry=${service.inquiry}`}
-          className="group/btn inline-flex items-center gap-3 font-mono text-[12px] font-medium uppercase tracking-widest text-[var(--ink)] transition-colors hover:text-[var(--signal)]"
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "8px",
+            fontFamily: "var(--font-outfit)",
+            fontSize: "13px",
+            fontWeight: 600,
+            letterSpacing: "0.05em",
+            textTransform: "uppercase",
+            color: "#B8860B",
+            textDecoration: "none",
+            transition: "opacity 0.2s",
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.75")}
+          onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
         >
-          <span className="inline-block h-2 w-2 bg-[var(--ink)] transition-colors group-hover/btn:bg-[var(--signal)]" />
           {service.ctaLabel}
-          <span className="transition-transform group-hover/btn:translate-x-1">→</span>
+          <span style={{ fontSize: "16px", lineHeight: 1 }}>→</span>
         </Link>
       </div>
-    </FramedBlock>
+    </motion.div>
   );
 }
