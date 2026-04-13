@@ -1,27 +1,27 @@
 @import "tailwindcss";
 
 :root {
-  --paper: #F7F7F4;
-  --paper-edge: #EFEEE9;
-  --paper-warm: #FBF6EC;     /* warm cream — used for service / capability sections */
-  --paper-cool: #EEF1F8;     /* cool ice blue — used for hero / contact / cta sections */
-  --paper-sage: #EDF2EC;     /* muted sage — used for safety guide / about sections */
-  --ink: #0A0E14;
-  --ink-2: #1E2330;
-  --ink-3: #5A6173;
-  --rule: #D8D6CF;
-  --signal: #1F40FF;
-  --signal-soft: #E5EAFF;
-  --signal-deep: #0824A8;    /* darker signal for headlines and accents */
-  --alert: #FF5722;
-  --alert-soft: #FFE9E0;     /* soft alert background */
-  --ok: #00875A;
-  --ok-soft: #E0F0E8;        /* soft ok background */
-  --gold: #D97706;           /* warm secondary accent */
+  --paper: #FAF7F2;
+  --paper-edge: #2D2A26;
+  --paper-warm: #FAF7F2;
+  --paper-cool: #FAF7F2;
+  --paper-sage: #FAF7F2;
+  --ink: #2D2A26;
+  --ink-2: #6B6560;
+  --ink-3: #8A8580;
+  --rule: #E8E0D4;
+  --signal: #B8860B;
+  --signal-soft: #F5EED9;
+  --signal-deep: #96700A;
+  --alert: #9B1C1C;
+  --alert-soft: #FEE2E2;
+  --ok: #1B4332;
+  --ok-soft: #E8F0EC;
+  --gold: #B8860B;
 
-  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", monospace;
-  --font-display: var(--font-fraunces), "Playfair Display", Georgia, serif;
+  --font-display: var(--font-dm-serif), Georgia, serif;
 }
 
 @theme inline {
