@@ -1,0 +1,152 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #F7F7F4;
+  --paper-edge: #EFEEE9;
+  --paper-warm: #FBF6EC;     /* warm cream — used for service / capability sections */
+  --paper-cool: #EEF1F8;     /* cool ice blue — used for hero / contact / cta sections */
+  --paper-sage: #EDF2EC;     /* muted sage — used for safety guide / about sections */
+  --ink: #0A0E14;
+  --ink-2: #1E2330;
+  --ink-3: #5A6173;
+  --rule: #D8D6CF;
+  --signal: #1F40FF;
+  --signal-soft: #E5EAFF;
+  --signal-deep: #0824A8;    /* darker signal for headlines and accents */
+  --alert: #FF5722;
+  --alert-soft: #FFE9E0;     /* soft alert background */
+  --ok: #00875A;
+  --ok-soft: #E0F0E8;        /* soft ok background */
+  --gold: #D97706;           /* warm secondary accent */
+
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", monospace;
+  --font-display: var(--font-fraunces), "Playfair Display", Georgia, serif;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-edge: var(--paper-edge);
+  --color-paper-warm: var(--paper-warm);
+  --color-paper-cool: var(--paper-cool);
+  --color-paper-sage: var(--paper-sage);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-rule: var(--rule);
+  --color-signal: var(--signal);
+  --color-signal-soft: var(--signal-soft);
+  --color-signal-deep: var(--signal-deep);
+  --color-alert: var(--alert);
+  --color-alert-soft: var(--alert-soft);
+  --color-ok: var(--ok);
+  --color-ok-soft: var(--ok-soft);
+  --color-gold: var(--gold);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --font-display: var(--font-display);
+}
+
+/* Utility: display serif for editorial headlines */
+.font-display {
+  font-family: var(--font-display);
+  font-feature-settings: "ss01", "ss02";
+}
+
+/* v1 Bold Swiss — Bricolage Grotesque */
+.font-bricolage {
+  font-family: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  font-feature-settings: "ss01";
+}
+
+/* v2 Corporate Trust — Playfair Display */
+.font-playfair {
+  font-family: var(--font-playfair), Georgia, serif;
+}
+
+/* v3 Warm Advisory — Lora */
+.font-lora {
+  font-family: var(--font-lora), Georgia, serif;
+}
+
+html,
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Paper grain overlay — applied to TacticalShell */
+.paper-grain::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+}
+
+/* Pointer cursor on interactive elements */
+a,
+button,
+[role="button"],
+label[for],
+summary,
+select {
+  cursor: pointer;
+}
+button:disabled,
+[disabled] {
+  cursor: not-allowed;
+}
+
+/* Inline tactical link underline */
+.signal-link {
+  text-decoration: underline;
+  text-decoration-style: dashed;
+  text-decoration-color: var(--signal);
+  text-underline-offset: 4px;
+  transition: color 0.15s ease;
+}
+.signal-link:hover {
+  color: var(--signal);
+}
+
+/* Selection */
+::selection {
+  background: var(--signal);
+  color: var(--paper);
+}
+
+/* Scrollbar — minimal */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--paper);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--rule);
+  border-radius: 0;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ink-3);
+}
+
+/* Form input baseline reset */
+input,
+textarea,
+select {
+  font-family: var(--font-sans);
+  color: var(--ink);
+}
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}
