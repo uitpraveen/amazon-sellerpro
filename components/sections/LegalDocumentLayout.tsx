@@ -1,11 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import MonoLabel from "@/components/ui/MonoLabel";
-import RevealOnScroll from "@/components/ui/RevealOnScroll";
-import HairlineDivider from "@/components/ui/HairlineDivider";
-import FramedBlock from "@/components/ui/FramedBlock";
-import StatusPill from "@/components/ui/StatusPill";
 
 export interface LegalSection {
   id: string;
@@ -51,35 +46,36 @@ export default function LegalDocumentLayout({
   }, [sections]);
 
   return (
-    <main>
-      {/* Header */}
-      <section className="border-b border-[var(--rule)]">
+    <main className="bg-[#FAF7F2]">
+      {/* Hero */}
+      <section className="border-b border-[#E8E0D4]">
         <div className="mx-auto max-w-7xl px-6 pt-32 pb-16 lg:px-12 lg:pt-40">
-          <RevealOnScroll showLine={false}>
-            <div className="flex flex-wrap items-center gap-3">
-              <MonoLabel prefix="→">{documentLabel}</MonoLabel>
-              <span className="ml-auto hidden font-mono text-[12px] uppercase tracking-widest text-[var(--ink-3)] sm:inline">
-                LAST UPDATED · {lastUpdated}
-              </span>
+          <p className="font-[family-name:var(--font-outfit)] text-sm font-semibold uppercase tracking-widest text-[#B8860B]">
+            {documentLabel}
+          </p>
+          <h1 className="mt-4 max-w-4xl font-[family-name:var(--font-dm-serif)] text-4xl leading-tight text-[#2D2A26] sm:text-5xl lg:text-6xl">
+            {pageTitle}
+          </h1>
+          <p className="mt-4 font-[family-name:var(--font-outfit)] text-sm text-[#6B6560]">
+            Last updated: {lastUpdated}
+          </p>
+
+          {warning && (
+            <div className="mt-8 rounded-xl border border-amber-200 bg-amber-50 px-6 py-5">
+              <p className="font-[family-name:var(--font-outfit)] text-xs font-semibold uppercase tracking-widest text-amber-700">
+                Legal notice
+              </p>
+              <p className="mt-2 font-[family-name:var(--font-outfit)] text-sm leading-relaxed text-amber-800">
+                {warning}
+              </p>
             </div>
-            <h1 className="mt-6 max-w-4xl text-4xl font-black leading-[1.02] tracking-[-0.02em] text-[var(--ink)] sm:text-5xl lg:text-6xl">
-              {pageTitle}
-            </h1>
-            <div className="mt-6 flex flex-wrap gap-2">
-              <StatusPill>{`${sections.length.toString().padStart(2, "0")} SECTIONS`}</StatusPill>
-              <StatusPill tone="signal">7 JURISDICTIONS</StatusPill>
+          )}
+
+          {intro && (
+            <div className="mt-10 max-w-3xl font-[family-name:var(--font-outfit)] text-[17px] leading-relaxed text-[#6B6560]">
+              {intro}
             </div>
-            {warning && (
-              <FramedBlock
-                bracketColor="var(--alert)"
-                className="mt-10 bg-[var(--paper-edge)]/60"
-              >
-                <MonoLabel prefix="→">LEGAL NOTICE</MonoLabel>
-                <p className="mt-3 text-sm text-[var(--ink-2)]">{warning}</p>
-              </FramedBlock>
-            )}
-            {intro && <div className="mt-10 max-w-3xl">{intro}</div>}
-          </RevealOnScroll>
+          )}
         </div>
       </section>
 
@@ -87,54 +83,63 @@ export default function LegalDocumentLayout({
       <section>
         <div className="mx-auto max-w-7xl px-6 py-20 lg:px-12">
           <div className="grid gap-12 lg:grid-cols-12">
-            {/* TOC */}
+            {/* TOC sidebar */}
             <aside className="lg:col-span-3">
               <div className="lg:sticky lg:top-32">
-                <div className="font-mono text-[12px] uppercase tracking-widest text-[var(--ink-3)]">
-                  → CONTENTS
+                <div className="rounded-2xl border border-[#E8E0D4] bg-white p-6">
+                  <p className="font-[family-name:var(--font-outfit)] text-xs font-semibold uppercase tracking-widest text-[#B8860B]">
+                    Contents
+                  </p>
+                  <ul className="mt-4 max-h-[65vh] space-y-0.5 overflow-y-auto">
+                    {sections.map((s) => {
+                      const isActive = active === s.id;
+                      return (
+                        <li key={s.id}>
+                          <a
+                            href={`#${s.id}`}
+                            className={`group flex items-start gap-2.5 rounded-lg px-3 py-2 transition-colors ${
+                              isActive
+                                ? "bg-[#B8860B]/8 text-[#B8860B]"
+                                : "text-[#6B6560] hover:bg-[#FAF7F2] hover:text-[#2D2A26]"
+                            }`}
+                          >
+                            <span
+                              className={`mt-0.5 shrink-0 font-[family-name:var(--font-outfit)] text-xs font-semibold tabular-nums ${
+                                isActive ? "text-[#B8860B]" : "text-[#B8860B]/60"
+                              }`}
+                            >
+                              {s.number.padStart(2, "0")}
+                            </span>
+                            <span className="font-[family-name:var(--font-outfit)] text-xs leading-relaxed">
+                              {s.title}
+                            </span>
+                          </a>
+                        </li>
+                      );
+                    })}
+                  </ul>
                 </div>
-                <ul className="mt-4 max-h-[70vh] space-y-1 overflow-y-auto border-l border-[var(--rule)] pr-2">
-                  {sections.map((s) => {
-                    const isActive = active === s.id;
-                    return (
-                      <li key={s.id}>
-                        <a
-                          href={`#${s.id}`}
-                          className={`group relative -ml-px block border-l py-2 pl-4 font-mono text-[12px] uppercase tracking-wider transition-colors ${
-                            isActive
-                              ? "border-[var(--signal)] text-[var(--signal)]"
-                              : "border-transparent text-[var(--ink-3)] hover:text-[var(--ink-2)]"
-                          }`}
-                        >
-                          <span className="mr-2">[{s.number}]</span>
-                          {s.title}
-                        </a>
-                      </li>
-                    );
-                  })}
-                </ul>
               </div>
             </aside>
 
             {/* Content */}
             <div className="space-y-16 lg:col-span-9">
               {sections.map((s, i) => (
-                <article
-                  key={s.id}
-                  id={s.id}
-                  className="scroll-mt-32"
-                >
-                  <MonoLabel prefix="→">{`SECTION ${s.number.padStart(2, "0")}`}</MonoLabel>
-                  <h2 className="mt-3 text-2xl font-black leading-tight tracking-[-0.015em] text-[var(--ink)] sm:text-3xl">
+                <article key={s.id} id={s.id} className="scroll-mt-32">
+                  <div className="flex items-center gap-3">
+                    <span className="font-[family-name:var(--font-outfit)] text-xs font-semibold uppercase tracking-widest text-[#B8860B]">
+                      {s.number.padStart(2, "0")}
+                    </span>
+                    <div className="h-px flex-1 bg-[#E8E0D4]" />
+                  </div>
+                  <h2 className="mt-3 font-[family-name:var(--font-dm-serif)] text-2xl leading-tight text-[#2D2A26] sm:text-3xl">
                     {s.title}
                   </h2>
-                  <div className="mt-6 space-y-4 text-[17px] leading-relaxed text-[var(--ink-2)]">
+                  <div className="mt-6 space-y-4 font-[family-name:var(--font-outfit)] text-[17px] leading-relaxed text-[#6B6560]">
                     {s.body}
                   </div>
                   {i < sections.length - 1 && (
-                    <div className="mt-16">
-                      <HairlineDivider />
-                    </div>
+                    <div className="mt-16 border-b border-[#E8E0D4]" />
                   )}
                 </article>
               ))}
@@ -148,22 +153,30 @@ export default function LegalDocumentLayout({
 
 /** Helper components for legal section bodies */
 export function LegalP({ children }: { children: React.ReactNode }) {
-  return <p>{children}</p>;
+  return (
+    <p className="font-[family-name:var(--font-outfit)] text-[17px] leading-relaxed text-[#6B6560]">
+      {children}
+    </p>
+  );
 }
 
 export function LegalSubHeading({ children }: { children: React.ReactNode }) {
   return (
-    <h3 className="mt-6 text-lg font-bold text-[var(--ink)]">{children}</h3>
+    <h3 className="mt-6 font-[family-name:var(--font-outfit)] text-base font-semibold text-[#2D2A26]">
+      {children}
+    </h3>
   );
 }
 
 export function LegalBullets({ items }: { items: React.ReactNode[] }) {
   return (
-    <ul className="space-y-2">
+    <ul className="space-y-3">
       {items.map((item, i) => (
-        <li key={i} className="flex gap-3">
-          <span className="mt-1 font-mono text-[var(--signal)]">→</span>
-          <span>{item}</span>
+        <li key={i} className="flex items-start gap-3">
+          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#B8860B]" />
+          <span className="font-[family-name:var(--font-outfit)] text-[17px] leading-relaxed text-[#6B6560]">
+            {item}
+          </span>
         </li>
       ))}
     </ul>
