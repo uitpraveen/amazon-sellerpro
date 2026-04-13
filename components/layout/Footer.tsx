@@ -1,7 +1,5 @@
 import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
-import MonoLabel from "@/components/ui/MonoLabel";
-import HairlineDivider from "@/components/ui/HairlineDivider";
 
 const FOOTER_NAV = [
   { label: "Home", href: "/" },
@@ -22,111 +20,104 @@ const JURISDICTIONS = ["US", "CA", "EU", "UK", "IN", "SG", "AU"];
 
 export default function Footer() {
   return (
-    <footer className="relative mt-32 border-t border-[var(--rule)] bg-[var(--paper-edge)]/60">
-      <div className="mx-auto max-w-7xl px-6 py-20 lg:px-12">
-        {/* Top — brand statement */}
-        <div className="grid gap-12 lg:grid-cols-12">
-          <div className="lg:col-span-5">
-            <MonoLabel prefix="//">AMAZON SAFETY PRO</MonoLabel>
-            <h3 className="mt-4 max-w-md text-3xl font-black leading-tight tracking-[-0.02em] text-[var(--ink)] sm:text-4xl">
+    <footer className="bg-[#2D2A26] py-16 md:py-20">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8">
+        <div className="grid md:grid-cols-3 gap-12 md:gap-8 mb-14">
+          {/* Brand */}
+          <div>
+            <h4
+              className="text-xl text-[#FAF7F2] mb-3"
+              style={{ fontFamily: "var(--font-dm-serif)" }}
+            >
+              Amazon Safety Pro
+            </h4>
+            <p
+              className="text-sm text-[#FAF7F2]/50 leading-relaxed mb-5"
+              style={{ fontFamily: "var(--font-outfit)" }}
+            >
               Compliance handled by people who built the rules.
-            </h3>
-            <p className="mt-4 max-w-md text-sm text-[var(--ink-2)]">
-              Operated by {siteConfig.legalEntity}. Serving Amazon sellers
-              across the United States, Canada, the European Union, the
-              United Kingdom, India, Singapore, and Australia.
             </p>
-          </div>
-
-          <div className="lg:col-span-3">
-            <MonoLabel>TRANSMISSION</MonoLabel>
-            <ul className="mt-4 space-y-2 font-mono text-[12px] uppercase tracking-wider text-[var(--ink-2)]">
-              <li>EMAIL · {siteConfig.contactEmail}</li>
-              {siteConfig.whatsappNumber !== "TODO" && (
-                <li>
-                  WHATSAPP ·{" "}
-                  <a
-                    href={`https://wa.me/${siteConfig.whatsappNumber}`}
-                    className="signal-link"
-                  >
-                    {siteConfig.whatsappNumber}
-                  </a>
-                </li>
-              )}
-              <li>RESPONSE · &lt; 1 BUSINESS DAY</li>
-              <li>FIRST REVIEW · FREE</li>
-            </ul>
-          </div>
-
-          <div className="lg:col-span-4">
-            <MonoLabel>JURISDICTIONS</MonoLabel>
-            <div className="mt-4 flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2">
               {JURISDICTIONS.map((j) => (
                 <span
                   key={j}
-                  className="border border-[var(--rule)] px-2.5 py-1 font-mono text-[12px] tracking-widest text-[var(--ink-2)]"
+                  className="text-xs px-2.5 py-1 border border-[#B8860B]/30 text-[#B8860B] rounded"
+                  style={{ fontFamily: "var(--font-outfit)" }}
                 >
                   {j}
                 </span>
               ))}
             </div>
-            <p className="mt-4 font-mono text-[12px] uppercase tracking-widest text-[var(--ink-3)]">
-              // 07 MARKETPLACES · ONE TEAM
-            </p>
           </div>
-        </div>
 
-        {/* Hairline divider */}
-        <div className="my-12">
-          <HairlineDivider />
-        </div>
-
-        {/* Nav links */}
-        <div className="grid gap-12 lg:grid-cols-12">
-          <div className="lg:col-span-8">
-            <MonoLabel>NAVIGATION</MonoLabel>
-            <ul className="mt-4 grid grid-cols-2 gap-x-6 gap-y-3 sm:grid-cols-3 md:grid-cols-4">
-              {FOOTER_NAV.map((l) => (
-                <li key={l.href}>
+          {/* Navigation */}
+          <div>
+            <h5
+              className="text-sm uppercase tracking-wider text-[#B8860B] mb-4"
+              style={{ fontFamily: "var(--font-outfit)" }}
+            >
+              Navigation
+            </h5>
+            <ul className="space-y-2.5">
+              {FOOTER_NAV.map((link) => (
+                <li key={link.href}>
                   <Link
-                    href={l.href}
-                    className="group flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.15em] text-[var(--ink-2)] transition-colors hover:text-[var(--signal)]"
+                    href={link.href}
+                    className="text-sm text-[#FAF7F2]/50 hover:text-[#B8860B] transition-colors"
+                    style={{ fontFamily: "var(--font-outfit)" }}
                   >
-                    <span className="text-[var(--ink-3)] transition-colors group-hover:text-[var(--signal)]">
-                      →
-                    </span>
-                    {l.label}
+                    {link.label}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          <div className="lg:col-span-4">
-            <MonoLabel>LEGAL</MonoLabel>
-            <ul className="mt-4 space-y-3">
-              {LEGAL.map((l) => (
-                <li key={l.href}>
+          {/* Legal & Contact */}
+          <div>
+            <h5
+              className="text-sm uppercase tracking-wider text-[#B8860B] mb-4"
+              style={{ fontFamily: "var(--font-outfit)" }}
+            >
+              Legal & Contact
+            </h5>
+            <ul className="space-y-2.5">
+              {LEGAL.map((link) => (
+                <li key={link.href}>
                   <Link
-                    href={l.href}
-                    className="group flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.15em] text-[var(--ink-2)] transition-colors hover:text-[var(--signal)]"
+                    href={link.href}
+                    className="text-sm text-[#FAF7F2]/50 hover:text-[#B8860B] transition-colors"
+                    style={{ fontFamily: "var(--font-outfit)" }}
                   >
-                    <span className="text-[var(--ink-3)] transition-colors group-hover:text-[var(--signal)]">
-                      →
-                    </span>
-                    {l.label}
+                    {link.label}
                   </Link>
                 </li>
               ))}
+              <li>
+                <a
+                  href={"mailto:" + siteConfig.contactEmail}
+                  className="text-sm text-[#FAF7F2]/50 hover:text-[#B8860B] transition-colors"
+                  style={{ fontFamily: "var(--font-outfit)" }}
+                >
+                  {siteConfig.contactEmail}
+                </a>
+              </li>
             </ul>
           </div>
         </div>
 
-        {/* Bottom mono line */}
-        <div className="mt-16 border-t border-[var(--rule)] pt-6">
-          <p className="font-mono text-[12px] uppercase tracking-[0.18em] text-[var(--ink-3)]">
-            // {siteConfig.legalEntity} · {siteConfig.registeredAddress} ·
-            SINCE 2026 · ALL RIGHTS RESERVED
+        <div className="border-t border-[#FAF7F2]/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p
+            className="text-xs text-[#FAF7F2]/30"
+            style={{ fontFamily: "var(--font-outfit)" }}
+          >
+            &copy; {new Date().getFullYear()} Amazon Safety Pro. All rights reserved.
+          </p>
+          <p
+            className="text-xs text-[#FAF7F2]/30"
+            style={{ fontFamily: "var(--font-outfit)" }}
+          >
+            Amazon is a trademark of Amazon.com, Inc. We are not affiliated with Amazon.
           </p>
         </div>
       </div>
