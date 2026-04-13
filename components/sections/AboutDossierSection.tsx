@@ -1,203 +1,441 @@
-import MonoLabel from "@/components/ui/MonoLabel";
-import RevealOnScroll from "@/components/ui/RevealOnScroll";
-import FramedBlock from "@/components/ui/FramedBlock";
-import HairlineDivider from "@/components/ui/HairlineDivider";
-import TransmissionRow from "@/components/ui/TransmissionRow";
-import TacticalButton from "@/components/ui/TacticalButton";
+"use client";
+
+import Link from "next/link";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } },
+};
+
+const stagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.12 } },
+};
+
+const DOSSIER_ROWS = [
+  { label: "Entity", value: "Proxima CPEX LLC" },
+  { label: "Brand", value: "Amazon Safety Pro" },
+  { label: "Location", value: "Tamil Nadu, IN" },
+  { label: "Founded", value: "2026" },
+  { label: "Lead", value: "Tenured Ex-Amazonian" },
+  { label: "Inside Amazon", value: "5+ Years" },
+  { label: "Jurisdictions", value: "07" },
+  { label: "Status", value: "Active" },
+];
+
+const TEAM_ITEMS = [
+  {
+    num: "01",
+    label: "Leadership",
+    title: "Led by a tenured Amazonian & industry veteran",
+    body: "Our group lead is a tenured Amazon product safety professional who spent half a decade shaping compliance policy from within — including creating policies that are live and actively enforced on Amazon's platform today. Prior to Amazon, our lead brought extensive experience from the toys and children's products industry, one of the most rigorously regulated product spaces in global retail. That combination — deep industry knowledge followed by years at the heart of Amazon's product safety team — means our clients benefit from expertise that spans both sides of the compliance equation.",
+  },
+  {
+    num: "02",
+    label: "Specialists",
+    title: "A team of subject matter experts",
+    body: "Every member of the Amazon Safety Pro team is a subject matter expert in their field — from product safety standards and marketplace policy to documentation compliance. Rather than a generalist team that covers everything at surface level, we bring specialists who have worked directly inside Amazon and carry practitioner-level knowledge into every case they handle.",
+  },
+  {
+    num: "03",
+    label: "Responsiveness",
+    title: "Ready for your case",
+    body: "Whether it's a quick query or a complex compliance challenge, our team is ready to attend to your specific situation with the depth and urgency it deserves.",
+  },
+  {
+    num: "04",
+    label: "Currency",
+    title: "Always current",
+    body: "We actively monitor Amazon policy updates so our clients stay compliant as requirements change — never caught off guard, always one step ahead.",
+  },
+];
 
 export default function AboutDossierSection() {
   return (
-    <section>
-      <div className="mx-auto max-w-7xl px-6 pt-32 pb-24 lg:px-12 lg:pt-40">
-        {/* Page header */}
-        <RevealOnScroll showLine={false}>
-          <MonoLabel prefix="→">FILE // ABOUT // OPEN</MonoLabel>
-          <h1 className="mt-6 max-w-4xl text-5xl font-black leading-[0.98] tracking-[-0.02em] text-[var(--ink)] sm:text-6xl lg:text-7xl">
-            Who we are.
-          </h1>
-        </RevealOnScroll>
+    <>
+      {/* ── Hero header ── */}
+      <section className="bg-[#FAF7F2] pt-32 pb-0 lg:pt-40">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={stagger}
+          >
+            <motion.p
+              variants={fadeUp}
+              className="text-sm font-semibold uppercase tracking-[0.16em] text-[#B8860B]"
+              style={{ fontFamily: "var(--font-outfit)" }}
+            >
+              About Us
+            </motion.p>
+            <motion.h1
+              variants={fadeUp}
+              className="mt-4 max-w-3xl text-5xl sm:text-6xl lg:text-7xl text-[#2D2A26] leading-[1.0]"
+              style={{ fontFamily: "var(--font-dm-serif)" }}
+            >
+              Who we are.
+            </motion.h1>
+          </motion.div>
+        </div>
+      </section>
 
-        <div className="mt-20 grid gap-12 lg:grid-cols-12">
-          {/* Left — RECORD dossier */}
-          <aside className="lg:col-span-4">
-            <div className="lg:sticky lg:top-32">
-              <FramedBlock className="bg-[var(--paper-edge)]/60">
-                <MonoLabel prefix="→">RECORD</MonoLabel>
-                <div className="mt-6 space-y-0">
-                  <TransmissionRow label="Entity" value="Proxima CPEX LLC" />
-                  <TransmissionRow label="Brand" value="Amazon Safety Pro" />
-                  <TransmissionRow label="Location" value="Tamil Nadu, IN" />
-                  <TransmissionRow label="Founded" value="2026" />
-                  <TransmissionRow label="Lead" value="Tenured Ex-Amazonian" />
-                  <TransmissionRow label="Inside Amazon" value="5+ Years" />
-                  <TransmissionRow label="Jurisdictions" value="07" />
-                  <TransmissionRow label="Status" value="Active" />
-                </div>
-              </FramedBlock>
-              <div className="mt-6">
-                <MonoLabel prefix="//">FILE OPENED 2026 · CLASSIFIED OPS</MonoLabel>
-              </div>
-            </div>
-          </aside>
+      {/* ── Two-column layout ── */}
+      <section className="bg-[#FAF7F2] py-16 lg:py-24">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+          <div className="grid gap-12 lg:grid-cols-12">
 
-          {/* Right — Narrative */}
-          <div className="space-y-24 lg:col-span-8">
-            {/* MISSION */}
-            <RevealOnScroll>
-              <MonoLabel prefix="→">SECTION 01 // INTRODUCTION</MonoLabel>
-              <h2 className="mt-4 text-3xl font-bold text-[var(--ink)] sm:text-4xl">
-                The brief.
-              </h2>
-              <FramedBlock
-                bracketColor="var(--signal)"
-                className="mt-8 bg-[var(--signal-soft)]/40"
-              >
-                <p className="text-xl font-medium leading-snug text-[var(--ink)] sm:text-2xl">
-                  &ldquo;We are Amazon Safety Pro — a group of compliance and
-                  product safety experts, built from within Amazon, who exist
-                  for one reason: to help sellers succeed on Amazon without the
-                  compliance guesswork.&rdquo;
-                </p>
-              </FramedBlock>
-              <p className="mt-8 text-lg leading-relaxed text-[var(--ink-2)]">
-                Amazon Safety Pro was founded by a compliance and product
-                safety specialist with over half a decade of direct, tenured
-                experience inside Amazon&rsquo;s product safety operations.
-                What sets our foundation apart is not just the years spent
-                inside Amazon — it is the depth of contribution. Our group
-                lead was part of the team that created and shaped the very
-                product safety policies that Amazon enforces on sellers today.
-                The compliance requirements you are navigating as a seller
-                were, in part, written by the person now leading your case.
-              </p>
-              <p className="mt-6 text-lg leading-relaxed text-[var(--ink-2)]">
-                Backed by a dedicated team of fellow ex-Amazonians and subject
-                matter experts — each with deep, specialized expertise in
-                their respective compliance fields — we are uniquely
-                positioned to give sellers the kind of guidance that simply
-                cannot be found elsewhere. We did not learn Amazon&rsquo;s
-                compliance requirements by reading help pages. We built them,
-                enforced them, and refined them from within. That is what
-                makes Amazon Safety Pro genuinely different — and what makes
-                our guidance genuinely effective.
-              </p>
-            </RevealOnScroll>
-
-            {/* ORIGIN */}
-            <RevealOnScroll>
-              <MonoLabel prefix="→">SECTION 02 // ORIGIN</MonoLabel>
-              <h2 className="mt-4 text-3xl font-bold text-[var(--ink)] sm:text-4xl">
-                Why we started Amazon Safety Pro.
-              </h2>
-              <p className="mt-8 text-lg leading-relaxed text-[var(--ink-2)]">
-                Amazon sellers face one of the most complex and consequential
-                compliance environments in global e-commerce — and far too
-                many of them are navigating it without the right support. The
-                cost is real: lost revenue, suppressed listings, stranded
-                inventory, and suspended accounts that could have been avoided
-                with the right guidance at the right time.
-              </p>
-              <p className="mt-6 text-lg leading-relaxed text-[var(--ink-2)]">
-                What pushed us to act was hearing it directly from sellers. At
-                past Amazon Seller Accelerate events in Seattle, we sat in
-                rooms with sellers who were frustrated, confused, and stuck.
-                Sellers who had received compliance notices they could not
-                decode, submitted appeals that kept getting rejected, and had
-                no clear path to reinstatement. The support available to them
-                was minimal — and the gap between what sellers needed and what
-                they were getting was impossible to ignore.
-              </p>
-              <p className="mt-6 text-lg leading-relaxed text-[var(--ink-2)]">
-                Amazon Safety Pro exists to close that gap. We bring expert
-                compliance consultation directly to sellers — giving them the
-                clarity, the documentation, and the strategic guidance they
-                need to protect their listings, recover their revenue, and
-                build a business that stays compliant for the long term.
-              </p>
-            </RevealOnScroll>
-
-            {/* TEAM */}
-            <RevealOnScroll>
-              <MonoLabel prefix="→">SECTION 03 // TEAM</MonoLabel>
-              <h2 className="mt-4 text-3xl font-bold text-[var(--ink)] sm:text-4xl">
-                What our team brings.
-              </h2>
-
-              <div className="mt-10 space-y-8">
-                {[
-                  {
-                    label: "01 / LEADERSHIP",
-                    title: "Led by a tenured Amazonian & industry veteran",
-                    body: "Our group lead is a tenured Amazon product safety professional who spent half a decade shaping compliance policy from within — including creating policies that are live and actively enforced on Amazon's platform today. Prior to Amazon, our lead brought extensive experience from the toys and children's products industry, one of the most rigorously regulated product spaces in global retail. That combination — deep industry knowledge followed by years at the heart of Amazon's product safety team — means our clients benefit from expertise that spans both sides of the compliance equation.",
-                  },
-                  {
-                    label: "02 / SPECIALISTS",
-                    title: "A team of subject matter experts",
-                    body: "Every member of the Amazon Safety Pro team is a subject matter expert in their field — from product safety standards and marketplace policy to documentation compliance. Rather than a generalist team that covers everything at surface level, we bring specialists who have worked directly inside Amazon and carry practitioner-level knowledge into every case they handle.",
-                  },
-                  {
-                    label: "03 / RESPONSIVENESS",
-                    title: "Ready for your case",
-                    body: "Whether it's a quick query or a complex compliance challenge, our team is ready to attend to your specific situation with the depth and urgency it deserves.",
-                  },
-                  {
-                    label: "04 / CURRENCY",
-                    title: "Always current",
-                    body: "We actively monitor Amazon policy updates so our clients stay compliant as requirements change — never caught off guard, always one step ahead.",
-                  },
-                ].map((item) => (
-                  <div
-                    key={item.label}
-                    className="border-l-2 border-[var(--signal)] pl-6"
-                  >
-                    <span className="font-mono text-[12px] uppercase tracking-widest text-[var(--signal)]">
-                      {item.label}
-                    </span>
-                    <h3 className="mt-2 text-xl font-bold text-[var(--ink)]">
-                      {item.title}
-                    </h3>
-                    <p className="mt-3 text-[var(--ink-2)]">{item.body}</p>
+            {/* Sidebar — warm dossier card */}
+            <aside className="lg:col-span-4">
+              <div className="lg:sticky lg:top-32">
+                <motion.div
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={fadeUp}
+                  className="rounded-2xl border border-[#E8E0D4] bg-white overflow-hidden"
+                >
+                  {/* Card header */}
+                  <div className="bg-[#1B4332] px-6 py-5">
+                    <p
+                      className="text-xs font-semibold uppercase tracking-[0.16em] text-[#B8860B]"
+                      style={{ fontFamily: "var(--font-outfit)" }}
+                    >
+                      Company Record
+                    </p>
+                    <p
+                      className="mt-1 text-[#FAF7F2]/70 text-sm"
+                      style={{ fontFamily: "var(--font-outfit)" }}
+                    >
+                      Filed 2026 · Active
+                    </p>
                   </div>
-                ))}
-              </div>
-            </RevealOnScroll>
 
-            {/* MISSION STATEMENT */}
-            <RevealOnScroll>
-              <MonoLabel prefix="→">SECTION 04 // MISSION</MonoLabel>
-              <h2 className="mt-4 text-3xl font-bold text-[var(--ink)] sm:text-4xl">
-                Our mission.
-              </h2>
-              <FramedBlock
-                bracketColor="var(--signal)"
-                className="mt-8 bg-[var(--ink)] text-[var(--paper)]"
+                  {/* Card rows */}
+                  <div className="divide-y divide-[#E8E0D4]">
+                    {DOSSIER_ROWS.map((row) => (
+                      <div key={row.label} className="flex items-start justify-between gap-4 px-6 py-4">
+                        <span
+                          className="text-sm text-[#6B6560] shrink-0"
+                          style={{ fontFamily: "var(--font-outfit)" }}
+                        >
+                          {row.label}
+                        </span>
+                        <span
+                          className="text-sm font-medium text-[#2D2A26] text-right"
+                          style={{ fontFamily: "var(--font-outfit)" }}
+                        >
+                          {row.value}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Card footer accent */}
+                  <div className="px-6 py-4 bg-[#FAF7F2] border-t border-[#E8E0D4]">
+                    <div className="h-0.5 w-10 bg-[#B8860B] rounded-full" />
+                  </div>
+                </motion.div>
+              </div>
+            </aside>
+
+            {/* Right — Narrative sections */}
+            <div className="space-y-20 lg:col-span-8">
+
+              {/* Section 01 — Introduction */}
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={stagger}
               >
-                <p className="text-xl font-medium leading-snug sm:text-2xl">
-                  &ldquo;To empower every Amazon seller — regardless of size or
-                  experience — with the expert compliance knowledge and support
-                  they need to build a safe, sustainable, and thriving business
-                  on Amazon.&rdquo;
-                </p>
-              </FramedBlock>
-              <p className="mt-8 text-lg leading-relaxed text-[var(--ink-2)]">
-                We measure our success by yours. When your listings stay live,
-                your products meet every standard, and your business keeps
-                growing — that&rsquo;s what Amazon Safety Pro is here for.
-              </p>
-            </RevealOnScroll>
+                <motion.p
+                  variants={fadeUp}
+                  className="text-xs font-semibold uppercase tracking-[0.16em] text-[#B8860B]"
+                  style={{ fontFamily: "var(--font-outfit)" }}
+                >
+                  01 — Introduction
+                </motion.p>
+                <motion.h2
+                  variants={fadeUp}
+                  className="mt-3 text-3xl sm:text-4xl text-[#2D2A26]"
+                  style={{ fontFamily: "var(--font-dm-serif)" }}
+                >
+                  The brief.
+                </motion.h2>
+
+                {/* Pull-quote card */}
+                <motion.div
+                  variants={fadeUp}
+                  className="mt-8 rounded-2xl border-l-4 border-[#B8860B] bg-[#FFFDF9] px-8 py-7"
+                >
+                  <p
+                    className="text-xl sm:text-2xl text-[#2D2A26] leading-snug"
+                    style={{ fontFamily: "var(--font-dm-serif)" }}
+                  >
+                    &ldquo;We are Amazon Safety Pro — a group of compliance and
+                    product safety experts, built from within Amazon, who exist
+                    for one reason: to help sellers succeed on Amazon without the
+                    compliance guesswork.&rdquo;
+                  </p>
+                </motion.div>
+
+                <motion.p
+                  variants={fadeUp}
+                  className="mt-8 text-lg leading-relaxed text-[#6B6560]"
+                  style={{ fontFamily: "var(--font-outfit)" }}
+                >
+                  Amazon Safety Pro was founded by a compliance and product
+                  safety specialist with over half a decade of direct, tenured
+                  experience inside Amazon&rsquo;s product safety operations.
+                  What sets our foundation apart is not just the years spent
+                  inside Amazon — it is the depth of contribution. Our group
+                  lead was part of the team that created and shaped the very
+                  product safety policies that Amazon enforces on sellers today.
+                  The compliance requirements you are navigating as a seller
+                  were, in part, written by the person now leading your case.
+                </motion.p>
+                <motion.p
+                  variants={fadeUp}
+                  className="mt-6 text-lg leading-relaxed text-[#6B6560]"
+                  style={{ fontFamily: "var(--font-outfit)" }}
+                >
+                  Backed by a dedicated team of fellow ex-Amazonians and subject
+                  matter experts — each with deep, specialized expertise in
+                  their respective compliance fields — we are uniquely
+                  positioned to give sellers the kind of guidance that simply
+                  cannot be found elsewhere. We did not learn Amazon&rsquo;s
+                  compliance requirements by reading help pages. We built them,
+                  enforced them, and refined them from within. That is what
+                  makes Amazon Safety Pro genuinely different — and what makes
+                  our guidance genuinely effective.
+                </motion.p>
+              </motion.div>
+
+              {/* Section 02 — Origin */}
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={stagger}
+              >
+                <motion.p
+                  variants={fadeUp}
+                  className="text-xs font-semibold uppercase tracking-[0.16em] text-[#B8860B]"
+                  style={{ fontFamily: "var(--font-outfit)" }}
+                >
+                  02 — Origin
+                </motion.p>
+                <motion.h2
+                  variants={fadeUp}
+                  className="mt-3 text-3xl sm:text-4xl text-[#2D2A26]"
+                  style={{ fontFamily: "var(--font-dm-serif)" }}
+                >
+                  Why we started Amazon Safety Pro.
+                </motion.h2>
+
+                <motion.p
+                  variants={fadeUp}
+                  className="mt-8 text-lg leading-relaxed text-[#6B6560]"
+                  style={{ fontFamily: "var(--font-outfit)" }}
+                >
+                  Amazon sellers face one of the most complex and consequential
+                  compliance environments in global e-commerce — and far too
+                  many of them are navigating it without the right support. The
+                  cost is real: lost revenue, suppressed listings, stranded
+                  inventory, and suspended accounts that could have been avoided
+                  with the right guidance at the right time.
+                </motion.p>
+                <motion.p
+                  variants={fadeUp}
+                  className="mt-6 text-lg leading-relaxed text-[#6B6560]"
+                  style={{ fontFamily: "var(--font-outfit)" }}
+                >
+                  What pushed us to act was hearing it directly from sellers. At
+                  past Amazon Seller Accelerate events in Seattle, we sat in
+                  rooms with sellers who were frustrated, confused, and stuck.
+                  Sellers who had received compliance notices they could not
+                  decode, submitted appeals that kept getting rejected, and had
+                  no clear path to reinstatement. The support available to them
+                  was minimal — and the gap between what sellers needed and what
+                  they were getting was impossible to ignore.
+                </motion.p>
+                <motion.p
+                  variants={fadeUp}
+                  className="mt-6 text-lg leading-relaxed text-[#6B6560]"
+                  style={{ fontFamily: "var(--font-outfit)" }}
+                >
+                  Amazon Safety Pro exists to close that gap. We bring expert
+                  compliance consultation directly to sellers — giving them the
+                  clarity, the documentation, and the strategic guidance they
+                  need to protect their listings, recover their revenue, and
+                  build a business that stays compliant for the long term.
+                </motion.p>
+              </motion.div>
+
+              {/* Section 03 — Team */}
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={stagger}
+              >
+                <motion.p
+                  variants={fadeUp}
+                  className="text-xs font-semibold uppercase tracking-[0.16em] text-[#B8860B]"
+                  style={{ fontFamily: "var(--font-outfit)" }}
+                >
+                  03 — Team
+                </motion.p>
+                <motion.h2
+                  variants={fadeUp}
+                  className="mt-3 text-3xl sm:text-4xl text-[#2D2A26]"
+                  style={{ fontFamily: "var(--font-dm-serif)" }}
+                >
+                  What our team brings.
+                </motion.h2>
+
+                <motion.div variants={stagger} className="mt-10 space-y-6">
+                  {TEAM_ITEMS.map((item) => (
+                    <motion.div
+                      key={item.num}
+                      variants={fadeUp}
+                      className="rounded-2xl border border-[#E8E0D4] bg-white p-6 border-l-4 border-l-[#B8860B]"
+                    >
+                      <div className="flex items-center gap-3 mb-3">
+                        <span
+                          className="text-3xl font-light text-[#1B4332]/10 leading-none"
+                          style={{ fontFamily: "var(--font-dm-serif)" }}
+                        >
+                          {item.num}
+                        </span>
+                        <span
+                          className="text-xs font-semibold uppercase tracking-[0.14em] text-[#B8860B]"
+                          style={{ fontFamily: "var(--font-outfit)" }}
+                        >
+                          {item.label}
+                        </span>
+                      </div>
+                      <h3
+                        className="text-xl text-[#2D2A26] mb-3"
+                        style={{ fontFamily: "var(--font-dm-serif)" }}
+                      >
+                        {item.title}
+                      </h3>
+                      <p
+                        className="text-[#6B6560] leading-relaxed text-base"
+                        style={{ fontFamily: "var(--font-outfit)" }}
+                      >
+                        {item.body}
+                      </p>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              </motion.div>
+
+              {/* Section 04 — Mission */}
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={stagger}
+              >
+                <motion.p
+                  variants={fadeUp}
+                  className="text-xs font-semibold uppercase tracking-[0.16em] text-[#B8860B]"
+                  style={{ fontFamily: "var(--font-outfit)" }}
+                >
+                  04 — Mission
+                </motion.p>
+                <motion.h2
+                  variants={fadeUp}
+                  className="mt-3 text-3xl sm:text-4xl text-[#2D2A26]"
+                  style={{ fontFamily: "var(--font-dm-serif)" }}
+                >
+                  Our mission.
+                </motion.h2>
+
+                {/* Mission quote — dark cream card */}
+                <motion.div
+                  variants={fadeUp}
+                  className="mt-8 rounded-2xl border border-[#B8860B]/30 bg-[#1B4332] px-8 py-8"
+                >
+                  <p
+                    className="text-xl sm:text-2xl italic text-[#FAF7F2] leading-snug"
+                    style={{ fontFamily: "var(--font-dm-serif)" }}
+                  >
+                    &ldquo;To empower every Amazon seller — regardless of size or
+                    experience — with the expert compliance knowledge and support
+                    they need to build a safe, sustainable, and thriving business
+                    on Amazon.&rdquo;
+                  </p>
+                </motion.div>
+
+                <motion.p
+                  variants={fadeUp}
+                  className="mt-8 text-lg leading-relaxed text-[#6B6560]"
+                  style={{ fontFamily: "var(--font-outfit)" }}
+                >
+                  We measure our success by yours. When your listings stay live,
+                  your products meet every standard, and your business keeps
+                  growing — that&rsquo;s what Amazon Safety Pro is here for.
+                </motion.p>
+              </motion.div>
+
+            </div>
           </div>
         </div>
+      </section>
 
-        <div className="mt-32">
-          <HairlineDivider label="OPEN A CASE" />
+      {/* ── CTA — matches HomeCTA style ── */}
+      <section className="relative py-28 lg:py-36 overflow-hidden">
+        <div className="absolute inset-0">
+          <Image
+            src="/images/hero/shield-protect.jpg"
+            alt=""
+            fill
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[rgba(27,67,50,0.88)] to-[rgba(27,67,50,0.95)]" />
         </div>
 
-        <RevealOnScroll className="mt-12 text-center" showLine={false}>
-          <TacticalButton href="/free-validation">
-            Submit your documents for a free review
-          </TacticalButton>
-        </RevealOnScroll>
-      </div>
-    </section>
+        <div className="relative z-10 max-w-3xl mx-auto px-5 sm:px-8 text-center">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={stagger}
+          >
+            <motion.h2
+              variants={fadeUp}
+              className="text-3xl sm:text-4xl lg:text-5xl text-[#FAF7F2]"
+              style={{ fontFamily: "var(--font-dm-serif)" }}
+            >
+              Ready to get compliant?
+            </motion.h2>
+            <motion.p
+              variants={fadeUp}
+              className="mt-6 text-[#FAF7F2]/60 text-lg sm:text-xl max-w-xl mx-auto leading-relaxed"
+              style={{ fontFamily: "var(--font-outfit)" }}
+            >
+              Submit your documents for a free review. A real ex-Amazonian will
+              personally assess your case.
+            </motion.p>
+            <motion.div variants={fadeUp} className="mt-8">
+              <Link
+                href="/free-validation"
+                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#B8860B] hover:bg-[#a07609] text-white font-semibold transition-colors"
+                style={{ fontFamily: "var(--font-outfit)" }}
+              >
+                Submit your documents <ArrowRight size={16} />
+              </Link>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+    </>
   );
 }
