@@ -4,24 +4,24 @@ import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowDown } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 
 const SLIDES = [
   {
     subtitle: "Ex-Amazon Safety Team",
-    headline: <>Compliance, finally <em className="text-[#B8860B]">in expert hands</em>.</>,
+    headlineParts: ["Compliance, finally", "in expert hands."],
     body: "Amazon safety & compliance handled by ex-Amazonians with 5+ years inside the product safety team. From restricted to reinstated.",
     image: "/images/hero/warehouse.jpg",
   },
   {
     subtitle: "ASIN Reinstatement Experts",
-    headline: <>From Restricted to <em className="text-[#B8860B]">Reinstated</em>.</>,
+    headlineParts: ["From Restricted to", "Reinstated."],
     body: "We've handled hundreds of compliance cases across 7 Amazon marketplaces. Your suspended listing is our priority.",
     image: "/images/hero/shipping.jpg",
   },
   {
     subtitle: "Built by Insiders",
-    headline: <>We Built the Rules. Now We Help You <em className="text-[#B8860B]">Follow Them</em>.</>,
+    headlineParts: ["We Built the Rules.", "Now We Help You Follow Them."],
     body: "Our team spent half a decade writing and enforcing Amazon's product safety policies. Now that expertise works for you.",
     image: "/images/hero/amazon-boxes.jpg",
   },
@@ -34,132 +34,261 @@ const STATS = [
   { value: "Free", label: "First Review" },
 ];
 
+const SLIDE_DURATION = 6000;
+
 export default function HeroSlider() {
   const [current, setCurrent] = useState(0);
+  const [progress, setProgress] = useState(0);
 
-  const next = useCallback(() => {
-    setCurrent((prev) => (prev + 1) % SLIDES.length);
+  const goTo = useCallback((idx: number) => {
+    setCurrent(idx);
+    setProgress(0);
   }, []);
 
+  const next = useCallback(() => {
+    goTo((current + 1) % SLIDES.length);
+  }, [current, goTo]);
+
+  const prev = useCallback(() => {
+    goTo((current - 1 + SLIDES.length) % SLIDES.length);
+  }, [current, goTo]);
+
+  // Auto-advance timer
   useEffect(() => {
-    const timer = setInterval(next, 5000);
+    const timer = setInterval(next, SLIDE_DURATION);
     return () => clearInterval(timer);
   }, [next]);
 
+  // Progress bar animation
+  useEffect(() => {
+    setProgress(0);
+    const start = Date.now();
+    const tick = () => {
+      const elapsed = Date.now() - start;
+      const pct = Math.min(elapsed / SLIDE_DURATION, 1);
+      setProgress(pct);
+      if (pct < 1) raf = requestAnimationFrame(tick);
+    };
+    let raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [current]);
+
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
-      <AnimatePresence mode="popLayout">
+    <section className="relative h-screen min-h-[700px] max-h-[1000px] flex flex-col items-center justify-center overflow-hidden">
+      {/* Background images with Ken Burns zoom */}
+      <AnimatePresence mode="sync">
         <motion.div
           key={current}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          initial={{ opacity: 0, scale: 1.1 }}
+          animate={{ opacity: 1, scale: 1.0 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ opacity: { duration: 1.2 }, scale: { duration: 8, ease: "linear" } }}
           className="absolute inset-0"
         >
           <Image
             src={SLIDES[current].image}
             alt=""
             fill
-            className="object-cover"
+            className="object-cover scale-105"
             priority={current === 0}
+            sizes="100vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[rgba(27,67,50,0.85)] via-[rgba(27,67,50,0.75)] to-[rgba(27,67,50,0.95)]" />
+          {/* Multi-layer overlay for depth */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0a1f15]/80 via-[#1B4332]/60 to-[#0a1f15]/90" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0a1f15]/30 to-transparent" />
         </motion.div>
       </AnimatePresence>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-5 sm:px-8 text-center pt-24 pb-20">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={current}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.5 }}
+      {/* Decorative elements */}
+      <div className="absolute inset-0 z-[1] pointer-events-none">
+        {/* Corner accents */}
+        <div className="absolute top-20 left-8 w-20 h-[1px] bg-gradient-to-r from-[#B8860B]/40 to-transparent" />
+        <div className="absolute top-20 left-8 w-[1px] h-20 bg-gradient-to-b from-[#B8860B]/40 to-transparent" />
+        <div className="absolute bottom-20 right-8 w-20 h-[1px] bg-gradient-to-l from-[#B8860B]/40 to-transparent" />
+        <div className="absolute bottom-20 right-8 w-[1px] h-20 bg-gradient-to-t from-[#B8860B]/40 to-transparent" />
+      </div>
+
+      {/* Slide number indicator — left side */}
+      <div className="absolute left-6 sm:left-10 top-1/2 -translate-y-1/2 z-10 hidden lg:flex flex-col items-center gap-4">
+        {SLIDES.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => goTo(i)}
+            className="group flex items-center gap-3"
           >
-            <p
-              className="text-[#B8860B] text-xs tracking-[0.25em] uppercase mb-6"
+            <span
+              className={`text-sm font-medium transition-all duration-300 ${
+                i === current
+                  ? "text-[#B8860B] scale-110"
+                  : "text-[#FAF7F2]/30 group-hover:text-[#FAF7F2]/60"
+              }`}
               style={{ fontFamily: "var(--font-outfit)" }}
             >
-              {SLIDES[current].subtitle}
-            </p>
-            <h1
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.05] text-[#FAF7F2] mb-6"
-              style={{ fontFamily: "var(--font-dm-serif)" }}
+              0{i + 1}
+            </span>
+            <div
+              className={`h-[2px] transition-all duration-300 ${
+                i === current
+                  ? "w-8 bg-[#B8860B]"
+                  : "w-4 bg-[#FAF7F2]/20 group-hover:w-6 group-hover:bg-[#FAF7F2]/40"
+              }`}
+            />
+          </button>
+        ))}
+      </div>
+
+      {/* Main content */}
+      <div className="relative z-10 max-w-5xl mx-auto px-5 sm:px-8 text-center pt-20">
+        <AnimatePresence mode="wait">
+          <motion.div key={current} className="space-y-0">
+            {/* Subtitle with line */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+              className="flex items-center justify-center gap-4 mb-8"
             >
-              {SLIDES[current].headline}
-            </h1>
-            <p
-              className="max-w-2xl mx-auto text-lg sm:text-xl text-[#FAF7F2]/65 mb-10 leading-relaxed"
+              <div className="h-[1px] w-8 bg-[#B8860B]" />
+              <p
+                className="text-[#B8860B] text-xs tracking-[0.3em] uppercase font-medium"
+                style={{ fontFamily: "var(--font-outfit)" }}
+              >
+                {SLIDES[current].subtitle}
+              </p>
+              <div className="h-[1px] w-8 bg-[#B8860B]" />
+            </motion.div>
+
+            {/* Headline — two lines with staggered animation */}
+            <div className="overflow-hidden mb-2">
+              <motion.h1
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                exit={{ y: "-100%" }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] leading-[1.05] text-[#FAF7F2]"
+                style={{ fontFamily: "var(--font-dm-serif)" }}
+              >
+                {SLIDES[current].headlineParts[0]}
+              </motion.h1>
+            </div>
+            <div className="overflow-hidden mb-8">
+              <motion.h1
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                exit={{ y: "-100%" }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.25 }}
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] leading-[1.05]"
+                style={{ fontFamily: "var(--font-dm-serif)" }}
+              >
+                <em className="text-[#B8860B]">{SLIDES[current].headlineParts[1]}</em>
+              </motion.h1>
+            </div>
+
+            {/* Body */}
+            <motion.p
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="max-w-2xl mx-auto text-base sm:text-lg text-[#FAF7F2]/60 mb-10 leading-relaxed"
               style={{ fontFamily: "var(--font-outfit)" }}
             >
               {SLIDES[current].body}
-            </p>
+            </motion.p>
+
+            {/* CTAs */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4, delay: 0.5 }}
+              className="flex flex-col sm:flex-row items-center justify-center gap-4"
+              style={{ fontFamily: "var(--font-outfit)" }}
+            >
+              <Link
+                href="/free-validation"
+                className="group inline-flex items-center gap-2.5 px-8 py-4 bg-[#B8860B] text-white rounded-full text-sm font-semibold hover:bg-[#a07609] transition-all duration-300 shadow-lg shadow-[#B8860B]/20 hover:shadow-xl hover:shadow-[#B8860B]/30"
+              >
+                Submit for Free Review
+                <ArrowRight
+                  size={16}
+                  className="transition-transform group-hover:translate-x-0.5"
+                />
+              </Link>
+              <Link
+                href="/services"
+                className="inline-flex items-center gap-2 px-8 py-4 border border-[#FAF7F2]/25 text-[#FAF7F2] rounded-full text-sm font-medium hover:bg-[#FAF7F2]/10 hover:border-[#FAF7F2]/40 transition-all duration-300 backdrop-blur-sm"
+              >
+                View Services
+              </Link>
+            </motion.div>
           </motion.div>
         </AnimatePresence>
+      </div>
 
-        <div
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
-          style={{ fontFamily: "var(--font-outfit)" }}
-        >
-          <Link
-            href="/free-validation"
-            className="inline-flex items-center gap-2 px-8 py-3.5 bg-[#B8860B] text-white rounded-full text-sm font-semibold hover:bg-[#a07609] transition-colors"
-          >
-            Submit for Free Review <ArrowRight size={16} />
-          </Link>
-          <Link
-            href="/services"
-            className="inline-flex items-center gap-2 px-8 py-3.5 border border-[#FAF7F2]/30 text-[#FAF7F2] rounded-full text-sm font-medium hover:border-[#FAF7F2]/60 transition-colors"
-          >
-            View Services
-          </Link>
+      {/* Bottom section — stats + navigation */}
+      <div className="absolute bottom-0 left-0 right-0 z-10">
+        {/* Stats bar */}
+        <div className="border-t border-[#FAF7F2]/10 bg-[#0a1f15]/40 backdrop-blur-md">
+          <div className="max-w-6xl mx-auto px-5 sm:px-8 py-5 flex items-center justify-between">
+            {/* Stats */}
+            <div
+              className="flex items-center gap-6 sm:gap-0 flex-wrap"
+              style={{ fontFamily: "var(--font-outfit)" }}
+            >
+              {STATS.map((stat, i) => (
+                <div key={stat.label} className="flex items-center">
+                  <div className="text-center px-4 sm:px-6">
+                    <p className="text-xl sm:text-2xl font-bold text-white">
+                      {stat.value}
+                    </p>
+                    <p className="text-[9px] text-[#FAF7F2]/35 mt-0.5 uppercase tracking-[0.15em]">
+                      {stat.label}
+                    </p>
+                  </div>
+                  {i < STATS.length - 1 && (
+                    <div className="hidden sm:block w-px h-8 bg-[#FAF7F2]/10" />
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {/* Arrow navigation */}
+            <div className="hidden sm:flex items-center gap-2">
+              <button
+                onClick={prev}
+                className="w-10 h-10 rounded-full border border-[#FAF7F2]/15 flex items-center justify-center text-[#FAF7F2]/50 hover:text-[#FAF7F2] hover:border-[#FAF7F2]/30 hover:bg-[#FAF7F2]/5 transition-all"
+                aria-label="Previous slide"
+              >
+                <ChevronLeft size={18} />
+              </button>
+              <button
+                onClick={next}
+                className="w-10 h-10 rounded-full border border-[#FAF7F2]/15 flex items-center justify-center text-[#FAF7F2]/50 hover:text-[#FAF7F2] hover:border-[#FAF7F2]/30 hover:bg-[#FAF7F2]/5 transition-all"
+                aria-label="Next slide"
+              >
+                <ChevronRight size={18} />
+              </button>
+            </div>
+          </div>
         </div>
 
-        <div
-          className="flex flex-wrap items-center justify-center gap-6 sm:gap-0 mb-10"
-          style={{ fontFamily: "var(--font-outfit)" }}
-        >
-          {STATS.map((stat, i) => (
-            <div key={stat.label} className="flex items-center">
-              <div className="text-center px-5 sm:px-8">
-                <p className="text-2xl sm:text-3xl font-bold text-white">{stat.value}</p>
-                <p className="text-[10px] text-[#FAF7F2]/40 mt-1 uppercase tracking-wider">{stat.label}</p>
-              </div>
-              {i < STATS.length - 1 && (
-                <div className="hidden sm:block w-px h-10 bg-[#FAF7F2]/15" />
-              )}
+        {/* Progress bars */}
+        <div className="flex">
+          {SLIDES.map((_, i) => (
+            <div key={i} className="flex-1 h-[3px] bg-[#FAF7F2]/10">
+              <div
+                className="h-full transition-none"
+                style={{
+                  width: i === current ? `${progress * 100}%` : i < current ? "100%" : "0%",
+                  backgroundColor: i === current ? "#B8860B" : i < current ? "#B8860B" : "transparent",
+                }}
+              />
             </div>
           ))}
         </div>
-
-        <div className="flex gap-2 justify-center">
-          {SLIDES.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrent(i)}
-              className={`w-6 h-[3px] rounded-full transition-colors ${
-                i === current ? "bg-[#B8860B]" : "bg-[#FAF7F2]/25"
-              }`}
-              aria-label={`Go to slide ${i + 1}`}
-            />
-          ))}
-        </div>
       </div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-      >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-        >
-          <ArrowDown className="w-5 h-5 text-[#FAF7F2]/40" />
-        </motion.div>
-      </motion.div>
     </section>
   );
 }
