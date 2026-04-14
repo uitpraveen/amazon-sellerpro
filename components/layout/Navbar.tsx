@@ -34,19 +34,18 @@ export default function Navbar() {
       <div className="h-0.5 w-full bg-[#B8860B]" />
 
       {/* Desktop */}
-      <div className="hidden md:block">
-        <div className="flex items-center justify-center py-5">
-          <Link
-            href="/"
-            className="flex items-center gap-2"
-            style={{ fontFamily: "var(--font-dm-serif)" }}
-          >
-            <span className="text-2xl tracking-wide text-[#2D2A26]">AMAZON</span>
-            <span className="text-[#B8860B] text-lg">&#9670;</span>
-            <span className="text-2xl tracking-wide text-[#2D2A26]">SAFETY PRO</span>
-          </Link>
-        </div>
-        <nav className="flex items-center justify-center gap-8 pb-4 border-b border-[#E8E0D4]">
+      <div className="hidden md:flex items-center justify-between max-w-7xl mx-auto px-6 lg:px-10 py-4 border-b border-[#E8E0D4]">
+        <Link
+          href="/"
+          className="flex items-center gap-2"
+          style={{ fontFamily: "var(--font-dm-serif)" }}
+        >
+          <span className="text-xl tracking-wide text-[#2D2A26]">AMAZON</span>
+          <span className="text-[#B8860B] text-sm">&#9670;</span>
+          <span className="text-xl tracking-wide text-[#2D2A26]">SAFETY PRO</span>
+        </Link>
+
+        <nav className="flex items-center gap-7">
           {NAV_LINKS.map((link) => {
             const active =
               pathname === link.href ||
@@ -64,6 +63,13 @@ export default function Navbar() {
               </Link>
             );
           })}
+          <Link
+            href="/free-validation"
+            className="inline-flex items-center gap-2 px-5 py-2 bg-[#1B4332] text-white rounded-full text-xs font-medium hover:bg-[#15372a] transition-colors"
+            style={{ fontFamily: "var(--font-outfit)" }}
+          >
+            Free Review <ArrowRight size={14} />
+          </Link>
         </nav>
       </div>
 
