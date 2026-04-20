@@ -12,6 +12,10 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
 
+  // On homepage, navbar floats over dark hero until scrolled
+  const isHomepage = pathname === "/";
+  const transparentMode = isHomepage && !scrolled;
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -53,24 +57,29 @@ export default function Navbar() {
           <Link href="/" className="flex items-center gap-3 py-5 group">
             <div
               className={`flex items-center justify-center w-9 h-9 rounded-lg transition-all duration-300 ${
-                scrolled
-                  ? "bg-[#1B4332] shadow-md"
-                  : "bg-[#1B4332]/90"
+                transparentMode
+                  ? "bg-[#B8860B] shadow-lg shadow-[#B8860B]/30"
+                  : "bg-[#1B4332] shadow-md"
               }`}
             >
-              <Shield size={18} className="text-[#B8860B]" />
+              <Shield
+                size={18}
+                className={transparentMode ? "text-white" : "text-[#B8860B]"}
+              />
             </div>
             <div className="flex flex-col">
               <span
                 className={`text-[15px] font-semibold tracking-wide transition-colors duration-300 ${
-                  scrolled ? "text-[#2D2A26]" : "text-[#2D2A26]"
+                  transparentMode ? "text-white" : "text-[#2D2A26]"
                 }`}
                 style={{ fontFamily: "var(--font-dm-serif)" }}
               >
                 Amazon Safety Pro
               </span>
               <span
-                className="text-[10px] uppercase tracking-[0.2em] text-[#B8860B] font-medium"
+                className={`text-[10px] uppercase tracking-[0.2em] font-medium transition-colors duration-300 ${
+                  transparentMode ? "text-[#B8860B]" : "text-[#B8860B]"
+                }`}
                 style={{ fontFamily: "var(--font-outfit)" }}
               >
                 Compliance Experts
@@ -82,7 +91,9 @@ export default function Navbar() {
           <nav className="flex items-center">
             <div
               className={`flex items-center gap-1 rounded-full px-2 py-1.5 transition-all duration-300 ${
-                scrolled ? "bg-[#2D2A26]/[0.04]" : "bg-[#2D2A26]/[0.03]"
+                transparentMode
+                  ? "bg-white/10 backdrop-blur-md border border-white/15"
+                  : "bg-[#2D2A26]/[0.04]"
               }`}
             >
               {NAV_LINKS.map((link) => {
@@ -95,7 +106,11 @@ export default function Navbar() {
                     href={link.href}
                     className={`relative px-4 py-2 text-[11px] uppercase tracking-[0.15em] rounded-full transition-all duration-200 ${
                       active
-                        ? "text-[#1B4332] bg-white shadow-sm font-semibold"
+                        ? transparentMode
+                          ? "text-[#1B4332] bg-[#B8860B] shadow-sm font-semibold"
+                          : "text-[#1B4332] bg-white shadow-sm font-semibold"
+                        : transparentMode
+                        ? "text-white/80 hover:text-white hover:bg-white/15"
                         : "text-[#6B6560] hover:text-[#2D2A26] hover:bg-white/50"
                     }`}
                     style={{ fontFamily: "var(--font-outfit)" }}
@@ -110,7 +125,11 @@ export default function Navbar() {
           {/* CTA */}
           <Link
             href="/free-validation"
-            className="group inline-flex items-center gap-2 px-6 py-2.5 bg-[#1B4332] text-white rounded-full text-xs font-semibold hover:bg-[#0f2b21] transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-[#1B4332]/20"
+            className={`group inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-semibold transition-all duration-300 shadow-md hover:shadow-lg ${
+              transparentMode
+                ? "bg-[#B8860B] text-white hover:bg-[#a07609] hover:shadow-[#B8860B]/40"
+                : "bg-[#1B4332] text-white hover:bg-[#0f2b21] hover:shadow-[#1B4332]/20"
+            }`}
             style={{ fontFamily: "var(--font-outfit)" }}
           >
             Free Review
@@ -124,11 +143,20 @@ export default function Navbar() {
         {/* Mobile */}
         <div className="flex lg:hidden items-center justify-between px-5 py-3.5">
           <Link href="/" className="flex items-center gap-2.5">
-            <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-[#1B4332]">
-              <Shield size={16} className="text-[#B8860B]" />
+            <div
+              className={`flex items-center justify-center w-8 h-8 rounded-lg transition-colors duration-300 ${
+                transparentMode ? "bg-[#B8860B]" : "bg-[#1B4332]"
+              }`}
+            >
+              <Shield
+                size={16}
+                className={transparentMode ? "text-white" : "text-[#B8860B]"}
+              />
             </div>
             <span
-              className="text-[15px] font-semibold text-[#2D2A26] tracking-wide"
+              className={`text-[15px] font-semibold tracking-wide transition-colors duration-300 ${
+                transparentMode ? "text-white" : "text-[#2D2A26]"
+              }`}
               style={{ fontFamily: "var(--font-dm-serif)" }}
             >
               Amazon Safety Pro
@@ -136,7 +164,11 @@ export default function Navbar() {
           </Link>
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="w-10 h-10 flex items-center justify-center rounded-full bg-[#2D2A26]/[0.04] text-[#2D2A26] hover:bg-[#2D2A26]/[0.08] transition-colors"
+            className={`w-10 h-10 flex items-center justify-center rounded-full transition-colors ${
+              transparentMode
+                ? "bg-white/10 backdrop-blur-md border border-white/15 text-white hover:bg-white/20"
+                : "bg-[#2D2A26]/[0.04] text-[#2D2A26] hover:bg-[#2D2A26]/[0.08]"
+            }`}
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
           >
             {mobileOpen ? <X size={20} /> : <Menu size={20} />}
