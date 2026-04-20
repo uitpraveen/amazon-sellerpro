@@ -56,20 +56,20 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 py-5 group">
             <div
-              className={`flex items-center justify-center w-9 h-9 rounded-lg transition-all duration-300 ${
+              className={`flex items-center justify-center w-11 h-11 rounded-lg transition-all duration-300 ${
                 transparentMode
                   ? "bg-[#B8860B] shadow-lg shadow-[#B8860B]/30"
                   : "bg-[#1B4332] shadow-md"
               }`}
             >
               <Shield
-                size={18}
+                size={22}
                 className={transparentMode ? "text-white" : "text-[#B8860B]"}
               />
             </div>
             <div className="flex flex-col">
               <span
-                className={`text-[15px] font-semibold tracking-wide transition-colors duration-300 ${
+                className={`text-[18px] font-semibold tracking-wide transition-colors duration-300 ${
                   transparentMode ? "text-white" : "text-[#2D2A26]"
                 }`}
                 style={{ fontFamily: "var(--font-dm-serif)" }}
@@ -77,7 +77,7 @@ export default function Navbar() {
                 Amazon Safety Pro
               </span>
               <span
-                className={`text-[10px] uppercase tracking-[0.2em] font-medium transition-colors duration-300 ${
+                className={`text-[11px] uppercase tracking-[0.2em] font-medium transition-colors duration-300 ${
                   transparentMode ? "text-[#B8860B]" : "text-[#B8860B]"
                 }`}
                 style={{ fontFamily: "var(--font-outfit)" }}
@@ -104,7 +104,7 @@ export default function Navbar() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`relative px-4 py-2 text-[11px] uppercase tracking-[0.15em] rounded-full transition-all duration-200 ${
+                    className={`relative px-4 py-2.5 text-[13px] uppercase tracking-[0.12em] rounded-full transition-all duration-200 ${
                       active
                         ? transparentMode
                           ? "text-[#1B4332] bg-[#B8860B] shadow-sm font-semibold"
@@ -125,7 +125,7 @@ export default function Navbar() {
           {/* CTA */}
           <Link
             href="/free-validation"
-            className={`group inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-semibold transition-all duration-300 shadow-md hover:shadow-lg ${
+            className={`group inline-flex items-center gap-2 px-6 py-3 rounded-full text-[13px] font-semibold transition-all duration-300 shadow-md hover:shadow-lg ${
               transparentMode
                 ? "bg-[#B8860B] text-white hover:bg-[#a07609] hover:shadow-[#B8860B]/40"
                 : "bg-[#1B4332] text-white hover:bg-[#0f2b21] hover:shadow-[#1B4332]/20"
@@ -134,27 +134,27 @@ export default function Navbar() {
           >
             Free Review
             <ArrowRight
-              size={14}
+              size={15}
               className="transition-transform group-hover:translate-x-0.5"
             />
           </Link>
         </div>
 
         {/* Mobile */}
-        <div className="flex lg:hidden items-center justify-between px-5 py-3.5">
-          <Link href="/" className="flex items-center gap-2.5">
+        <div className="flex lg:hidden items-center justify-between px-4 py-3">
+          <Link href="/" className="flex items-center gap-2">
             <div
-              className={`flex items-center justify-center w-8 h-8 rounded-lg transition-colors duration-300 ${
+              className={`flex items-center justify-center w-9 h-9 rounded-lg transition-colors duration-300 shrink-0 ${
                 transparentMode ? "bg-[#B8860B]" : "bg-[#1B4332]"
               }`}
             >
               <Shield
-                size={16}
+                size={18}
                 className={transparentMode ? "text-white" : "text-[#B8860B]"}
               />
             </div>
             <span
-              className={`text-[15px] font-semibold tracking-wide transition-colors duration-300 ${
+              className={`text-[15px] sm:text-base font-semibold tracking-wide transition-colors duration-300 ${
                 transparentMode ? "text-white" : "text-[#2D2A26]"
               }`}
               style={{ fontFamily: "var(--font-dm-serif)" }}
@@ -164,7 +164,7 @@ export default function Navbar() {
           </Link>
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className={`w-10 h-10 flex items-center justify-center rounded-full transition-colors ${
+            className={`w-10 h-10 flex items-center justify-center rounded-full transition-colors shrink-0 ${
               transparentMode
                 ? "bg-white/10 backdrop-blur-md border border-white/15 text-white hover:bg-white/20"
                 : "bg-[#2D2A26]/[0.04] text-[#2D2A26] hover:bg-[#2D2A26]/[0.08]"
