@@ -24,20 +24,20 @@ const stagger = {
 
 export default function ProcessFlow() {
   return (
-    <section className="bg-[#FAF7F2] py-20 lg:py-28">
-      <div className="max-w-5xl mx-auto px-5 sm:px-8">
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="text-center mb-16">
+    <section className="bg-[#FAF7F2] py-16 sm:py-20 md:py-28">
+      <div className="max-w-5xl mx-auto px-4 sm:px-8">
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="text-center mb-10 sm:mb-16">
           <motion.p variants={fadeUp} className="text-[#B8860B] text-xs tracking-[0.2em] uppercase mb-3" style={{ fontFamily: "var(--font-outfit)" }}>
             How We Work
           </motion.p>
-          <motion.h2 variants={fadeUp} className="text-3xl sm:text-4xl lg:text-5xl text-[#2D2A26]" style={{ fontFamily: "var(--font-dm-serif)" }}>
+          <motion.h2 variants={fadeUp} className="text-2xl sm:text-4xl lg:text-5xl text-[#2D2A26]" style={{ fontFamily: "var(--font-dm-serif)" }}>
             Our Process
           </motion.h2>
         </motion.div>
 
         <div className="relative">
           <div className="absolute left-5 sm:left-1/2 top-0 bottom-0 w-px bg-[#E8E0D4] sm:-translate-x-px" />
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="space-y-12 sm:space-y-16">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="space-y-10 sm:space-y-16">
             {STEPS.map((step, i) => {
               const isLeft = i % 2 === 0;
               return (
@@ -46,8 +46,8 @@ export default function ProcessFlow() {
                   <div className="sm:grid sm:grid-cols-2 sm:gap-12">
                     <div className={`pl-12 sm:pl-0 ${isLeft ? "sm:text-right sm:pr-12" : "sm:col-start-2 sm:pl-12"}`}>
                       <span className="text-[#B8860B]/60 text-sm font-medium tracking-wider" style={{ fontFamily: "var(--font-outfit)" }}>Step {step.num}</span>
-                      <h3 className="text-xl sm:text-2xl text-[#2D2A26] mt-1 mb-2" style={{ fontFamily: "var(--font-dm-serif)" }}>{step.title}</h3>
-                      <p className="text-[#6B6560] leading-relaxed" style={{ fontFamily: "var(--font-outfit)" }}>{step.desc}</p>
+                      <h3 className="text-lg sm:text-2xl text-[#2D2A26] mt-1 mb-2" style={{ fontFamily: "var(--font-dm-serif)" }}>{step.title}</h3>
+                      <p className="text-sm sm:text-base text-[#6B6560] leading-relaxed" style={{ fontFamily: "var(--font-outfit)" }}>{step.desc}</p>
                     </div>
                     {isLeft ? <div className="hidden sm:block" /> : <div className="hidden sm:block sm:col-start-1 sm:row-start-1" />}
                   </div>

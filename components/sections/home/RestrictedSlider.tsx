@@ -29,28 +29,28 @@ export default function RestrictedSlider() {
   };
 
   return (
-    <section className="bg-[#1B4332] py-20 md:py-28 overflow-hidden">
-      <div className="max-w-6xl mx-auto px-5 sm:px-8">
+    <section className="bg-[#1B4332] py-16 sm:py-20 md:py-28 overflow-hidden">
+      <div className="max-w-6xl mx-auto px-4 sm:px-8">
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={fadeUp}
-          className="text-center mb-12"
+          className="text-center mb-8 sm:mb-12"
         >
           <p className="text-[#B8860B] text-xs tracking-[0.2em] uppercase mb-3" style={{ fontFamily: "var(--font-outfit)" }}>
             Know Your Products
           </p>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl text-[#FAF7F2]" style={{ fontFamily: "var(--font-dm-serif)" }}>
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl text-[#FAF7F2]" style={{ fontFamily: "var(--font-dm-serif)" }}>
             Commonly Restricted Categories
           </h2>
         </motion.div>
 
         <div className="flex justify-end gap-2 mb-6">
-          <button onClick={() => scroll("left")} className="w-10 h-10 rounded-full border border-[#FAF7F2]/20 flex items-center justify-center text-[#FAF7F2]/60 hover:text-[#FAF7F2] hover:border-[#FAF7F2]/40 transition-colors" aria-label="Scroll left">
+          <button onClick={() => scroll("left")} className="w-11 h-11 rounded-full border border-[#FAF7F2]/20 flex items-center justify-center text-[#FAF7F2]/60 hover:text-[#FAF7F2] hover:border-[#FAF7F2]/40 transition-colors" aria-label="Scroll left">
             <ChevronLeft size={18} />
           </button>
-          <button onClick={() => scroll("right")} className="w-10 h-10 rounded-full border border-[#FAF7F2]/20 flex items-center justify-center text-[#FAF7F2]/60 hover:text-[#FAF7F2] hover:border-[#FAF7F2]/40 transition-colors" aria-label="Scroll right">
+          <button onClick={() => scroll("right")} className="w-11 h-11 rounded-full border border-[#FAF7F2]/20 flex items-center justify-center text-[#FAF7F2]/60 hover:text-[#FAF7F2] hover:border-[#FAF7F2]/40 transition-colors" aria-label="Scroll right">
             <ChevronRight size={18} />
           </button>
         </div>

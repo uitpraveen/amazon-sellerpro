@@ -21,14 +21,14 @@ const stagger = {
 
 export default function SoundFamiliar() {
   return (
-    <section className="bg-[#FAF7F2] py-20 md:py-28">
-      <div className="max-w-4xl mx-auto px-5 sm:px-8">
+    <section className="bg-[#FAF7F2] py-16 sm:py-20 md:py-28">
+      <div className="max-w-4xl mx-auto px-4 sm:px-8">
         <motion.h2
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="text-3xl sm:text-4xl lg:text-5xl text-center text-[#2D2A26] mb-14"
+          className="text-2xl sm:text-3xl lg:text-5xl text-center text-[#2D2A26] mb-8 sm:mb-14"
           style={{ fontFamily: "var(--font-dm-serif)" }}
         >
           Sound familiar?
@@ -45,7 +45,7 @@ export default function SoundFamiliar() {
             <motion.div
               key={i}
               variants={fadeUp}
-              className="flex items-start gap-3 bg-white border-l-[3px] border-[#9B1C1C] rounded-r-lg px-6 sm:px-8 py-5"
+              className="flex items-start gap-3 bg-white border-l-[3px] border-[#9B1C1C] rounded-r-lg px-4 sm:px-8 py-4 sm:py-5"
             >
               <AlertTriangle size={18} className="text-[#9B1C1C] mt-0.5 shrink-0" />
               <p
@@ -63,7 +63,7 @@ export default function SoundFamiliar() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.4, duration: 0.7 }}
-          className="mt-12 text-center text-[#6B6560] max-w-2xl mx-auto leading-relaxed text-lg"
+          className="mt-8 sm:mt-12 text-center text-[#6B6560] max-w-2xl mx-auto leading-relaxed text-base sm:text-lg"
           style={{ fontFamily: "var(--font-outfit)" }}
         >
           If you have been going back and forth with Amazon — submitting documents,

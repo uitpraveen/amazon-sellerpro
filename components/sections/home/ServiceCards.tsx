@@ -24,14 +24,14 @@ const stagger = {
 
 export default function ServiceCards() {
   return (
-    <section className="bg-[#FAF7F2] py-20 md:py-28">
-      <div className="max-w-5xl mx-auto px-5 sm:px-8">
+    <section className="bg-[#FAF7F2] py-16 sm:py-20 md:py-28">
+      <div className="max-w-5xl mx-auto px-4 sm:px-8">
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={stagger}
-          className="text-center mb-14"
+          className="text-center mb-10 sm:mb-14"
         >
           <motion.p
             variants={fadeUp}
@@ -42,7 +42,7 @@ export default function ServiceCards() {
           </motion.p>
           <motion.h2
             variants={fadeUp}
-            className="text-3xl sm:text-4xl lg:text-5xl text-[#2D2A26]"
+            className="text-2xl sm:text-4xl lg:text-5xl text-[#2D2A26]"
             style={{ fontFamily: "var(--font-dm-serif)" }}
           >
             Our Services
@@ -60,7 +60,7 @@ export default function ServiceCards() {
             <motion.div key={svc.title} variants={fadeUp}>
               <Link
                 href={svc.href}
-                className="block bg-white border border-[#E8E0D4] rounded-2xl p-7 hover:-translate-y-1 transition-transform duration-300 h-full"
+                className="block bg-white border border-[#E8E0D4] rounded-2xl p-5 sm:p-7 hover:-translate-y-1 transition-transform duration-300 h-full"
               >
                 <span className="text-3xl block mb-4" role="img" aria-hidden>{svc.icon}</span>
                 <h3
