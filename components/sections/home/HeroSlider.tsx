@@ -66,7 +66,7 @@ export default function HeroSlider() {
   }, [current]);
 
   return (
-    <section className="relative min-h-screen flex flex-col overflow-hidden">
+    <section className="relative h-[100svh] min-h-[640px] flex flex-col overflow-hidden">
       {/* Background images with Ken Burns zoom */}
       <AnimatePresence mode="sync">
         <motion.div
@@ -99,8 +99,8 @@ export default function HeroSlider() {
       </AnimatePresence>
 
       {/* Main content */}
-      <div className="relative z-10 flex-1 flex items-center justify-center w-full">
-        <div className="max-w-5xl mx-auto w-full px-5 sm:px-8 text-center pt-28 pb-44 sm:pb-52">
+      <div className="relative z-10 flex-1 flex items-center justify-center w-full min-h-0">
+        <div className="max-w-5xl mx-auto w-full px-5 sm:px-8 text-center pt-24 sm:pt-28 pb-6 sm:pb-8">
           <AnimatePresence mode="wait">
             <motion.div key={current} className="space-y-0">
               {/* Subtitle with line */}
@@ -229,8 +229,8 @@ export default function HeroSlider() {
         </div>
       </div>
 
-      {/* Bottom — minimal nav + progress */}
-      <div className="absolute bottom-0 left-0 right-0 z-10">
+      {/* Bottom — minimal nav + progress (in flex flow, so always sits at section bottom) */}
+      <div className="relative z-10 flex-shrink-0">
         {/* Arrow nav — desktop only */}
         <div className="hidden sm:flex justify-end items-center gap-2 px-8 pb-3">
           <button
