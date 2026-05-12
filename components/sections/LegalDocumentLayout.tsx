@@ -12,14 +12,12 @@ export interface LegalSection {
 export default function LegalDocumentLayout({
   pageTitle,
   documentLabel,
-  lastUpdated,
   warning,
   intro,
   sections,
 }: {
   pageTitle: string;
-  documentLabel: string;
-  lastUpdated: string;
+  documentLabel?: string;
   warning?: string;
   intro?: React.ReactNode;
   sections: LegalSection[];
@@ -50,15 +48,14 @@ export default function LegalDocumentLayout({
       {/* Hero */}
       <section className="border-b border-[#E8E0D4]">
         <div className="mx-auto max-w-7xl px-6 pt-32 pb-16 lg:px-12 lg:pt-40">
-          <p className="font-[family-name:var(--font-outfit)] text-sm font-semibold uppercase tracking-widest text-[#B8860B]">
-            {documentLabel}
-          </p>
-          <h1 className="mt-4 max-w-4xl font-[family-name:var(--font-dm-serif)] text-4xl leading-tight text-[#2D2A26] sm:text-5xl lg:text-6xl">
+          {documentLabel && (
+            <p className="font-[family-name:var(--font-outfit)] text-sm font-semibold uppercase tracking-widest text-[#B8860B] mb-4">
+              {documentLabel}
+            </p>
+          )}
+          <h1 className="max-w-4xl font-[family-name:var(--font-dm-serif)] text-4xl leading-tight text-[#2D2A26] sm:text-5xl lg:text-6xl">
             {pageTitle}
           </h1>
-          <p className="mt-4 font-[family-name:var(--font-outfit)] text-sm text-[#6B6560]">
-            Last updated: {lastUpdated}
-          </p>
 
           {warning && (
             <div className="mt-8 rounded-xl border border-amber-200 bg-amber-50 px-6 py-5">

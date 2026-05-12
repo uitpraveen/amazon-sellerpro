@@ -23,11 +23,10 @@ const SECTIONS: LegalSection[] = [
       <>
         <LegalP>
           This Privacy Policy applies to Amazon Safety Pro, a compliance
-          consulting brand operated by {siteConfig.legalEntity}, a company
-          registered in {siteConfig.registeredAddress}. Amazon Safety Pro
-          provides Amazon product safety and compliance advisory services to
-          sellers across the United States, Canada, the European Union, the
-          United Kingdom, India, Singapore, and Australia.
+          consulting service providing Amazon product safety and compliance
+          advisory services to sellers across the United States, Canada, the
+          European Union, the United Kingdom, India, Singapore, and
+          Australia.
         </LegalP>
         <LegalP>
           This policy explains what personal data we collect from you, how we
@@ -56,26 +55,12 @@ const SECTIONS: LegalSection[] = [
     body: (
       <>
         <LegalP>
-          <strong className="text-[var(--ink)]">
-            Data Controller / Business Entity:
-          </strong>{" "}
-          {siteConfig.legalEntity}
-        </LegalP>
-        <LegalP>
-          <strong className="text-[var(--ink)]">Brand:</strong>{" "}
+          <strong className="text-[var(--ink)]">Service:</strong>{" "}
           {siteConfig.businessName}
-        </LegalP>
-        <LegalP>
-          <strong className="text-[var(--ink)]">Registered Address:</strong>{" "}
-          {siteConfig.registeredAddress}
         </LegalP>
         <LegalP>
           <strong className="text-[var(--ink)]">Contact Email:</strong>{" "}
           {siteConfig.contactEmail}
-        </LegalP>
-        <LegalP>
-          <strong className="text-[var(--ink)]">Website:</strong>{" "}
-          {siteConfig.websiteUrl}
         </LegalP>
         <LegalP>
           If you have any questions about how we handle your personal data,
@@ -243,8 +228,7 @@ const SECTIONS: LegalSection[] = [
         <LegalP>
           We may also disclose your data where required by law, court order,
           or regulatory authority, or where necessary to protect the rights,
-          property, or safety of {siteConfig.legalEntity}, our clients, or
-          others.
+          property, or safety of Amazon Safety Pro, our clients, or others.
         </LegalP>
       </>
     ),
@@ -405,20 +389,10 @@ const SECTIONS: LegalSection[] = [
           Privacy Policy or the way we handle your personal data, please
           contact us at:
         </LegalP>
-        <LegalP>
-          {siteConfig.legalEntity} — {siteConfig.businessName}
-        </LegalP>
+        <LegalP>{siteConfig.businessName}</LegalP>
         <LegalP>
           <strong className="text-[var(--ink)]">Email:</strong>{" "}
           {siteConfig.contactEmail}
-        </LegalP>
-        <LegalP>
-          <strong className="text-[var(--ink)]">Website:</strong>{" "}
-          {siteConfig.websiteUrl}
-        </LegalP>
-        <LegalP>
-          <strong className="text-[var(--ink)]">Registered Address:</strong>{" "}
-          {siteConfig.registeredAddress}
         </LegalP>
       </>
     ),
@@ -431,9 +405,6 @@ export default function PrivacyPolicyPage() {
       <Navbar />
       <LegalDocumentLayout
         pageTitle="Privacy Policy"
-        documentLabel="DOCUMENT // PRIVACY POLICY"
-        lastUpdated={siteConfig.privacyLastUpdated}
-        warning="This policy covers 7 jurisdictions. We recommend having a qualified legal professional review this document before publishing."
         sections={SECTIONS}
       />
       <Footer />

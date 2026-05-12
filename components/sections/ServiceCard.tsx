@@ -9,6 +9,7 @@ export default function ServiceCard({ service, index }: { service: ServiceDef; i
 
   return (
     <motion.div
+      id={service.slug}
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
@@ -21,6 +22,7 @@ export default function ServiceCard({ service, index }: { service: ServiceDef; i
         display: "flex",
         flexDirection: "column",
         height: "100%",
+        scrollMarginTop: "120px",
       }}
     >
       <div style={{ padding: "32px" }}>

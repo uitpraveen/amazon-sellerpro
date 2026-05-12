@@ -7,6 +7,13 @@ import { sendLeadEmail } from "@/lib/email/resend";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { siteConfig } from "@/lib/site-config";
 import type { ServiceInquiryType } from "@/lib/types";
+import {
+  getServicePrice,
+  isPaidService,
+  formatPrice,
+} from "@/lib/services-prices";
+import { verifyPayPalCapture } from "@/lib/paypal";
+import { verifyStripePaymentIntent } from "@/lib/stripe";
 
 export type ContactActionResult =
   | { ok: true }
@@ -63,6 +70,58 @@ export async function submitContactForm(
     return { ok: true };
   }
 
+  const paypalCaptureId = formData.get("paypalCaptureId")?.toString() ?? "";
+  const paypalOrderId = formData.get("paypalOrderId")?.toString() ?? "";
+  const stripePaymentIntentId =
+    formData.get("stripePaymentIntentId")?.toString() ?? "";
+
+  let paymentInfo:
+    | {
+        provider: "paypal" | "stripe";
+        reference: string;
+        secondary?: string;
+        amount: string;
+      }
+    | undefined;
+
+  if (isPaidService(parsed.data.inquiryType)) {
+    if (stripePaymentIntentId) {
+      const verify = await verifyStripePaymentIntent(stripePaymentIntentId);
+      if (!verify.ok) {
+        return {
+          ok: false,
+          error: `Payment could not be verified: ${verify.error}`,
+        };
+      }
+      paymentInfo = {
+        provider: "stripe",
+        reference: stripePaymentIntentId,
+        amount: verify.amount,
+      };
+    } else if (paypalCaptureId) {
+      const verify = await verifyPayPalCapture(paypalCaptureId);
+      if (!verify.ok) {
+        return {
+          ok: false,
+          error: `Payment could not be verified: ${verify.error}`,
+        };
+      }
+      paymentInfo = {
+        provider: "paypal",
+        reference: paypalCaptureId,
+        secondary: paypalOrderId,
+        amount: verify.amount,
+      };
+    } else {
+      return {
+        ok: false,
+        error:
+          "Payment required for this service. Please complete payment to submit.",
+      };
+    }
+  }
+
+  const expectedAmount = getServicePrice(parsed.data.inquiryType);
   const rendered = contactEmail({
     fullName: parsed.data.fullName,
     businessName: parsed.data.businessName,
@@ -71,7 +130,15 @@ export async function submitContactForm(
     amazonSellerId: parsed.data.amazonSellerId || undefined,
     productCategory: parsed.data.productCategory,
     inquiryType: parsed.data.inquiryType,
-    message: parsed.data.message,
+    message: paymentInfo
+      ? `${parsed.data.message}\n\n---\nPayment: ${
+          expectedAmount != null ? formatPrice(expectedAmount) : "USD"
+        } via ${paymentInfo.provider === "stripe" ? "Stripe" : "PayPal"}\n${
+          paymentInfo.provider === "stripe"
+            ? `PaymentIntent: ${paymentInfo.reference}`
+            : `Order ID: ${paymentInfo.secondary ?? ""}\nCapture ID: ${paymentInfo.reference}`
+        }`
+      : parsed.data.message,
   });
 
   const result = await sendLeadEmail({

@@ -90,7 +90,7 @@ export default function EditorialFooter() {
 
         <div className="mt-20 flex flex-col items-start justify-between gap-4 border-t border-[var(--ink)]/15 pt-8 md:flex-row md:items-center">
           <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-[var(--ink-3)]">
-            © 2026 {siteConfig.legalEntity} · {siteConfig.registeredAddress}
+            © 2026 {siteConfig.businessName}
           </p>
           <div className="flex flex-wrap gap-2">
             {["US", "CA", "EU", "UK", "IN", "SG", "AU"].map((j) => (

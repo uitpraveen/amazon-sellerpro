@@ -57,11 +57,9 @@ export default function V2Footer() {
 
           <div className="lg:col-span-3">
             <span className="text-[10px] font-medium uppercase tracking-[0.25em] text-[#C8A45C]">
-              Office
+              Contact
             </span>
             <ul className="mt-6 space-y-3 text-[14px] text-[#FBF8F0]/75">
-              <li>{siteConfig.legalEntity}</li>
-              <li>{siteConfig.registeredAddress}</li>
               <li>{siteConfig.contactEmail}</li>
             </ul>
 
@@ -93,7 +91,7 @@ export default function V2Footer() {
 
         <div className="mt-20 flex flex-col items-start justify-between gap-4 border-t border-[#C8A45C]/20 pt-8 md:flex-row md:items-center">
           <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-[#FBF8F0]/50">
-            © 2026 {siteConfig.legalEntity} · All rights reserved
+            © 2026 {siteConfig.businessName} · All rights reserved
           </p>
           <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-[#C8A45C]">
             US · CA · EU · UK · IN · SG · AU

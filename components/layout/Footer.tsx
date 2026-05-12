@@ -1,10 +1,18 @@
 import Link from "next/link";
+import { Shield, Mail, Clock, ArrowRight } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
 
-const FOOTER_NAV = [
-  { label: "Home", href: "/" },
+const SERVICES = [
+  { label: "ASIN Reinstatement", href: "/services#asin-reinstatement" },
+  { label: "Safety Document Validation", href: "/services#safety-validation" },
+  { label: "Document Validation", href: "/services#document-validation" },
+  { label: "CPC Creation", href: "/services#cpc-creation" },
+  { label: "DOC / GCC Creation", href: "/services#doc-gcc-creation" },
+];
+
+const COMPANY = [
   { label: "About", href: "/about" },
-  { label: "Services", href: "/services" },
+  { label: "Our Process", href: "/#process" },
   { label: "Safety Guide", href: "/safety-guide" },
   { label: "Pricing", href: "/pricing" },
   { label: "Free Review", href: "/free-validation" },
@@ -16,108 +24,222 @@ const LEGAL = [
   { label: "Terms & Conditions", href: "/terms" },
 ];
 
-const JURISDICTIONS = ["US", "CA", "EU", "UK", "IN", "SG", "AU"];
+const linkStyle = { fontFamily: "var(--font-outfit)" };
+const headingStyle = { fontFamily: "var(--font-outfit)" };
 
 export default function Footer() {
+  const year = new Date().getFullYear();
+  const hasEmail = !siteConfig.contactEmail.startsWith("TODO");
+
   return (
-    <footer className="bg-[#2D2A26] py-16 md:py-20">
-      <div className="max-w-6xl mx-auto px-5 sm:px-8">
-        <div className="grid md:grid-cols-3 gap-12 md:gap-8 mb-14">
-          {/* Brand */}
+    <footer className="relative bg-[#1f1c19] text-[#FAF7F2]">
+      {/* Top gold accent */}
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-[#B8860B]/40 to-transparent" />
+
+      {/* CTA strip */}
+      <div className="border-b border-[#FAF7F2]/8">
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-10 md:py-12 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <div>
-            <h4
-              className="text-xl text-[#FAF7F2] mb-3"
+            <p
+              className="text-[#B8860B] text-xs tracking-[0.22em] uppercase mb-2"
+              style={headingStyle}
+            >
+              Start Free
+            </p>
+            <h3
+              className="text-2xl sm:text-3xl text-[#FAF7F2] leading-tight"
               style={{ fontFamily: "var(--font-dm-serif)" }}
             >
-              Amazon Safety Pro
-            </h4>
+              Not sure where your compliance stands?
+            </h3>
             <p
-              className="text-sm text-[#FAF7F2]/50 leading-relaxed mb-5"
-              style={{ fontFamily: "var(--font-outfit)" }}
+              className="text-sm text-[#FAF7F2]/55 mt-2 max-w-md leading-relaxed"
+              style={linkStyle}
             >
-              Compliance handled by people who built the rules.
+              Send us your product details and Amazon notifications — we&rsquo;ll review them at no cost and tell you exactly what you need.
             </p>
-            <div className="flex flex-wrap gap-2">
-              {JURISDICTIONS.map((j) => (
-                <span
-                  key={j}
-                  className="text-xs px-2.5 py-1 border border-[#B8860B]/30 text-[#B8860B] rounded"
-                  style={{ fontFamily: "var(--font-outfit)" }}
-                >
-                  {j}
-                </span>
-              ))}
+          </div>
+          <Link
+            href="/free-validation"
+            className="group inline-flex items-center justify-center gap-2 bg-[#B8860B] hover:bg-[#daa520] text-[#1f1c19] px-7 py-3.5 rounded-lg text-sm font-semibold tracking-wider uppercase transition-colors whitespace-nowrap"
+            style={linkStyle}
+          >
+            Request free review
+            <ArrowRight
+              size={16}
+              className="transition-transform group-hover:translate-x-1"
+            />
+          </Link>
+        </div>
+      </div>
+
+      {/* Main grid */}
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-14 md:pt-16 pb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12">
+          {/* Brand */}
+          <div className="lg:col-span-4">
+            <div className="flex items-center gap-2.5 mb-5">
+              <div className="w-9 h-9 rounded-lg bg-[#B8860B]/15 border border-[#B8860B]/30 flex items-center justify-center text-[#B8860B]">
+                <Shield size={18} strokeWidth={1.8} />
+              </div>
+              <span
+                className="text-lg text-[#FAF7F2]"
+                style={{ fontFamily: "var(--font-dm-serif)" }}
+              >
+                Amazon Safety Pro
+              </span>
+            </div>
+            <p
+              className="text-sm text-[#FAF7F2]/60 leading-relaxed mb-6 max-w-sm"
+              style={linkStyle}
+            >
+              Amazon product safety and ASIN reinstatement, delivered by
+              ex-Amazonians who spent years inside the product safety team. We
+              know what Amazon&rsquo;s reviewers look for — because we were
+              those reviewers.
+            </p>
+            <div
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#B8860B]/25 bg-[#B8860B]/[0.06]"
+              style={linkStyle}
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-[#B8860B]" />
+              <span className="text-[11px] tracking-wider uppercase text-[#B8860B]">
+                Ex-Amazon Safety Team
+              </span>
             </div>
           </div>
 
-          {/* Navigation */}
-          <div>
+          {/* Services */}
+          <div className="lg:col-span-3">
             <h5
-              className="text-sm uppercase tracking-wider text-[#B8860B] mb-4"
-              style={{ fontFamily: "var(--font-outfit)" }}
+              className="text-[11px] uppercase tracking-[0.2em] text-[#B8860B] mb-5 font-semibold"
+              style={headingStyle}
             >
-              Navigation
+              Services
             </h5>
-            <ul className="space-y-2.5">
-              {FOOTER_NAV.map((link) => (
-                <li key={link.href}>
+            <ul className="space-y-3">
+              {SERVICES.map((item) => (
+                <li key={item.href}>
                   <Link
-                    href={link.href}
-                    className="text-sm text-[#FAF7F2]/50 hover:text-[#B8860B] transition-colors"
-                    style={{ fontFamily: "var(--font-outfit)" }}
+                    href={item.href}
+                    className="group inline-flex items-center gap-1.5 text-sm text-[#FAF7F2]/60 hover:text-[#B8860B] transition-colors"
+                    style={linkStyle}
                   >
-                    {link.label}
+                    <span>{item.label}</span>
+                    <ArrowRight
+                      size={12}
+                      className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all"
+                    />
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Legal & Contact */}
-          <div>
+          {/* Company */}
+          <div className="lg:col-span-2">
             <h5
-              className="text-sm uppercase tracking-wider text-[#B8860B] mb-4"
-              style={{ fontFamily: "var(--font-outfit)" }}
+              className="text-[11px] uppercase tracking-[0.2em] text-[#B8860B] mb-5 font-semibold"
+              style={headingStyle}
             >
-              Legal & Contact
+              Company
             </h5>
-            <ul className="space-y-2.5">
-              {LEGAL.map((link) => (
-                <li key={link.href}>
+            <ul className="space-y-3">
+              {COMPANY.map((item) => (
+                <li key={item.href}>
                   <Link
-                    href={link.href}
-                    className="text-sm text-[#FAF7F2]/50 hover:text-[#B8860B] transition-colors"
-                    style={{ fontFamily: "var(--font-outfit)" }}
+                    href={item.href}
+                    className="text-sm text-[#FAF7F2]/60 hover:text-[#B8860B] transition-colors"
+                    style={linkStyle}
                   >
-                    {link.label}
+                    {item.label}
                   </Link>
                 </li>
               ))}
-              <li>
-                <a
-                  href={"mailto:" + siteConfig.contactEmail}
-                  className="text-sm text-[#FAF7F2]/50 hover:text-[#B8860B] transition-colors"
-                  style={{ fontFamily: "var(--font-outfit)" }}
-                >
-                  {siteConfig.contactEmail}
-                </a>
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div className="lg:col-span-3">
+            <h5
+              className="text-[11px] uppercase tracking-[0.2em] text-[#B8860B] mb-5 font-semibold"
+              style={headingStyle}
+            >
+              Get in touch
+            </h5>
+            <ul className="space-y-4">
+              {hasEmail && (
+                <li className="flex items-start gap-3">
+                  <Mail
+                    size={16}
+                    className="text-[#B8860B] mt-0.5 flex-shrink-0"
+                    strokeWidth={1.8}
+                  />
+                  <a
+                    href={"mailto:" + siteConfig.contactEmail}
+                    className="text-sm text-[#FAF7F2]/70 hover:text-[#B8860B] transition-colors break-all"
+                    style={linkStyle}
+                  >
+                    {siteConfig.contactEmail}
+                  </a>
+                </li>
+              )}
+              <li className="flex items-start gap-3">
+                <Clock
+                  size={16}
+                  className="text-[#B8860B] mt-0.5 flex-shrink-0"
+                  strokeWidth={1.8}
+                />
+                <div>
+                  <p
+                    className="text-sm text-[#FAF7F2]/70"
+                    style={linkStyle}
+                  >
+                    Response within 24 hours
+                  </p>
+                  <p
+                    className="text-xs text-[#FAF7F2]/40 mt-0.5"
+                    style={linkStyle}
+                  >
+                    Mon–Sat, IST business hours
+                  </p>
+                </div>
               </li>
             </ul>
           </div>
         </div>
+      </div>
 
-        <div className="border-t border-[#FAF7F2]/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p
-            className="text-xs text-[#FAF7F2]/30"
-            style={{ fontFamily: "var(--font-outfit)" }}
+      {/* Legal bar */}
+      <div className="border-t border-[#FAF7F2]/8">
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div
+            className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-5 text-xs text-[#FAF7F2]/40"
+            style={linkStyle}
           >
-            &copy; {new Date().getFullYear()} Amazon Safety Pro. All rights reserved.
-          </p>
+            <span>
+              &copy; {year} {siteConfig.businessName}. All rights reserved.
+            </span>
+            <span className="hidden sm:inline text-[#FAF7F2]/15">/</span>
+            <div className="flex items-center gap-5">
+              {LEGAL.map((l) => (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  className="hover:text-[#B8860B] transition-colors"
+                >
+                  {l.label}
+                </Link>
+              ))}
+            </div>
+          </div>
           <p
-            className="text-xs text-[#FAF7F2]/30"
-            style={{ fontFamily: "var(--font-outfit)" }}
+            className="text-[11px] text-[#FAF7F2]/30 max-w-md md:text-right"
+            style={linkStyle}
           >
-            Amazon is a trademark of Amazon.com, Inc. We are not affiliated with Amazon.
+            Amazon is a trademark of Amazon.com, Inc. Amazon Safety Pro is an
+            independent compliance service and is not affiliated with or
+            endorsed by Amazon.
           </p>
         </div>
       </div>

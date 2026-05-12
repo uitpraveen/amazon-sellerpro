@@ -11,12 +11,12 @@ export const metadata: Metadata = {
 };
 
 const TOC = [
-  { id: "section-4a", number: "4a", label: "What is product safety" },
-  { id: "section-4b", number: "4b", label: "Global policies" },
-  { id: "section-4c-i", number: "4c·i", label: "Products requiring docs" },
-  { id: "section-4c-ii", number: "4c·ii", label: "Restricted products" },
-  { id: "section-4c-iii", number: "4c·iii", label: "Dangerous goods" },
-  { id: "section-4c-iv", number: "4c·iv", label: "Amazon TIC policy" },
+  { id: "section-4a", number: "1", label: "What is product safety" },
+  { id: "section-4b", number: "2", label: "Global policies" },
+  { id: "section-4c-i", number: "3", label: "Products requiring docs" },
+  { id: "section-4c-ii", number: "4", label: "Restricted products" },
+  { id: "section-4c-iii", number: "5", label: "Dangerous goods" },
+  { id: "section-4c-iv", number: "6", label: "Amazon TIC policy" },
 ];
 
 function SectionHeading({ num, title }: { num: string; title: string }) {
@@ -225,28 +225,6 @@ export default function SafetyGuidePage() {
               multiple regions, the information here will help you navigate
               compliance with confidence.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <span
-                className="rounded-full px-4 py-1.5 text-sm font-semibold"
-                style={{
-                  background: "#E8E0D4",
-                  color: "#6B6560",
-                  fontFamily: "Outfit, sans-serif",
-                }}
-              >
-                6 Sections
-              </span>
-              <span
-                className="rounded-full px-4 py-1.5 text-sm font-semibold"
-                style={{
-                  background: "#E8E0D4",
-                  color: "#6B6560",
-                  fontFamily: "Outfit, sans-serif",
-                }}
-              >
-                Updated March 2026
-              </span>
-            </div>
           </div>
         </section>
 
@@ -266,7 +244,7 @@ export default function SafetyGuidePage() {
                 {/* 4a */}
                 <article id="section-4a" className="scroll-mt-32">
                   <SectionHeading
-                    num="4a"
+                    num="1"
                     title="What is product safety and why it is needed"
                   />
                   <P>
@@ -459,7 +437,7 @@ export default function SafetyGuidePage() {
                 {/* 4b */}
                 <article id="section-4b" className="scroll-mt-32">
                   <SectionHeading
-                    num="4b"
+                    num="2"
                     title="Global product safety policies across different marketplaces"
                   />
                   <P>
@@ -531,7 +509,7 @@ export default function SafetyGuidePage() {
                 {/* 4c-i */}
                 <article id="section-4c-i" className="scroll-mt-32">
                   <SectionHeading
-                    num="4c·i"
+                    num="3"
                     title="Products requiring safety documents"
                   />
                   <P>
@@ -575,7 +553,7 @@ export default function SafetyGuidePage() {
 
                 {/* 4c-ii */}
                 <article id="section-4c-ii" className="scroll-mt-32">
-                  <SectionHeading num="4c·ii" title="Restricted products" />
+                  <SectionHeading num="4" title="Restricted products" />
                   <P>
                     Amazon maintains a list of restricted products that may not be
                     sold on the platform, or may only be sold with prior approval.
@@ -603,7 +581,7 @@ export default function SafetyGuidePage() {
                 {/* 4c-iii */}
                 <article id="section-4c-iii" className="scroll-mt-32">
                   <SectionHeading
-                    num="4c·iii"
+                    num="5"
                     title="Dangerous goods (Hazmat)"
                   />
                   <P>
@@ -625,7 +603,7 @@ export default function SafetyGuidePage() {
                 {/* 4c-iv */}
                 <article id="section-4c-iv" className="scroll-mt-32">
                   <SectionHeading
-                    num="4c·iv"
+                    num="6"
                     title="Amazon TIC Policy — Testing, Inspection and Certification"
                   />
 

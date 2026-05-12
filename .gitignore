@@ -41,3 +41,14 @@ next-env.d.ts
 
 # superpowers
 .superpowers/
+
+# playwright MCP session artifacts
+.playwright-mcp/
+
+# stray design reference images at repo root (not used by code)
+/*.jpeg
+/*.jpg
+/*.png
+
+# Office lock files
+~$*

@@ -28,7 +28,7 @@ export default function EditorialHero() {
           className="mb-16 flex items-center justify-between border-b border-[var(--ink)]/15 pb-6"
         >
           <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--ink-3)]">
-            Est. 2026 · Proxima CPEX LLC
+            Est. 2026 · Amazon Safety Pro
           </span>
           <span className="hidden font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--ink-3)] sm:inline">
             07 marketplaces · one team

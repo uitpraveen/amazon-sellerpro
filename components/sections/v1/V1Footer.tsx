@@ -84,8 +84,7 @@ export default function V1Footer() {
 
         <div className="border-t border-[#F4F0E8]/20 pt-6">
           <p className="font-bricolage text-[10px] font-[700] uppercase tracking-wider text-[#F4F0E8]/50">
-            © 2026 {siteConfig.legalEntity} · {siteConfig.registeredAddress} ·
-            All rights reserved
+            © 2026 {siteConfig.businessName} · All rights reserved
           </p>
         </div>
       </div>

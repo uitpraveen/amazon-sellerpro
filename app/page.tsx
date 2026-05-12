@@ -7,6 +7,7 @@ import RestrictedSlider from "@/components/sections/home/RestrictedSlider";
 import ProcessFlow from "@/components/sections/home/ProcessFlow";
 import WhyUs from "@/components/sections/home/WhyUs";
 import HomeCTA from "@/components/sections/home/HomeCTA";
+import DifferenceClosing from "@/components/sections/home/DifferenceClosing";
 
 export default function HomePage() {
   return (
@@ -15,11 +16,12 @@ export default function HomePage() {
       <main>
         <HeroSlider />
         <SoundFamiliar />
+        <HomeCTA />
         <ServiceCards />
         <RestrictedSlider />
         <ProcessFlow />
         <WhyUs />
-        <HomeCTA />
+        <DifferenceClosing />
       </main>
       <Footer />
     </div>

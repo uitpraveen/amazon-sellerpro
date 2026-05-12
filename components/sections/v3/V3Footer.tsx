@@ -99,7 +99,7 @@ export default function V3Footer() {
 
         <div className="mt-20 flex flex-col items-start justify-between gap-4 border-t border-[#1F3D2E]/15 pt-8 md:flex-row md:items-center">
           <p className="text-[11px] font-[500] text-[#1F3D2E]/50">
-            © 2026 {siteConfig.legalEntity} · Made with care
+            © 2026 {siteConfig.businessName} · Made with care
           </p>
           <div className="flex flex-wrap gap-2">
             {["US", "CA", "EU", "UK", "IN", "SG", "AU"].map((j) => (

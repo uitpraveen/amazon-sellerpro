@@ -23,12 +23,9 @@ export default function V2Hero() {
           <div className="flex items-center gap-3">
             <span className="h-1.5 w-1.5 rounded-full bg-[#C8A45C]" />
             <span className="text-[11px] font-medium uppercase tracking-[0.25em] text-[#0F1B3C]/60">
-              Proxima CPEX LLC · Est. 2026
+              Amazon Safety Pro · Est. 2026
             </span>
           </div>
-          <span className="hidden text-[11px] font-medium uppercase tracking-[0.25em] text-[#0F1B3C]/60 md:inline">
-            Tamil Nadu · India
-          </span>
         </motion.div>
       </div>
 

@@ -10,9 +10,9 @@ export default function ServicesGridSection() {
     <>
       {/* Hero */}
       <section
+        className="pt-32 lg:pt-40"
         style={{
           background: "#FAF7F2",
-          paddingTop: "96px",
           paddingBottom: "72px",
           borderBottom: "1px solid #E8E0D4",
         }}

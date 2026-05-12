@@ -12,7 +12,7 @@ import LegalDocumentLayout, {
 export const metadata: Metadata = {
   title: "Terms and Conditions — Amazon Safety Pro",
   description:
-    "Terms and Conditions of Service governing the relationship between Proxima CPEX LLC (Amazon Safety Pro) and clients.",
+    "Terms and Conditions of Service governing the relationship between Amazon Safety Pro and clients.",
 };
 
 const SECTIONS: LegalSection[] = [
@@ -23,34 +23,17 @@ const SECTIONS: LegalSection[] = [
     body: (
       <>
         <LegalP>
-          Amazon Safety Pro is a compliance consulting brand operated by{" "}
-          {siteConfig.legalEntity}, a company registered in{" "}
-          {siteConfig.registeredAddress}. We provide Amazon product safety and
-          compliance advisory services, including but not limited to
-          Children&rsquo;s Product Certificate (CPC) creation, Declaration of
-          Conformity (DOC) and General Certificate of Conformity (GCC)
-          creation, compliance document validation, product safety document
-          validation, and Amazon stranded ASIN reinstatement support.
-        </LegalP>
-        <LegalP>
-          <strong className="text-[var(--ink)]">Registered entity:</strong>{" "}
-          {siteConfig.legalEntity}
-        </LegalP>
-        <LegalP>
-          <strong className="text-[var(--ink)]">Brand:</strong>{" "}
-          {siteConfig.businessName}
-        </LegalP>
-        <LegalP>
-          <strong className="text-[var(--ink)]">Registered address:</strong>{" "}
-          {siteConfig.registeredAddress}
+          Amazon Safety Pro is a compliance consulting service providing
+          Amazon product safety and compliance advisory, including but not
+          limited to Children&rsquo;s Product Certificate (CPC) creation,
+          Declaration of Conformity (DOC) and General Certificate of
+          Conformity (GCC) creation, compliance document validation, product
+          safety document validation, and Amazon stranded ASIN reinstatement
+          support.
         </LegalP>
         <LegalP>
           <strong className="text-[var(--ink)]">Contact email:</strong>{" "}
           {siteConfig.contactEmail}
-        </LegalP>
-        <LegalP>
-          <strong className="text-[var(--ink)]">Website:</strong>{" "}
-          {siteConfig.websiteUrl}
         </LegalP>
       </>
     ),
@@ -331,8 +314,8 @@ const SECTIONS: LegalSection[] = [
       <>
         <LegalP>
           To the fullest extent permitted by applicable law, Amazon Safety
-          Pro and {siteConfig.legalEntity} make no warranties,
-          representations, or guarantees, express or implied, in relation to:
+          Pro makes no warranties, representations, or guarantees, express
+          or implied, in relation to:
         </LegalP>
         <LegalBullets
           items={[
@@ -410,9 +393,8 @@ const SECTIONS: LegalSection[] = [
     body: (
       <>
         <LegalP>
-          To the maximum extent permitted by applicable law,{" "}
-          {siteConfig.legalEntity} and Amazon Safety Pro shall not be liable
-          to you for any:
+          To the maximum extent permitted by applicable law, Amazon Safety
+          Pro shall not be liable to you for any:
         </LegalP>
         <LegalBullets
           items={[
@@ -512,7 +494,7 @@ const SECTIONS: LegalSection[] = [
           These Terms and any dispute or claim arising out of or in
           connection with them — including non-contractual disputes or claims
           — shall be governed by and construed in accordance with the laws of
-          India, specifically the laws applicable in the state of Tamil Nadu.
+          India.
         </LegalP>
         <LegalSubHeading>Dispute resolution</LegalSubHeading>
         <LegalP>
@@ -525,17 +507,17 @@ const SECTIONS: LegalSection[] = [
         <LegalP>
           If the dispute is not resolved within 30 days of such notice (or
           such longer period as the parties may agree in writing), either
-          party may refer the matter to the courts of Tamil Nadu, India,
-          which shall have exclusive jurisdiction over all disputes arising
-          under or in connection with these Terms.
+          party may refer the matter to the courts of India, which shall
+          have exclusive jurisdiction over all disputes arising under or in
+          connection with these Terms.
         </LegalP>
         <LegalP>
           <strong className="text-[var(--ink)]">
             Note for international clients:
           </strong>{" "}
           By engaging our services and accepting these Terms, you agree to
-          submit to the jurisdiction of the courts of Tamil Nadu, India for
-          the resolution of any disputes. We recommend you seek independent
+          submit to the jurisdiction of the courts of India for the
+          resolution of any disputes. We recommend you seek independent
           legal advice if you have concerns about this jurisdiction clause.
         </LegalP>
       </>
@@ -583,7 +565,7 @@ const SECTIONS: LegalSection[] = [
       <LegalP>
         These Terms, together with our Privacy Policy and any written service
         quotation or proposal provided to you, constitute the entire
-        agreement between you and {siteConfig.legalEntity} in relation to the
+        agreement between you and Amazon Safety Pro in relation to the
         services described herein. They supersede all prior discussions,
         representations, or agreements between the parties relating to the
         same subject matter.
@@ -600,20 +582,10 @@ const SECTIONS: LegalSection[] = [
           If you have any questions about these Terms or wish to discuss your
           engagement with us, please contact us at:
         </LegalP>
-        <LegalP>
-          {siteConfig.legalEntity} — {siteConfig.businessName}
-        </LegalP>
+        <LegalP>{siteConfig.businessName}</LegalP>
         <LegalP>
           <strong className="text-[var(--ink)]">Email:</strong>{" "}
           {siteConfig.contactEmail}
-        </LegalP>
-        <LegalP>
-          <strong className="text-[var(--ink)]">Website:</strong>{" "}
-          {siteConfig.websiteUrl}
-        </LegalP>
-        <LegalP>
-          <strong className="text-[var(--ink)]">Registered address:</strong>{" "}
-          {siteConfig.registeredAddress}
         </LegalP>
       </>
     ),
@@ -626,18 +598,15 @@ export default function TermsPage() {
       <Navbar />
       <LegalDocumentLayout
         pageTitle="Terms and Conditions of Service"
-        documentLabel="DOCUMENT // TERMS & CONDITIONS"
-        lastUpdated={siteConfig.termsLastUpdated}
-        warning="These Terms cover clients across 7 jurisdictions. We strongly recommend having a qualified legal professional review and validate this document before it is published or relied upon."
         intro={
           <div className="space-y-4 text-[17px] leading-relaxed text-[var(--ink-2)]">
             <p>
               These Terms and Conditions (&ldquo;Terms&rdquo;) govern the
-              relationship between {siteConfig.legalEntity}, operating under
-              the brand Amazon Safety Pro (&ldquo;we&rdquo;, &ldquo;us&rdquo;,
-              or &ldquo;our&rdquo;), and any individual or business entity
-              (&ldquo;Client&rdquo;, &ldquo;you&rdquo;, or &ldquo;your&rdquo;)
-              that engages our services or accesses our website.
+              relationship between Amazon Safety Pro (&ldquo;we&rdquo;,
+              &ldquo;us&rdquo;, or &ldquo;our&rdquo;), and any individual or
+              business entity (&ldquo;Client&rdquo;, &ldquo;you&rdquo;, or
+              &ldquo;your&rdquo;) that engages our services or accesses our
+              website.
             </p>
             <p>
               By making a payment for any of our services — whether through

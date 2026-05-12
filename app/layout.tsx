@@ -15,8 +15,11 @@ import {
   Manrope,
   Nunito,
 } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import TacticalShell from "@/components/layout/TacticalShell";
+
+const WINDOWS_SCALING_FIX = `(function(){function a(){try{var w=navigator.userAgent.indexOf('Windows')!==-1;var d=window.devicePixelRatio||1;var iw=window.innerWidth||document.documentElement.clientWidth;var e=document.documentElement;if(!w||iw<1024){e.style.zoom='';return;}if(d>=1.7){e.style.zoom='0.7';}else if(d>=1.4){e.style.zoom='0.8';}else if(d>=1.2){e.style.zoom='0.9';}else{e.style.zoom='';}}catch(err){}}a();window.addEventListener('resize',a);})();`;
 
 const geist = Geist({
   subsets: ["latin"],
@@ -141,6 +144,9 @@ export default function RootLayout({
       className={`${geist.variable} ${geistMono.variable} ${fraunces.variable} ${bricolage.variable} ${playfair.variable} ${lora.variable} ${inter.variable} ${dmSans.variable} ${dmSerif.variable} ${jakarta.variable} ${syne.variable} ${outfit.variable} ${manrope.variable} ${nunito.variable}`}
     >
       <body className="bg-[var(--paper)] text-[var(--ink)] antialiased">
+        <Script id="windows-scaling-fix" strategy="beforeInteractive">
+          {WINDOWS_SCALING_FIX}
+        </Script>
         <TacticalShell>{children}</TacticalShell>
       </body>
     </html>

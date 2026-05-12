@@ -4,8 +4,6 @@
  */
 export const siteConfig = {
   businessName: "Amazon Safety Pro",
-  legalEntity: "Proxima CPEX LLC",
-  registeredAddress: "Tamil Nadu, India",
 
   // TODO: replace before launch
   contactEmail: "TODO@amazonsafetypro.com",
