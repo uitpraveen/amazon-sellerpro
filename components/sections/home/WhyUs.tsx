@@ -38,7 +38,7 @@ const stagger = {
 export default function WhyUs() {
   return (
     <section className="bg-[#FAF7F2] py-16 sm:py-24 md:py-32">
-      <div className="max-w-5xl mx-auto px-4 sm:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8">
         {/* Header */}
         <motion.div
           initial="hidden"

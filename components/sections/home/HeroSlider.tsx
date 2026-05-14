@@ -100,7 +100,7 @@ export default function HeroSlider() {
 
       {/* Main content */}
       <div className="relative z-10 flex-1 flex items-center justify-center w-full min-h-0">
-        <div className="max-w-5xl mx-auto w-full px-5 sm:px-8 text-center pt-24 sm:pt-28 pb-6 sm:pb-8">
+        <div className="max-w-7xl mx-auto w-full px-5 sm:px-8 text-center pt-24 sm:pt-28 pb-6 sm:pb-8">
           <AnimatePresence mode="wait">
             <motion.div key={current} className="space-y-0">
               {/* Subtitle with line */}

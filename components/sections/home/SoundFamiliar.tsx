@@ -22,7 +22,7 @@ const stagger = {
 export default function SoundFamiliar() {
   return (
     <section className="bg-[#FAF7F2] py-16 sm:py-20 md:py-28">
-      <div className="max-w-4xl mx-auto px-4 sm:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8">
         <motion.h2
           variants={fadeUp}
           initial="hidden"

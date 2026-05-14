@@ -96,7 +96,7 @@ export default function FreeValidationPage() {
       <main className="bg-[#FAF7F2]">
         {/* Hero */}
         <section className="border-b border-[#E8E0D4]">
-          <div className="mx-auto max-w-5xl px-6 pt-32 pb-16 lg:px-12 lg:pt-40">
+          <div className="mx-auto max-w-7xl px-6 pt-32 pb-16 lg:px-12 lg:pt-40">
             <p className="font-[family-name:var(--font-outfit)] text-sm font-semibold uppercase tracking-widest text-[#B8860B]">
               Free Document Review
             </p>
@@ -122,7 +122,7 @@ export default function FreeValidationPage() {
 
         {/* Form + Sidebar */}
         <section>
-          <div className="mx-auto max-w-5xl px-6 py-16 lg:px-12">
+          <div className="mx-auto max-w-7xl px-6 py-16 lg:px-12">
             <div className="grid gap-12 lg:grid-cols-12">
               {/* Sidebar info card */}
               <aside className="lg:col-span-4">

@@ -99,7 +99,7 @@ export default function RestrictedSlider() {
 
   return (
     <section className="bg-[#1B4332] py-20 sm:py-24 md:py-32 overflow-hidden">
-      <div className="max-w-6xl mx-auto px-4 sm:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8">
         <motion.div
           initial="hidden"
           whileInView="visible"

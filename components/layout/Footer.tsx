@@ -38,7 +38,7 @@ export default function Footer() {
 
       {/* CTA strip */}
       <div className="border-b border-[#FAF7F2]/8">
-        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-10 md:py-12 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 py-10 md:py-12 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <div>
             <p
               className="text-[#B8860B] text-xs tracking-[0.22em] uppercase mb-2"
@@ -74,7 +74,7 @@ export default function Footer() {
       </div>
 
       {/* Main grid */}
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-14 md:pt-16 pb-10">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 pt-14 md:pt-16 pb-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12">
           {/* Brand */}
           <div className="lg:col-span-4">
@@ -191,7 +191,7 @@ export default function Footer() {
 
       {/* Legal bar */}
       <div className="border-t border-[#FAF7F2]/8">
-        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 py-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div
             className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-5 text-xs text-[#FAF7F2]/40"
             style={linkStyle}

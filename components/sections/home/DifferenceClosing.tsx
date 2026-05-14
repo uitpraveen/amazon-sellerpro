@@ -26,7 +26,7 @@ export default function DifferenceClosing() {
     <>
       {/* The Amazon Safety Pro difference — bullet band */}
       <section className="bg-[#FAF7F2] py-20 sm:py-24 md:py-28 border-t border-[#E8E0D4]">
-        <div className="max-w-5xl mx-auto px-4 sm:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8">
           <motion.div
             initial="hidden"
             whileInView="visible"

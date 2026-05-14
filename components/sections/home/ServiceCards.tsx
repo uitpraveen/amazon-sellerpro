@@ -52,7 +52,7 @@ const stagger = {
 export default function ServiceCards() {
   return (
     <section className="bg-[#FAF7F2] py-16 sm:py-20 md:py-28">
-      <div className="max-w-5xl mx-auto px-4 sm:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8">
         <motion.div
           initial="hidden"
           whileInView="visible"

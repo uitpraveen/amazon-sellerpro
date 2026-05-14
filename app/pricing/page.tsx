@@ -142,7 +142,7 @@ export default function PricingPage() {
         {/* Hero */}
         <section className="relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(184,134,11,0.08),transparent_60%)] pointer-events-none" />
-          <div className="relative max-w-6xl mx-auto px-5 sm:px-8 pt-36 lg:pt-44 pb-16 lg:pb-20 text-center">
+          <div className="relative max-w-7xl mx-auto px-5 sm:px-8 pt-36 lg:pt-44 pb-16 lg:pb-20 text-center">
             <p
               className="text-[#B8860B] text-xs tracking-[0.22em] uppercase mb-4 font-semibold"
               style={cardFont}
@@ -169,7 +169,7 @@ export default function PricingPage() {
 
         {/* Tier cards */}
         <section className="pb-20 lg:pb-28">
-          <div className="max-w-6xl mx-auto px-5 sm:px-8">
+          <div className="max-w-7xl mx-auto px-5 sm:px-8">
             <div className="grid md:grid-cols-3 gap-6 lg:gap-7">
               {TIERS.map((tier) => {
                 const Icon = tier.icon;
@@ -310,7 +310,7 @@ export default function PricingPage() {
 
         {/* Trust strip */}
         <section className="border-y border-[#E8E0D4] bg-white/60">
-          <div className="max-w-6xl mx-auto px-5 sm:px-8 py-12 lg:py-14">
+          <div className="max-w-7xl mx-auto px-5 sm:px-8 py-12 lg:py-14">
             <div className="grid sm:grid-cols-3 gap-8 sm:gap-6">
               {TRUST.map((t) => {
                 const Icon = t.icon;
@@ -345,7 +345,7 @@ export default function PricingPage() {
 
         {/* How pricing works */}
         <section className="py-20 lg:py-28">
-          <div className="max-w-6xl mx-auto px-5 sm:px-8">
+          <div className="max-w-7xl mx-auto px-5 sm:px-8">
             <div className="text-center mb-14">
               <p
                 className="text-[#B8860B] text-xs tracking-[0.22em] uppercase mb-3 font-semibold"
@@ -448,7 +448,7 @@ export default function PricingPage() {
 
         {/* Final CTA */}
         <section className="pb-24 lg:pb-32">
-          <div className="max-w-5xl mx-auto px-5 sm:px-8">
+          <div className="max-w-7xl mx-auto px-5 sm:px-8">
             <div className="relative overflow-hidden rounded-3xl bg-[#1B4332] px-8 py-14 lg:px-16 lg:py-20 text-center">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(184,134,11,0.2),transparent_55%)] pointer-events-none" />
               <div className="relative">

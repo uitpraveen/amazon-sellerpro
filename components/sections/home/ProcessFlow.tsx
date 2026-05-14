@@ -364,7 +364,7 @@ export default function ProcessFlow() {
           </div>
 
           <div className="relative z-10 px-8">
-            <div className="max-w-6xl 2xl:max-w-7xl mx-auto w-full grid grid-cols-12 gap-8 lg:gap-16 items-center">
+            <div className="max-w-7xl mx-auto w-full grid grid-cols-12 gap-8 lg:gap-16 items-center">
               <div className="col-span-2 flex flex-col gap-5">
                 {STEPS.map((_, i) => (
                   <IndicatorBlock
@@ -404,7 +404,7 @@ export default function ProcessFlow() {
           </div>
 
           <div className="relative z-10 w-full px-8 mt-14 lg:mt-16 2xl:mt-20">
-            <div className="max-w-6xl 2xl:max-w-7xl mx-auto">
+            <div className="max-w-7xl mx-auto">
               <div className="h-[2px] bg-[#2D2A26]/10 rounded-full overflow-hidden">
                 <motion.div
                   style={{ width: progressBarWidth }}
@@ -418,7 +418,7 @@ export default function ProcessFlow() {
 
       {/* Mobile — vertical timeline */}
       <section className="md:hidden bg-[#FAF7F2] py-16">
-        <div className="max-w-5xl mx-auto px-4">
+        <div className="max-w-7xl mx-auto px-4">
           <motion.div
             initial="hidden"
             whileInView="visible"
