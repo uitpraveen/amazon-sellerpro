@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Shield, Mail, Clock, ArrowRight } from "lucide-react";
+import { Shield, Mail, ArrowRight } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
 
 const SERVICES = [
@@ -184,27 +184,6 @@ export default function Footer() {
                   </a>
                 </li>
               )}
-              <li className="flex items-start gap-3">
-                <Clock
-                  size={16}
-                  className="text-[#B8860B] mt-0.5 flex-shrink-0"
-                  strokeWidth={1.8}
-                />
-                <div>
-                  <p
-                    className="text-sm text-[#FAF7F2]/70"
-                    style={linkStyle}
-                  >
-                    Response within 24 hours
-                  </p>
-                  <p
-                    className="text-xs text-[#FAF7F2]/40 mt-0.5"
-                    style={linkStyle}
-                  >
-                    Mon–Sat, IST business hours
-                  </p>
-                </div>
-              </li>
             </ul>
           </div>
         </div>

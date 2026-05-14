@@ -116,6 +116,37 @@ button:disabled,
   color: var(--signal);
 }
 
+/* Animated neon gold border — used in Navbar */
+@keyframes neon-shimmer {
+  0% { background-position: 0% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.neon-gold-border {
+  background-image: linear-gradient(
+    90deg,
+    #96700A 0%,
+    #B8860B 25%,
+    #D9A328 42%,
+    #E8B33A 50%,
+    #D9A328 58%,
+    #B8860B 75%,
+    #96700A 100%
+  );
+  background-size: 200% 100%;
+  background-repeat: repeat-x;
+  animation: neon-shimmer 4s linear infinite;
+  box-shadow:
+    0 0 6px rgba(184, 134, 11, 0.65),
+    0 0 14px rgba(184, 134, 11, 0.4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .neon-gold-border {
+    animation: none;
+  }
+}
+
 /* Selection */
 ::selection {
   background: var(--signal);

@@ -6,33 +6,80 @@ import { motion } from "framer-motion";
 import {
   ChevronLeft,
   ChevronRight,
+  Ban,
   Baby,
-  Headphones,
+  Backpack,
   Sparkles,
-  Milk,
   ChefHat,
   Shirt,
   Leaf,
   BatteryCharging,
   ArrowRight,
 } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+import type { ComponentType, SVGProps } from "react";
+
+type IconComponent = ComponentType<SVGProps<SVGSVGElement> & { size?: number; strokeWidth?: number }>;
+
+const Hairdryer: IconComponent = ({ size = 24, strokeWidth = 2, ...rest }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={strokeWidth}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...rest}
+  >
+    <path d="M3 5h13a3 3 0 0 1 3 3v2a3 3 0 0 1-3 3h-6l-1 5H7a1 1 0 0 1-1-1v-4H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z" />
+    <circle cx="6" cy="9" r="1.5" />
+    <path d="M19 7l3-1" />
+    <path d="M19 9h3" />
+    <path d="M19 11l3 1" />
+  </svg>
+);
+
+const FeedingBottle: IconComponent = ({ size = 24, strokeWidth = 2, ...rest }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={strokeWidth}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...rest}
+  >
+    <path d="M10.5 4.5V3a1.5 1.5 0 0 1 3 0v1.5" />
+    <path d="M9 4.5h6v2.5H9z" />
+    <path d="M9 7c0 1-2 2-2 4v8a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-8c0-2-2-3-2-4" />
+    <path d="M13 12h2" />
+    <path d="M13 15h2" />
+    <path d="M13 18h2" />
+  </svg>
+);
 
 type Category = {
-  icon: LucideIcon;
+  icon: IconComponent;
   name: string;
   note: string;
 };
 
 const CATEGORIES: Category[] = [
+  { icon: Ban, name: "Restricted Products", note: "Pre-approval & gating required" },
   { icon: Baby, name: "Children's Toys", note: "CPSIA, ASTM F963, CPC required" },
-  { icon: Headphones, name: "Electronics", note: "FCC, UL certification, GCC required" },
-  { icon: Sparkles, name: "Cosmetics", note: "FDA compliance, ingredient listing" },
-  { icon: Milk, name: "Baby Products", note: "CPSIA, phthalates testing, CPC" },
-  { icon: ChefHat, name: "Kitchen Appliances", note: "UL/ETL listing, GCC required" },
-  { icon: Shirt, name: "Clothing & Textiles", note: "Flammability, CPSIA (children's)" },
-  { icon: Leaf, name: "Supplements", note: "FDA, cGMP, labeling requirements" },
+  { icon: Backpack, name: "Children's Products", note: "CPSIA, CPC, third-party testing" },
+  { icon: FeedingBottle, name: "Baby Products", note: "CPSIA, phthalates testing, CPC" },
+  { icon: Hairdryer, name: "Electronics", note: "FCC, UL certification, GCC required" },
   { icon: BatteryCharging, name: "Batteries & Chargers", note: "UN38.3, UL certification" },
+  { icon: Sparkles, name: "Cosmetics", note: "FDA compliance, ingredient listing" },
+  { icon: Leaf, name: "Supplements", note: "FDA, cGMP, labeling requirements" },
+  { icon: Shirt, name: "Clothing & Textiles", note: "Flammability, CPSIA (children's)" },
+  { icon: ChefHat, name: "Kitchen Appliances", note: "UL/ETL listing, GCC required" },
 ];
 
 const SAFETY_GUIDE_HREF = "/safety-guide#section-4a";

@@ -43,12 +43,12 @@ export default function Navbar() {
             : "bg-transparent"
         }`}
       >
-        {/* Gold accent line */}
+        {/* Animated gold neon accent line */}
         <motion.div
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
+          initial={{ scaleX: 0, opacity: 0 }}
+          animate={{ scaleX: 1, opacity: 1 }}
           transition={{ duration: 0.8, ease: "easeOut" as const }}
-          className="h-[2px] w-full bg-gradient-to-r from-[#B8860B]/0 via-[#B8860B] to-[#B8860B]/0 origin-center"
+          className="neon-gold-border h-[3px] w-full origin-center"
         />
 
         {/* Desktop */}
