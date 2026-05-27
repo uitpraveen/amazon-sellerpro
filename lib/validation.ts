@@ -12,12 +12,20 @@ export const contactFormSchema = z.object({
   email: z.string().trim().email("Please enter a valid email address").max(200),
   phone: z.string().trim().max(40).optional().or(z.literal("")),
   amazonSellerId: z.string().trim().max(200).optional().or(z.literal("")),
+  amazonMarketplace: z
+    .string()
+    .trim()
+    .min(1, "Please select an Amazon marketplace")
+    .max(40),
   productCategory: z.string().trim().min(1, "Product category is required").max(120),
   inquiryType: z.enum([
-    "product_safety_compliance_advice",
-    "cpc_doc_gcc_creation",
-    "document_validation",
-    "stranded_asin_reinstatement",
+    "asin_classification_review",
+    "document_review_remediation",
+    "safety_incident_reinstatement",
+    "compliance_document_creation",
+    "product_compliance_assessment",
+    "testing_guidance",
+    "not_sure_need_advice",
     "general_question",
   ]),
   message: z.string().trim().min(10, "Please describe your issue").max(5000),

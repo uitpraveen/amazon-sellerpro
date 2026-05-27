@@ -6,7 +6,13 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "vc:whoami": "VERCEL_TOKEN=\"$(cat .vercel-token.local)\" npx vercel whoami",
+    "vc:link": "VERCEL_TOKEN=\"$(cat .vercel-token.local)\" npx vercel link --yes --scope amazon-safety-pro-s-projects --project amazon-safety-pro",
+    "vc:env:pull": "VERCEL_TOKEN=\"$(cat .vercel-token.local)\" npx vercel env pull --yes --scope amazon-safety-pro-s-projects",
+    "vc:env:ls": "VERCEL_TOKEN=\"$(cat .vercel-token.local)\" npx vercel env ls --scope amazon-safety-pro-s-projects",
+    "vc:deploy": "VERCEL_TOKEN=\"$(cat .vercel-token.local)\" npx vercel --yes --scope amazon-safety-pro-s-projects",
+    "vc:deploy:prod": "VERCEL_TOKEN=\"$(cat .vercel-token.local)\" npx vercel --prod --yes --scope amazon-safety-pro-s-projects"
   },
   "dependencies": {
     "@paypal/react-paypal-js": "^9.2.0",

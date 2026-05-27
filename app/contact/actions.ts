@@ -44,6 +44,7 @@ export async function submitContactForm(
     email: formData.get("email")?.toString() ?? "",
     phone: formData.get("phone")?.toString() ?? "",
     amazonSellerId: formData.get("amazonSellerId")?.toString() ?? "",
+    amazonMarketplace: formData.get("amazonMarketplace")?.toString() ?? "",
     productCategory: formData.get("productCategory")?.toString() ?? "",
     inquiryType: (formData.get("inquiryType")?.toString() ??
       "general_question") as ServiceInquiryType,
@@ -128,6 +129,7 @@ export async function submitContactForm(
     email: parsed.data.email,
     phone: parsed.data.phone || undefined,
     amazonSellerId: parsed.data.amazonSellerId || undefined,
+    amazonMarketplace: parsed.data.amazonMarketplace || undefined,
     productCategory: parsed.data.productCategory,
     inquiryType: parsed.data.inquiryType,
     message: paymentInfo

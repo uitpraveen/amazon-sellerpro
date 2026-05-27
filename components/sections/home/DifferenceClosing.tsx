@@ -113,7 +113,7 @@ export default function DifferenceClosing() {
               className="text-base sm:text-lg text-[#FAF7F2]/75 leading-relaxed mb-5 max-w-2xl mx-auto"
               style={{ fontFamily: "var(--font-outfit)" }}
             >
-              Submit your compliance documents and Amazon notifications for a free review. Our team will go through everything &mdash; your rejection notices, your existing documents, your case history &mdash; and come back to you with a clear, honest picture of what is wrong and what the path forward looks like.
+              Submit your case details for the review. Our team will go through everything &mdash; your rejection notices, your existing documents, your case history &mdash; and come back to you with a clear, honest picture of what is wrong and what the path forward looks like.
             </motion.p>
 
             <motion.p
@@ -130,7 +130,7 @@ export default function DifferenceClosing() {
                 className="inline-flex items-center gap-2 px-7 sm:px-8 py-3.5 rounded-full bg-[#B8860B] hover:bg-[#a07609] text-[#FAF7F2] font-semibold transition-colors min-h-[44px] shadow-lg shadow-black/20"
                 style={{ fontFamily: "var(--font-outfit)" }}
               >
-                Submit your documents for a free review
+                Submit your case details for the review
                 <ArrowRight size={16} />
               </Link>
             </motion.div>

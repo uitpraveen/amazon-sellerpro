@@ -27,9 +27,16 @@ const SECTIONS: LegalSection[] = [
           Amazon product safety and compliance advisory, including but not
           limited to Children&rsquo;s Product Certificate (CPC) creation,
           Declaration of Conformity (DOC) and General Certificate of
-          Conformity (GCC) creation, compliance document validation, product
-          safety document validation, and Amazon stranded ASIN reinstatement
-          support.
+          Conformity (GCC) creation, compliance document review and
+          remediation, product compliance assessments, ASIN classification
+          review and appeal, safety incident ASIN reinstatement, and related
+          advisory services.
+        </LegalP>
+        <LegalP>
+          Amazon Safety Pro is a trading name of Proxima CPEX LLP. When we
+          refer to &lsquo;Amazon Safety Pro&rsquo;, &lsquo;we&rsquo;,
+          &lsquo;us&rsquo;, or &lsquo;our&rsquo; in these Terms and on this
+          website, we mean Proxima CPEX LLP trading as Amazon Safety Pro.
         </LegalP>
         <LegalP>
           <strong className="text-[var(--ink)]">Contact email:</strong>{" "}

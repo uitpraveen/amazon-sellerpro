@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import ContactForm from "@/app/contact/ContactForm";
 
 const sidebarRows = [
-  { label: "Response", value: "< 1 Business Day" },
+  { label: "Response", value: "< 2 Business Days" },
   { label: "Reviewed By", value: "Ex-Amazonian" },
   { label: "Confidentiality", value: "Strict" },
   { label: "First Review", value: "Free" },
@@ -10,9 +10,9 @@ const sidebarRows = [
 ];
 
 const trustPoints = [
-  "Response within 1 business day",
-  "Strict confidentiality on all seller and product information",
-  "No obligation — your first document review is free",
+  "Reviewed by the team that wrote Amazon's product safety policies — we know exactly what Amazon looks for",
+  "Your case details are handled with strict confidentiality — we never share seller or product information",
+  "Honest advice, always — if your product cannot be reinstated, we will tell you upfront at no charge",
 ];
 
 export default function ContactSplitSection() {
@@ -34,7 +34,7 @@ export default function ContactSplitSection() {
             Whether you have a quick compliance question or a complex case that
             needs immediate attention, our team of tenured ex-Amazonians is here
             to help. Fill out the form below and a member of our team will
-            respond within 1 business day.
+            respond within 2 business days.
           </p>
         </div>
 
@@ -128,14 +128,6 @@ export default function ContactSplitSection() {
                 >
                   Why Sellers Trust Us
                 </h2>
-                <p
-                  className="mt-3 text-sm leading-relaxed"
-                  style={{ fontFamily: "var(--font-outfit)", color: "#6B6560" }}
-                >
-                  Every message we receive is reviewed by a real, experienced
-                  ex-Amazonian. We do not use automated responses for compliance
-                  queries — your case is too important for that.
-                </p>
                 <ul className="mt-5 space-y-3">
                   {trustPoints.map((item) => (
                     <li

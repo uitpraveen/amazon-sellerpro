@@ -3,11 +3,30 @@ import { Shield, Mail, ArrowRight } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
 
 const SERVICES = [
-  { label: "ASIN Reinstatement", href: "/services#asin-reinstatement" },
-  { label: "Safety Document Validation", href: "/services#safety-validation" },
-  { label: "Document Validation", href: "/services#document-validation" },
-  { label: "CPC Creation", href: "/services#cpc-creation" },
-  { label: "DOC / GCC Creation", href: "/services#doc-gcc-creation" },
+  {
+    label: "ASIN Classification Review & Appeal",
+    href: "/services#asin-classification-review",
+  },
+  {
+    label: "Document Review & Remediation",
+    href: "/services#document-review-remediation",
+  },
+  {
+    label: "Safety Incident ASIN Reinstatement",
+    href: "/services#safety-incident-reinstatement",
+  },
+  {
+    label: "Compliance Document Creation",
+    href: "/services#compliance-document-creation",
+  },
+  {
+    label: "Product Compliance Assessment",
+    href: "/services#product-compliance-assessment",
+  },
+  {
+    label: "Testing Guidance (Coming Soon)",
+    href: "/services#testing-guidance",
+  },
 ];
 
 const COMPANY = [

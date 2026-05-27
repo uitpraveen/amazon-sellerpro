@@ -7,6 +7,10 @@ import type { ServiceDef } from "@/lib/services-data";
 export default function ServiceCard({ service, index }: { service: ServiceDef; index: number }) {
   const num = String(service.number).padStart(2, "0");
 
+  const ctaHref = service.comingSoon
+    ? `/contact?inquiry=${service.inquiry}`
+    : `/contact?inquiry=${service.inquiry}`;
+
   return (
     <motion.div
       id={service.slug}
@@ -23,8 +27,30 @@ export default function ServiceCard({ service, index }: { service: ServiceDef; i
         flexDirection: "column",
         height: "100%",
         scrollMarginTop: "120px",
+        position: "relative",
       }}
     >
+      {service.badge && (
+        <div
+          style={{
+            position: "absolute",
+            top: "-12px",
+            left: "32px",
+            background: service.comingSoon ? "#6B6560" : "#B8860B",
+            color: service.comingSoon ? "#FAF7F2" : "#1f1c19",
+            padding: "5px 12px",
+            borderRadius: "999px",
+            fontFamily: "var(--font-outfit)",
+            fontSize: "10.5px",
+            fontWeight: 700,
+            letterSpacing: "0.14em",
+            textTransform: "uppercase",
+            boxShadow: "0 2px 6px rgba(45,42,38,0.12)",
+          }}
+        >
+          {service.badge}
+        </div>
+      )}
       <div style={{ padding: "32px" }}>
         {/* Gold numbered badge */}
         <div
@@ -238,27 +264,45 @@ export default function ServiceCard({ service, index }: { service: ServiceDef; i
           borderTop: "1px solid #E8E0D4",
         }}
       >
-        <Link
-          href={`/contact?inquiry=${service.inquiry}`}
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "8px",
-            fontFamily: "var(--font-outfit)",
-            fontSize: "13px",
-            fontWeight: 600,
-            letterSpacing: "0.05em",
-            textTransform: "uppercase",
-            color: "#B8860B",
-            textDecoration: "none",
-            transition: "opacity 0.2s",
-          }}
-          onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.75")}
-          onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
-        >
-          {service.ctaLabel}
-          <span style={{ fontSize: "16px", lineHeight: 1 }}>→</span>
-        </Link>
+        {service.comingSoon ? (
+          <span
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "8px",
+              fontFamily: "var(--font-outfit)",
+              fontSize: "13px",
+              fontWeight: 600,
+              letterSpacing: "0.05em",
+              textTransform: "uppercase",
+              color: "#6B6560",
+            }}
+          >
+            Coming Soon — Register Interest
+          </span>
+        ) : (
+          <Link
+            href={ctaHref}
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "8px",
+              fontFamily: "var(--font-outfit)",
+              fontSize: "13px",
+              fontWeight: 600,
+              letterSpacing: "0.05em",
+              textTransform: "uppercase",
+              color: "#B8860B",
+              textDecoration: "none",
+              transition: "opacity 0.2s",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.75")}
+            onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+          >
+            {service.ctaLabel}
+            <span style={{ fontSize: "16px", lineHeight: 1 }}>→</span>
+          </Link>
+        )}
       </div>
     </motion.div>
   );

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { RotateCcw, ShieldCheck, FileCheck, FileSignature, ArrowRight } from "lucide-react";
+import { Search, FileSearch, ShieldAlert, FileSignature, ArrowRight } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 type Service = {
@@ -14,28 +14,28 @@ type Service = {
 
 const SERVICES: Service[] = [
   {
-    icon: RotateCcw,
-    title: "ASIN Reinstatement",
-    desc: "End-to-end recovery of stranded or suspended ASINs — diagnosis, documentation, submission and follow-up until your listing is live again.",
-    href: "/services#asin-reinstatement",
+    icon: Search,
+    title: "ASIN Classification Review & Appeal",
+    desc: "Your ASIN was restricted — but was Amazon right? We investigate what triggered the classification, review and modify your listing content to remove the block, and submit the appeal to get it reinstated.",
+    href: "/services#asin-classification-review",
   },
   {
-    icon: ShieldCheck,
-    title: "Safety Audit",
-    desc: "Comprehensive product-safety review covering applicable standards, test reports, labels and packaging — find compliance gaps before Amazon does.",
-    href: "/services#safety-validation",
+    icon: FileSearch,
+    title: "Document Review & Remediation",
+    desc: "Amazon has told you what's wrong — but the message is unclear and you don't know exactly what to fix. We decode Amazon's rejection, identify precisely what is missing or incorrect in your documents, and remediate them so your next submission meets Amazon's requirements.",
+    href: "/services#document-review-remediation",
   },
   {
-    icon: FileCheck,
-    title: "Document Validation",
-    desc: "Line-by-line review of your existing test reports, certificates and safety documentation against Amazon's current requirements.",
-    href: "/services#document-validation",
+    icon: ShieldAlert,
+    title: "Safety Incident ASIN Reinstatement",
+    desc: "A customer safety report has blocked your ASIN. We assess the incident, review what Amazon requires for reinstatement, and guide you through every step to get back live.",
+    href: "/services#safety-incident-reinstatement",
   },
   {
     icon: FileSignature,
-    title: "Safety Document Creation",
-    desc: "CPC, DOC and GCC creation — fully compliant safety documents prepared and structured to meet Amazon's submission standards.",
-    href: "/services#cpc-creation",
+    title: "Compliance Document Creation",
+    desc: "Need a CPC, GCC, or DOC? We create fully compliant safety documents structured exactly to Amazon's submission standards — using your existing test reports and product information.",
+    href: "/services#compliance-document-creation",
   },
 ];
 
@@ -101,7 +101,7 @@ export default function ServiceCards() {
                     />
                   </div>
                   <h3
-                    className="text-xl sm:text-2xl text-[#2D2A26] mb-3"
+                    className="text-xl sm:text-2xl text-[#2D2A26] mb-3 leading-snug"
                     style={{ fontFamily: "var(--font-dm-serif)" }}
                   >
                     {svc.title}

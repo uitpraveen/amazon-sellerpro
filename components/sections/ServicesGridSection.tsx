@@ -139,7 +139,7 @@ export default function ServicesGridSection() {
                 marginBottom: "16px",
               }}
             >
-              Free First Review
+              Need Advice First
             </p>
             <h2
               style={{
@@ -166,11 +166,12 @@ export default function ServicesGridSection() {
                 margin: "0 auto 36px",
               }}
             >
-              Submit your documents and Amazon notifications. Our team will
-              review them and tell you exactly what you need.
+              Send us your case details and Amazon notifications. Our team will
+              review them and tell you exactly which service you need — or
+              whether you need one at all.
             </p>
             <Link
-              href="/free-validation"
+              href="/contact?inquiry=not_sure_need_advice"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -190,7 +191,7 @@ export default function ServicesGridSection() {
               onMouseEnter={(e) => (e.currentTarget.style.background = "#96700a")}
               onMouseLeave={(e) => (e.currentTarget.style.background = "#B8860B")}
             >
-              Submit for free review
+              Send Enquiry
               <span style={{ fontSize: "16px" }}>→</span>
             </Link>
           </motion.div>

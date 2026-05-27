@@ -2,16 +2,46 @@
 // Add new types here only when a retained component or server action needs them.
 
 export type ServiceInquiryType =
-  | "product_safety_compliance_advice"
-  | "cpc_doc_gcc_creation"
-  | "document_validation"
-  | "stranded_asin_reinstatement"
+  | "asin_classification_review"
+  | "document_review_remediation"
+  | "safety_incident_reinstatement"
+  | "compliance_document_creation"
+  | "product_compliance_assessment"
+  | "testing_guidance"
+  | "not_sure_need_advice"
   | "general_question";
 
 export const SERVICE_INQUIRY_LABELS: Record<ServiceInquiryType, string> = {
-  product_safety_compliance_advice: "Product safety compliance advice",
-  cpc_doc_gcc_creation: "CPC / DOC / GCC document creation",
-  document_validation: "Document validation",
-  stranded_asin_reinstatement: "Stranded ASIN reinstatement",
+  asin_classification_review: "ASIN Classification Review & Appeal",
+  document_review_remediation: "Document Review & Remediation",
+  safety_incident_reinstatement: "Safety Incident ASIN Reinstatement",
+  compliance_document_creation: "Compliance Document Creation (CPC / GCC / DOC)",
+  product_compliance_assessment: "Product Compliance Assessment",
+  testing_guidance: "Testing Guidance (Coming Soon)",
+  not_sure_need_advice: "Not sure — need advice",
   general_question: "General question",
 };
+
+export const AMAZON_MARKETPLACES = [
+  { value: "us", label: "United States (amazon.com)" },
+  { value: "ca", label: "Canada (amazon.ca)" },
+  { value: "uk", label: "United Kingdom (amazon.co.uk)" },
+  { value: "de", label: "Germany (amazon.de)" },
+  { value: "fr", label: "France (amazon.fr)" },
+  { value: "it", label: "Italy (amazon.it)" },
+  { value: "es", label: "Spain (amazon.es)" },
+  { value: "nl", label: "Netherlands (amazon.nl)" },
+  { value: "se", label: "Sweden (amazon.se)" },
+  { value: "pl", label: "Poland (amazon.pl)" },
+  { value: "in", label: "India (amazon.in)" },
+  { value: "jp", label: "Japan (amazon.co.jp)" },
+  { value: "sg", label: "Singapore (amazon.sg)" },
+  { value: "ae", label: "UAE (amazon.ae)" },
+  { value: "sa", label: "Saudi Arabia (amazon.sa)" },
+  { value: "au", label: "Australia (amazon.com.au)" },
+  { value: "mx", label: "Mexico (amazon.com.mx)" },
+  { value: "br", label: "Brazil (amazon.com.br)" },
+  { value: "multiple", label: "Multiple marketplaces" },
+] as const;
+
+export type AmazonMarketplace = typeof AMAZON_MARKETPLACES[number]["value"];

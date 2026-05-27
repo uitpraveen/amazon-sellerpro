@@ -751,11 +751,11 @@ export default function SafetyGuidePage() {
                       fontFamily: "Outfit, sans-serif",
                     }}
                   >
-                    Submit your documents for a free review. A real ex-Amazonian
+                    Send us your case details for review. A real ex-Amazonian
                     will go through your case personally.
                   </p>
                   <Link
-                    href="/free-validation"
+                    href="/contact?inquiry=not_sure_need_advice"
                     className="mt-8 inline-flex items-center gap-2 rounded-lg px-8 py-3.5 text-base font-semibold transition-opacity hover:opacity-90"
                     style={{
                       background: "#B8860B",
@@ -763,7 +763,7 @@ export default function SafetyGuidePage() {
                       fontFamily: "Outfit, sans-serif",
                     }}
                   >
-                    Submit for free review
+                    Send Enquiry
                   </Link>
                 </div>
               </div>

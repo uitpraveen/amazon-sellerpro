@@ -2,14 +2,12 @@ import type { ServiceInquiryType } from "@/lib/types";
 
 /**
  * Inquiry types that require payment before submission.
- * Other inquiry types are free (general question, advisory).
- *
- * TODO: Replace placeholder USD prices with real values before launch.
+ * Only Compliance Document Creation and Product Compliance Assessment
+ * have fixed prices; all other services route through Send Enquiry.
  */
 export const SERVICE_PRICES_USD: Partial<Record<ServiceInquiryType, number>> = {
-  stranded_asin_reinstatement: 299,
-  document_validation: 149,
-  cpc_doc_gcc_creation: 399,
+  compliance_document_creation: 299,
+  product_compliance_assessment: 399,
 };
 
 export const CURRENCY = "USD";

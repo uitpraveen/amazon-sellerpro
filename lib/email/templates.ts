@@ -6,6 +6,7 @@ export interface ContactEmailPayload {
   email: string;
   phone?: string;
   amazonSellerId?: string;
+  amazonMarketplace?: string;
   productCategory: string;
   inquiryType: ServiceInquiryType;
   message: string;
@@ -46,19 +47,20 @@ function row(label: string, value: string | undefined): string {
 
 export function contactEmail(p: ContactEmailPayload): RenderedEmail {
   const inquiryLabel = SERVICE_INQUIRY_LABELS[p.inquiryType];
-  const subject = `New contact form: ${p.fullName} — ${inquiryLabel}`;
+  const subject = `New enquiry: ${p.fullName} — ${inquiryLabel}`;
 
   const html = `
     <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#0A0E14;max-width:640px;background:#F7F7F4;padding:32px;">
       <div style="border:1px solid #D8D6CF;padding:24px;background:#FFF;">
-        <div style="font-family:ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.18em;color:#1F40FF;">→ NEW TRANSMISSION</div>
-        <h2 style="margin:8px 0 24px;font-size:24px;font-weight:900;color:#0A0E14;">Contact Form Submission</h2>
+        <div style="font-family:ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.18em;color:#1F40FF;">→ NEW ENQUIRY</div>
+        <h2 style="margin:8px 0 24px;font-size:24px;font-weight:900;color:#0A0E14;">Contact Form Enquiry</h2>
         <table style="border-collapse:collapse;width:100%;">
           ${row("Full name", p.fullName)}
           ${row("Business", p.businessName)}
           ${row("Email", p.email)}
           ${row("Phone", p.phone)}
           ${row("Seller ID / URL", p.amazonSellerId)}
+          ${row("Amazon marketplace", p.amazonMarketplace)}
           ${row("Product category", p.productCategory)}
           ${row("Inquiry type", inquiryLabel)}
         </table>
@@ -71,13 +73,14 @@ export function contactEmail(p: ContactEmailPayload): RenderedEmail {
   `.trim();
 
   const text = [
-    "New contact form submission",
+    "New contact form enquiry",
     "",
     `Full name: ${p.fullName}`,
     `Business: ${p.businessName}`,
     `Email: ${p.email}`,
     p.phone ? `Phone: ${p.phone}` : null,
     p.amazonSellerId ? `Seller ID / URL: ${p.amazonSellerId}` : null,
+    p.amazonMarketplace ? `Amazon marketplace: ${p.amazonMarketplace}` : null,
     `Product category: ${p.productCategory}`,
     `Inquiry type: ${inquiryLabel}`,
     "",

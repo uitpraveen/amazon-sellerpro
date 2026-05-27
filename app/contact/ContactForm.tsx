@@ -9,7 +9,11 @@ import {
 import { useSearchParams } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { submitContactForm, type ContactActionResult } from "./actions";
-import { SERVICE_INQUIRY_LABELS, type ServiceInquiryType } from "@/lib/types";
+import {
+  SERVICE_INQUIRY_LABELS,
+  AMAZON_MARKETPLACES,
+  type ServiceInquiryType,
+} from "@/lib/types";
 import {
   getServicePrice,
   isPaidService,
@@ -20,10 +24,13 @@ import StripeCheckout from "@/components/StripeCheckout";
 import { getActiveProvider } from "@/lib/payment-provider";
 
 const INQUIRY_OPTIONS: ServiceInquiryType[] = [
-  "product_safety_compliance_advice",
-  "cpc_doc_gcc_creation",
-  "document_validation",
-  "stranded_asin_reinstatement",
+  "asin_classification_review",
+  "document_review_remediation",
+  "safety_incident_reinstatement",
+  "compliance_document_creation",
+  "product_compliance_assessment",
+  "testing_guidance",
+  "not_sure_need_advice",
   "general_question",
 ];
 
@@ -50,6 +57,7 @@ export default function ContactForm() {
 
   const price = getServicePrice(inquiryType);
   const requiresPayment = isPaidService(inquiryType);
+  const isTestingGuidance = inquiryType === "testing_guidance";
 
   function runSubmit(formData: FormData) {
     startTransition(async () => {
@@ -120,13 +128,13 @@ export default function ContactForm() {
         >
           {requiresPayment
             ? "Payment received. We'll be in touch."
-            : "Message received. We'll be in touch."}
+            : "Enquiry received. We'll be in touch."}
         </h3>
         <p
           className="mt-3 text-base leading-relaxed"
           style={{ fontFamily: "var(--font-outfit)", color: "#2D2A26" }}
         >
-          A member of our team will respond within 1 business day.
+          A member of our team will respond within 2 business days.
         </p>
       </div>
     );
@@ -187,6 +195,26 @@ export default function ContactForm() {
             state && !state.ok ? state.fieldErrors?.amazonSellerId : undefined
           }
         />
+
+        <SelectField
+          label="Amazon marketplace"
+          name="amazonMarketplace"
+          required
+          value={undefined}
+          defaultValue=""
+          placeholder="Select an Amazon marketplace"
+          onChange={() => {}}
+          error={
+            state && !state.ok
+              ? state.fieldErrors?.amazonMarketplace
+              : undefined
+          }
+          options={AMAZON_MARKETPLACES.map((m) => ({
+            value: m.value,
+            label: m.label,
+          }))}
+        />
+
         <Field
           label="Product category (e.g. Toys, Electronics, Apparel)"
           name="productCategory"
@@ -244,6 +272,21 @@ export default function ContactForm() {
         />
       )}
 
+      {isTestingGuidance && (
+        <div
+          className="rounded-xl border border-[#B8860B]/30 bg-[#B8860B]/[0.04] p-5"
+          style={{ fontFamily: "var(--font-outfit)" }}
+        >
+          <p className="text-[10px] font-semibold tracking-[0.22em] uppercase text-[#B8860B] mb-1">
+            Coming Soon
+          </p>
+          <p className="text-sm text-[#2D2A26]">
+            Testing Guidance is launching shortly. Submit your details and we
+            will notify you as soon as the service is available.
+          </p>
+        </div>
+      )}
+
       {state?.ok === false && !state.fieldErrors && (
         <div
           className="rounded-lg border p-4"
@@ -277,7 +320,7 @@ export default function ContactForm() {
               ? "Sending…"
               : requiresPayment
               ? `Continue to payment · ${formatPrice(price ?? 0)}`
-              : "Send Message"}
+              : "Send Enquiry"}
           </button>
           <span
             className="text-xs"
@@ -384,6 +427,7 @@ function validateLocally(formData: FormData): boolean {
     "fullName",
     "businessName",
     "email",
+    "amazonMarketplace",
     "productCategory",
     "message",
   ];
@@ -443,15 +487,21 @@ function SelectField({
   name,
   required,
   value,
+  defaultValue,
+  placeholder,
   onChange,
   options,
+  error,
 }: {
   label: string;
   name: string;
   required?: boolean;
-  value: string;
+  value?: string;
+  defaultValue?: string;
+  placeholder?: string;
   onChange: (value: string) => void;
   options: { value: string; label: string }[];
+  error?: string;
 }) {
   return (
     <div>
@@ -463,22 +513,27 @@ function SelectField({
           id={name}
           name={name}
           required={required}
-          value={value}
+          {...(value !== undefined ? { value } : { defaultValue: defaultValue ?? "" })}
           onChange={(e) => onChange(e.target.value)}
           className="block w-full appearance-none rounded-lg border px-4 py-3 pr-10 text-base transition-colors focus:outline-none"
           style={{
             fontFamily: "var(--font-outfit)",
             color: "#2D2A26",
             backgroundColor: "#FAF7F2",
-            borderColor: "#E8E0D4",
+            borderColor: error ? "#9B1C1C" : "#E8E0D4",
           }}
           onFocus={(e) => {
-            e.currentTarget.style.borderColor = "#B8860B";
+            if (!error) e.currentTarget.style.borderColor = "#B8860B";
           }}
           onBlur={(e) => {
-            e.currentTarget.style.borderColor = "#E8E0D4";
+            if (!error) e.currentTarget.style.borderColor = "#E8E0D4";
           }}
         >
+          {placeholder && (
+            <option value="" disabled>
+              {placeholder}
+            </option>
+          )}
           {options.map((opt) => (
             <option key={opt.value} value={opt.value}>
               {opt.label}
@@ -493,6 +548,7 @@ function SelectField({
           ▼
         </span>
       </div>
+      {error && <FieldError>{error}</FieldError>}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
@@ -9,10 +9,10 @@ import {
   Ban,
   Baby,
   Backpack,
-  Sparkles,
-  ChefHat,
-  Shirt,
-  Leaf,
+  Apple,
+  Package,
+  Hammer,
+  XCircle,
   BatteryCharging,
   ArrowRight,
 } from "lucide-react";
@@ -70,16 +70,16 @@ type Category = {
 };
 
 const CATEGORIES: Category[] = [
-  { icon: Ban, name: "Restricted Products", note: "Pre-approval & gating required" },
-  { icon: Baby, name: "Children's Toys", note: "CPSIA, ASTM F963, CPC required" },
-  { icon: Backpack, name: "Children's Products", note: "CPSIA, CPC, third-party testing" },
-  { icon: FeedingBottle, name: "Baby Products", note: "CPSIA, phthalates testing, CPC" },
-  { icon: Hairdryer, name: "Electronics", note: "FCC, UL certification, GCC required" },
-  { icon: BatteryCharging, name: "Batteries & Chargers", note: "UN38.3, UL certification" },
-  { icon: Sparkles, name: "Cosmetics", note: "FDA compliance, ingredient listing" },
-  { icon: Leaf, name: "Supplements", note: "FDA, cGMP, labeling requirements" },
-  { icon: Shirt, name: "Clothing & Textiles", note: "Flammability, CPSIA (children's)" },
-  { icon: ChefHat, name: "Kitchen Appliances", note: "UL/ETL listing, GCC required" },
+  { icon: Ban, name: "Restricted Products", note: "Pre-Approval & Gating required" },
+  { icon: Baby, name: "Children's Toys", note: "CPSIA, ASTM F963, EN 71, CPC and more required" },
+  { icon: Backpack, name: "Children's Products", note: "CPSIA, CPC, third party and more required" },
+  { icon: FeedingBottle, name: "Baby Products", note: "CPSIA, Lead, Phthalate, CPC and more required" },
+  { icon: Hairdryer, name: "Electronics", note: "UL, GCC and more required" },
+  { icon: BatteryCharging, name: "Batteries & Chargers", note: "UL, GCC and more required" },
+  { icon: Apple, name: "Food & Supplements", note: "FDA compliance, labelling and more required" },
+  { icon: Package, name: "Consumables", note: "FDA, GMP registration and more required" },
+  { icon: Hammer, name: "Hardline Products", note: "ASTM, UL, GCC and more required" },
+  { icon: XCircle, name: "Prohibited Products", note: "Not Permitted for sale in Amazon" },
 ];
 
 const SAFETY_GUIDE_HREF = "/safety-guide#section-4a";
@@ -91,11 +91,39 @@ const fadeUp = {
 
 export default function RestrictedSlider() {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
 
-  const scroll = (dir: "left" | "right") => {
-    if (!scrollRef.current) return;
-    scrollRef.current.scrollBy({ left: dir === "left" ? -320 : 320, behavior: "smooth" });
+  // Snap-scroll one card at a time
+  const scrollByOne = (dir: "left" | "right") => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const card = el.querySelector<HTMLElement>("[data-slide-card]");
+    const cardWidth = card?.offsetWidth ?? 280;
+    const gap = 24; // gap-6
+    el.scrollBy({
+      left: dir === "left" ? -(cardWidth + gap) : cardWidth + gap,
+      behavior: "smooth",
+    });
   };
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const onScroll = () => {
+      const card = el.querySelector<HTMLElement>("[data-slide-card]");
+      const cardWidth = card?.offsetWidth ?? 280;
+      const gap = 24;
+      const idx = Math.round(el.scrollLeft / (cardWidth + gap));
+      setActiveIndex(idx);
+      setCanScrollLeft(el.scrollLeft > 8);
+      setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 8);
+    };
+    el.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => el.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <section className="bg-[#1B4332] py-20 sm:py-24 md:py-32 overflow-hidden">
@@ -138,15 +166,17 @@ export default function RestrictedSlider() {
           </Link>
           <div className="flex gap-2">
             <button
-              onClick={() => scroll("left")}
-              className="w-12 h-12 rounded-full border border-[#FAF7F2]/20 flex items-center justify-center text-[#FAF7F2]/60 hover:text-[#FAF7F2] hover:border-[#FAF7F2]/40 transition-colors"
+              onClick={() => scrollByOne("left")}
+              disabled={!canScrollLeft}
+              className="w-12 h-12 rounded-full border border-[#FAF7F2]/20 flex items-center justify-center text-[#FAF7F2]/60 hover:text-[#FAF7F2] hover:border-[#FAF7F2]/40 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
               aria-label="Scroll left"
             >
               <ChevronLeft size={20} />
             </button>
             <button
-              onClick={() => scroll("right")}
-              className="w-12 h-12 rounded-full border border-[#FAF7F2]/20 flex items-center justify-center text-[#FAF7F2]/60 hover:text-[#FAF7F2] hover:border-[#FAF7F2]/40 transition-colors"
+              onClick={() => scrollByOne("right")}
+              disabled={!canScrollRight}
+              className="w-12 h-12 rounded-full border border-[#FAF7F2]/20 flex items-center justify-center text-[#FAF7F2]/60 hover:text-[#FAF7F2] hover:border-[#FAF7F2]/40 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
               aria-label="Scroll right"
             >
               <ChevronRight size={20} />
@@ -156,7 +186,7 @@ export default function RestrictedSlider() {
 
         <div
           ref={scrollRef}
-          className="flex gap-5 sm:gap-6 overflow-x-auto pb-6 snap-x snap-mandatory -mx-4 px-4 sm:mx-0 sm:px-0"
+          className="flex gap-5 sm:gap-6 overflow-x-auto pb-6 snap-x snap-mandatory -mx-4 px-4 sm:mx-0 sm:px-0 scroll-smooth"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
           {CATEGORIES.map((cat) => {
@@ -164,6 +194,7 @@ export default function RestrictedSlider() {
             return (
               <motion.div
                 key={cat.name}
+                data-slide-card
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -202,6 +233,20 @@ export default function RestrictedSlider() {
               </motion.div>
             );
           })}
+        </div>
+
+        {/* Dot indicators */}
+        <div className="flex justify-center gap-1.5 mt-6 sm:mt-8">
+          {CATEGORIES.map((_, i) => (
+            <span
+              key={i}
+              className={`h-1.5 rounded-full transition-all ${
+                i === activeIndex
+                  ? "w-6 bg-[#B8860B]"
+                  : "w-1.5 bg-[#FAF7F2]/25"
+              }`}
+            />
+          ))}
         </div>
       </div>
     </section>

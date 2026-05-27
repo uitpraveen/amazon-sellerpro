@@ -63,7 +63,7 @@ export default function WhyUs() {
           </motion.h2>
           <motion.p
             variants={fadeUp}
-            className="text-base sm:text-lg text-[#6B6560] leading-relaxed max-w-3xl"
+            className="text-base sm:text-lg text-[#6B6560] leading-relaxed"
             style={{ fontFamily: "var(--font-outfit)" }}
           >
             Most compliance consultants work from the outside — reading the same policy pages you can access yourself. Amazon Safety Pro is fundamentally different. Our team spent years working inside Amazon&apos;s product safety operations, which means we bring a level of insight that no amount of external research can replicate.
@@ -114,7 +114,7 @@ export default function WhyUs() {
           className="mt-16 sm:mt-20 pt-10 sm:pt-12 border-t border-[#E8E0D4]"
         >
           <p
-            className="text-base sm:text-lg text-[#2D2A26] leading-relaxed max-w-3xl mx-auto text-center italic"
+            className="text-lg sm:text-2xl text-[#2D2A26] leading-relaxed text-center italic"
             style={{ fontFamily: "var(--font-dm-serif)" }}
           >
             Whether you are a new FBA seller preparing your first product launch, a brand owner managing a growing catalog, an importer sourcing products for multiple marketplaces, or a manufacturer responding to a compliance notice — our team brings the same depth of insider knowledge and the same commitment to getting your product compliant and your listing active.

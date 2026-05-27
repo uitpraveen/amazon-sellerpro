@@ -29,11 +29,11 @@ export default function HomeCTA() {
             Tired of rejections? Start here.
           </motion.h2>
           <motion.p variants={fadeUp} className="mt-4 sm:mt-6 text-[#FAF7F2]/60 text-base sm:text-xl max-w-xl mx-auto leading-relaxed" style={{ fontFamily: "var(--font-outfit)" }}>
-            Submit your compliance documents for a free review. A real ex-Amazonian will review your case personally.
+            Submit your case details for the review. A real ex-Amazonian will review your case personally.
           </motion.p>
           <motion.div variants={fadeUp} className="mt-6 sm:mt-8 flex justify-center">
             <Link href="/free-validation" className="flex sm:inline-flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 min-h-[44px] rounded-full bg-[#B8860B] hover:bg-[#a07609] text-white font-semibold transition-colors" style={{ fontFamily: "var(--font-outfit)" }}>
-              Submit your documents <ArrowRight size={16} />
+              Submit your case details for the review <ArrowRight size={16} />
             </Link>
           </motion.div>
         </motion.div>

@@ -12,12 +12,24 @@ const SLIDES = [
     headlineParts: ["Compliance, finally", "in expert hands."],
     body: "Amazon safety & compliance handled by ex-Amazonians who spent years inside the product safety team. From restricted to reinstated.",
     image: "/images/hero/packages.jpg",
+    primaryCta: { label: "Submit for Free Review", href: "/free-validation" },
+    secondaryCta: { label: "View Services", href: "/services" },
   },
   {
     subtitle: "ASIN Reinstatement Experts",
     headlineParts: ["From Restricted to", "Reinstated."],
     body: "We've handled hundreds of compliance cases across 7 Amazon marketplaces. Your suspended listing is our priority.",
     image: "/images/hero/shipping.jpg",
+    primaryCta: { label: "Submit for Free Review", href: "/free-validation" },
+    secondaryCta: { label: "View Services", href: "/services" },
+  },
+  {
+    subtitle: "Interactive Self-Guide",
+    headlineParts: ["Not sure what", "you need?"],
+    body: "Walk through our interactive Self-Guide and identify in minutes exactly what compliance requirements apply to your product.",
+    image: "/images/hero/shield-protect.jpg",
+    primaryCta: { label: "Open Self-Guide", href: "/self-guide" },
+    secondaryCta: { label: "Read Safety Guide", href: "/safety-guide" },
   },
 ];
 
@@ -66,7 +78,10 @@ export default function HeroSlider() {
   }, [current]);
 
   return (
-    <section className="relative h-[100svh] min-h-[640px] flex flex-col overflow-hidden">
+    <section
+      className="relative w-full flex flex-col overflow-hidden"
+      style={{ height: "100svh" }}
+    >
       {/* Background images with Ken Burns zoom */}
       <AnimatePresence mode="sync">
         <motion.div
@@ -98,53 +113,79 @@ export default function HeroSlider() {
         </motion.div>
       </AnimatePresence>
 
-      {/* Main content */}
+      {/* Main content — fluid centred zone that absorbs leftover space */}
       <div className="relative z-10 flex-1 flex items-center justify-center w-full min-h-0">
-        <div className="max-w-7xl mx-auto w-full px-5 sm:px-8 text-center pt-24 sm:pt-28 pb-6 sm:pb-8">
+        <div
+          className="max-w-7xl mx-auto w-full text-center"
+          style={{
+            paddingLeft: "clamp(1rem, 4vw, 2.5rem)",
+            paddingRight: "clamp(1rem, 4vw, 2.5rem)",
+            paddingTop: "clamp(4.5rem, 10vh, 7rem)",
+            paddingBottom: "clamp(0.5rem, 2vh, 1.5rem)",
+          }}
+        >
           <AnimatePresence mode="wait">
-            <motion.div key={current} className="space-y-0">
+            <motion.div
+              key={current}
+              className="flex flex-col items-center"
+              style={{ gap: "clamp(0.5rem, 1.6vh, 1.25rem)" }}
+            >
               {/* Subtitle with line */}
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.4, delay: 0.1 }}
-                className="flex items-center justify-center gap-3 sm:gap-4 mb-6 sm:mb-8"
+                className="flex items-center justify-center"
+                style={{ gap: "clamp(0.75rem, 1.5vw, 1rem)" }}
               >
-                <div className="h-[1px] w-6 sm:w-8 bg-[#B8860B]" />
+                <div className="h-px bg-[#B8860B]" style={{ width: "clamp(1.25rem, 2vw, 2rem)" }} />
                 <p
-                  className="text-[#B8860B] text-[10px] sm:text-xs tracking-[0.25em] sm:tracking-[0.3em] uppercase font-medium"
-                  style={{ fontFamily: "var(--font-outfit)" }}
+                  className="text-[#B8860B] uppercase font-medium"
+                  style={{
+                    fontFamily: "var(--font-outfit)",
+                    fontSize: "clamp(0.625rem, 1vw, 0.75rem)",
+                    letterSpacing: "clamp(0.22em, 0.3vw, 0.3em)",
+                  }}
                 >
                   {SLIDES[current].subtitle}
                 </p>
-                <div className="h-[1px] w-6 sm:w-8 bg-[#B8860B]" />
+                <div className="h-px bg-[#B8860B]" style={{ width: "clamp(1.25rem, 2vw, 2rem)" }} />
               </motion.div>
 
-              {/* Headline */}
-              <div className="overflow-hidden mb-2">
-                <motion.h1
-                  initial={{ y: "100%" }}
-                  animate={{ y: 0 }}
-                  exit={{ y: "-100%" }}
-                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
-                  className="text-[2rem] sm:text-5xl md:text-6xl lg:text-[4.5rem] leading-[1.1] sm:leading-[1.05] text-[#FAF7F2]"
-                  style={{ fontFamily: "var(--font-dm-serif)" }}
-                >
-                  {SLIDES[current].headlineParts[0]}
-                </motion.h1>
-              </div>
-              <div className="overflow-hidden mb-6 sm:mb-8">
-                <motion.h1
-                  initial={{ y: "100%" }}
-                  animate={{ y: 0 }}
-                  exit={{ y: "-100%" }}
-                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.25 }}
-                  className="text-[2rem] sm:text-5xl md:text-6xl lg:text-[4.5rem] leading-[1.1] sm:leading-[1.05]"
-                  style={{ fontFamily: "var(--font-dm-serif)" }}
-                >
-                  <em className="text-[#B8860B]">{SLIDES[current].headlineParts[1]}</em>
-                </motion.h1>
+              {/* Headline — two stacked lines with overflow clip for slide animation */}
+              <div className="flex flex-col" style={{ gap: "clamp(0.125rem, 0.4vh, 0.5rem)" }}>
+                <div className="overflow-hidden">
+                  <motion.h1
+                    initial={{ y: "100%" }}
+                    animate={{ y: 0 }}
+                    exit={{ y: "-100%" }}
+                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
+                    className="text-[#FAF7F2]"
+                    style={{
+                      fontFamily: "var(--font-dm-serif)",
+                      fontSize: "clamp(1.75rem, min(5.5vw, 6vh), 4.5rem)",
+                      lineHeight: 1.05,
+                    }}
+                  >
+                    {SLIDES[current].headlineParts[0]}
+                  </motion.h1>
+                </div>
+                <div className="overflow-hidden">
+                  <motion.h1
+                    initial={{ y: "100%" }}
+                    animate={{ y: 0 }}
+                    exit={{ y: "-100%" }}
+                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.25 }}
+                    style={{
+                      fontFamily: "var(--font-dm-serif)",
+                      fontSize: "clamp(1.75rem, min(5.5vw, 6vh), 4.5rem)",
+                      lineHeight: 1.05,
+                    }}
+                  >
+                    <em className="text-[#B8860B]">{SLIDES[current].headlineParts[1]}</em>
+                  </motion.h1>
+                </div>
               </div>
 
               {/* Body */}
@@ -153,8 +194,13 @@ export default function HeroSlider() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
-                className="max-w-2xl mx-auto text-sm sm:text-lg text-[#FAF7F2]/70 mb-8 sm:mb-10 leading-relaxed px-2"
-                style={{ fontFamily: "var(--font-outfit)" }}
+                className="max-w-2xl mx-auto text-[#FAF7F2]/70 leading-relaxed"
+                style={{
+                  fontFamily: "var(--font-outfit)",
+                  fontSize: "clamp(0.8125rem, min(1.4vw, 1.8vh), 1.125rem)",
+                  paddingLeft: "0.5rem",
+                  paddingRight: "0.5rem",
+                }}
               >
                 {SLIDES[current].body}
               </motion.p>
@@ -165,24 +211,42 @@ export default function HeroSlider() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.4, delay: 0.5 }}
-                className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 max-w-sm sm:max-w-none mx-auto mb-12 sm:mb-16"
-                style={{ fontFamily: "var(--font-outfit)" }}
+                className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center w-full sm:w-auto"
+                style={{
+                  fontFamily: "var(--font-outfit)",
+                  gap: "clamp(0.5rem, 1vw, 0.875rem)",
+                  maxWidth: "22rem",
+                }}
               >
                 <Link
-                  href="/free-validation"
-                  className="group inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 bg-[#B8860B] text-white rounded-full text-[13px] sm:text-sm font-semibold hover:bg-[#a07609] transition-all duration-300 shadow-lg shadow-[#B8860B]/20 hover:shadow-xl hover:shadow-[#B8860B]/30 whitespace-nowrap"
+                  href={SLIDES[current].primaryCta.href}
+                  className="group inline-flex items-center justify-center gap-2 bg-[#B8860B] text-white rounded-full font-semibold hover:bg-[#a07609] transition-all duration-300 shadow-lg shadow-[#B8860B]/20 hover:shadow-xl hover:shadow-[#B8860B]/30 whitespace-nowrap"
+                  style={{
+                    paddingLeft: "clamp(1.25rem, 2.5vw, 2rem)",
+                    paddingRight: "clamp(1.25rem, 2.5vw, 2rem)",
+                    paddingTop: "clamp(0.625rem, 1.2vh, 0.875rem)",
+                    paddingBottom: "clamp(0.625rem, 1.2vh, 0.875rem)",
+                    fontSize: "clamp(0.75rem, 1vw, 0.875rem)",
+                  }}
                 >
-                  Submit for Free Review
+                  {SLIDES[current].primaryCta.label}
                   <ArrowRight
-                    size={15}
+                    size={14}
                     className="transition-transform group-hover:translate-x-0.5 shrink-0"
                   />
                 </Link>
                 <Link
-                  href="/services"
-                  className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 border border-[#FAF7F2]/25 text-[#FAF7F2] rounded-full text-[13px] sm:text-sm font-medium hover:bg-[#FAF7F2]/10 hover:border-[#FAF7F2]/40 transition-all duration-300 backdrop-blur-sm whitespace-nowrap"
+                  href={SLIDES[current].secondaryCta.href}
+                  className="inline-flex items-center justify-center gap-2 border border-[#FAF7F2]/25 text-[#FAF7F2] rounded-full font-medium hover:bg-[#FAF7F2]/10 hover:border-[#FAF7F2]/40 transition-all duration-300 backdrop-blur-sm whitespace-nowrap"
+                  style={{
+                    paddingLeft: "clamp(1.25rem, 2.5vw, 2rem)",
+                    paddingRight: "clamp(1.25rem, 2.5vw, 2rem)",
+                    paddingTop: "clamp(0.625rem, 1.2vh, 0.875rem)",
+                    paddingBottom: "clamp(0.625rem, 1.2vh, 0.875rem)",
+                    fontSize: "clamp(0.75rem, 1vw, 0.875rem)",
+                  }}
                 >
-                  View Services
+                  {SLIDES[current].secondaryCta.label}
                 </Link>
               </motion.div>
 
@@ -192,14 +256,21 @@ export default function HeroSlider() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.6, delay: 0.65 }}
-                className="max-w-4xl mx-auto"
+                className="max-w-4xl w-full"
+                style={{ marginTop: "clamp(0.25rem, 1vh, 0.75rem)" }}
               >
                 <div className="relative">
-                  {/* Top accent line */}
                   <div className="absolute -top-px left-1/2 -translate-x-1/2 w-24 h-px bg-gradient-to-r from-transparent via-[#B8860B]/60 to-transparent" />
                   <div
-                    className="bg-[#FAF7F2]/[0.04] backdrop-blur-md border border-[#FAF7F2]/10 rounded-2xl px-4 sm:px-8 py-5 sm:py-7 grid grid-cols-2 sm:grid-cols-4 gap-y-5 sm:gap-y-0"
-                    style={{ fontFamily: "var(--font-outfit)" }}
+                    className="bg-[#FAF7F2]/[0.04] backdrop-blur-md border border-[#FAF7F2]/10 rounded-2xl grid grid-cols-2 sm:grid-cols-4"
+                    style={{
+                      fontFamily: "var(--font-outfit)",
+                      paddingLeft: "clamp(0.875rem, 2vw, 2rem)",
+                      paddingRight: "clamp(0.875rem, 2vw, 2rem)",
+                      paddingTop: "clamp(0.625rem, 1.2vh, 1rem)",
+                      paddingBottom: "clamp(0.625rem, 1.2vh, 1rem)",
+                      rowGap: "clamp(0.625rem, 1.5vh, 1rem)",
+                    }}
                   >
                     {STATS.map((stat, i) => (
                       <div
@@ -211,12 +282,22 @@ export default function HeroSlider() {
                         }`}
                       >
                         <p
-                          className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#FAF7F2] leading-none mb-1.5 sm:mb-2"
-                          style={{ fontFamily: "var(--font-dm-serif)" }}
+                          className="font-bold text-[#FAF7F2] leading-none"
+                          style={{
+                            fontFamily: "var(--font-dm-serif)",
+                            fontSize: "clamp(1.125rem, min(2.4vw, 3vh), 2rem)",
+                            marginBottom: "clamp(0.125rem, 0.4vh, 0.4rem)",
+                          }}
                         >
                           <span className="text-[#B8860B]">{stat.value}</span>
                         </p>
-                        <p className="text-[9px] sm:text-[10px] text-[#FAF7F2]/55 uppercase tracking-[0.18em] sm:tracking-[0.22em] leading-tight">
+                        <p
+                          className="text-[#FAF7F2]/55 uppercase leading-tight"
+                          style={{
+                            fontSize: "clamp(0.5rem, 0.7vw, 0.65rem)",
+                            letterSpacing: "clamp(0.16em, 0.22vw, 0.22em)",
+                          }}
+                        >
                           {stat.label}
                         </p>
                       </div>
@@ -229,23 +310,46 @@ export default function HeroSlider() {
         </div>
       </div>
 
-      {/* Bottom — minimal nav + progress (in flex flow, so always sits at section bottom) */}
+      {/* Bottom — arrows + progress bars, fixed footprint */}
       <div className="relative z-10 flex-shrink-0">
-        {/* Arrow nav — desktop only */}
-        <div className="hidden sm:flex justify-end items-center gap-2 px-8 pb-3">
+        <div
+          className="flex justify-center items-center"
+          style={{
+            gap: "clamp(0.625rem, 1vw, 0.875rem)",
+            paddingBottom: "clamp(0.375rem, 0.8vh, 0.75rem)",
+          }}
+        >
           <button
             onClick={prev}
-            className="w-10 h-10 rounded-full border border-[#FAF7F2]/15 flex items-center justify-center text-[#FAF7F2]/50 hover:text-[#FAF7F2] hover:border-[#FAF7F2]/30 hover:bg-[#FAF7F2]/5 transition-all backdrop-blur-sm"
+            className="rounded-full border border-[#FAF7F2]/15 flex items-center justify-center text-[#FAF7F2]/60 hover:text-[#FAF7F2] hover:border-[#FAF7F2]/30 hover:bg-[#FAF7F2]/5 transition-all backdrop-blur-sm"
             aria-label="Previous slide"
+            style={{
+              width: "clamp(2rem, 2.6vw, 2.5rem)",
+              height: "clamp(2rem, 2.6vw, 2.5rem)",
+            }}
           >
-            <ChevronLeft size={18} />
+            <ChevronLeft size={15} />
           </button>
+          <span
+            className="text-[#FAF7F2]/55 tabular-nums"
+            style={{
+              fontFamily: "var(--font-outfit)",
+              fontSize: "clamp(0.625rem, 0.9vw, 0.75rem)",
+              letterSpacing: "0.2em",
+            }}
+          >
+            {String(current + 1).padStart(2, "0")} / {String(SLIDES.length).padStart(2, "0")}
+          </span>
           <button
             onClick={next}
-            className="w-10 h-10 rounded-full border border-[#FAF7F2]/15 flex items-center justify-center text-[#FAF7F2]/50 hover:text-[#FAF7F2] hover:border-[#FAF7F2]/30 hover:bg-[#FAF7F2]/5 transition-all backdrop-blur-sm"
+            className="rounded-full border border-[#FAF7F2]/15 flex items-center justify-center text-[#FAF7F2]/60 hover:text-[#FAF7F2] hover:border-[#FAF7F2]/30 hover:bg-[#FAF7F2]/5 transition-all backdrop-blur-sm"
             aria-label="Next slide"
+            style={{
+              width: "clamp(2rem, 2.6vw, 2.5rem)",
+              height: "clamp(2rem, 2.6vw, 2.5rem)",
+            }}
           >
-            <ChevronRight size={18} />
+            <ChevronRight size={15} />
           </button>
         </div>
 
@@ -255,8 +359,9 @@ export default function HeroSlider() {
             <button
               key={i}
               onClick={() => goTo(i)}
-              className="flex-1 h-1 sm:h-[3px] bg-[#FAF7F2]/10 cursor-pointer"
+              className="flex-1 bg-[#FAF7F2]/10 cursor-pointer"
               aria-label={`Go to slide ${i + 1}`}
+              style={{ height: "clamp(2px, 0.35vh, 3px)" }}
             >
               <div
                 className="h-full transition-none pointer-events-none"
