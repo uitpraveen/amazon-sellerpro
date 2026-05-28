@@ -1,7 +1,7 @@
 /**
  * Server-side Stripe helpers.
  *
- * When STRIPE_SECRET_KEY is missing, all functions operate in MOCK mode —
+ * When STRIPE_SECRET_KEY is missing, all functions operate in MOCK mode -
  * the API route returns a synthetic client_secret and verifyPaymentIntent
  * accepts mock IDs. This mirrors the PayPal mock pattern so the full flow
  * can be tested without real Stripe credentials.

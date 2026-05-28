@@ -16,13 +16,13 @@ const SERVICES: Service[] = [
   {
     icon: Search,
     title: "ASIN Classification Review & Appeal",
-    desc: "Your ASIN was restricted — but was Amazon right? We investigate what triggered the classification, review and modify your listing content to remove the block, and submit the appeal to get it reinstated.",
+    desc: "Your ASIN was restricted - but was Amazon right? We investigate what triggered the classification, review and modify your listing content to remove the block, and submit the appeal to get it reinstated.",
     href: "/services#asin-classification-review",
   },
   {
     icon: FileSearch,
     title: "Document Review & Remediation",
-    desc: "Amazon has told you what's wrong — but the message is unclear and you don't know exactly what to fix. We decode Amazon's rejection, identify precisely what is missing or incorrect in your documents, and remediate them so your next submission meets Amazon's requirements.",
+    desc: "Amazon has told you what's wrong - but the message is unclear and you don't know exactly what to fix. We decode Amazon's rejection, identify precisely what is missing or incorrect in your documents, and remediate them so your next submission meets Amazon's requirements.",
     href: "/services#document-review-remediation",
   },
   {
@@ -34,7 +34,7 @@ const SERVICES: Service[] = [
   {
     icon: FileSignature,
     title: "Compliance Document Creation",
-    desc: "Need a CPC, GCC, or DOC? We create fully compliant safety documents structured exactly to Amazon's submission standards — using your existing test reports and product information.",
+    desc: "Need a CPC, GCC, or DOC? We create fully compliant safety documents structured exactly to Amazon's submission standards - using your existing test reports and product information.",
     href: "/services#compliance-document-creation",
   },
 ];

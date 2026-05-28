@@ -103,7 +103,7 @@ export const selfGuideTree: Record<string, BotNode> = {
       type: "can_help",
       title: "We Can Create Your Documents!",
       message:
-        "No worries — we specialize in creating CPC, DOC, and GCC documents from scratch. Check our pricing packages to get started.",
+        "No worries - we specialize in creating CPC, DOC, and GCC documents from scratch. Check our pricing packages to get started.",
       cta: { label: "View Pricing", href: "/pricing" },
     },
   },

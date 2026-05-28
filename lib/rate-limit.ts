@@ -1,6 +1,6 @@
 /**
  * In-memory token-bucket rate limiter keyed by IP.
- * Stateless across server restarts — acceptable for a low-traffic marketing site.
+ * Stateless across server restarts - acceptable for a low-traffic marketing site.
  * Limits: 5 submissions per IP per 10 minutes.
  */
 

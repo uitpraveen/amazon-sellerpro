@@ -278,7 +278,7 @@ export default function ServiceCard({ service, index }: { service: ServiceDef; i
               color: "#6B6560",
             }}
           >
-            Coming Soon — Register Interest
+            Coming Soon - Register Interest
           </span>
         ) : (
           <Link

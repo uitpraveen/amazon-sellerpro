@@ -19,7 +19,7 @@ export default function ServicesGridSection() {
       >
         <div
           style={{
-            maxWidth: "1200px",
+            maxWidth: "1280px",
             margin: "0 auto",
             padding: "0 24px",
           }}
@@ -50,7 +50,6 @@ export default function ServicesGridSection() {
                 lineHeight: 1.08,
                 color: "#2D2A26",
                 marginBottom: "24px",
-                maxWidth: "700px",
               }}
             >
               Our Services
@@ -61,7 +60,6 @@ export default function ServicesGridSection() {
                 fontSize: "17px",
                 lineHeight: 1.75,
                 color: "#6B6560",
-                maxWidth: "640px",
               }}
             >
               Amazon Safety Pro offers a comprehensive suite of compliance and
@@ -85,7 +83,7 @@ export default function ServicesGridSection() {
       >
         <div
           style={{
-            maxWidth: "1200px",
+            maxWidth: "1280px",
             margin: "0 auto",
             padding: "0 24px",
           }}
@@ -116,7 +114,7 @@ export default function ServicesGridSection() {
       >
         <div
           style={{
-            maxWidth: "1200px",
+            maxWidth: "1280px",
             margin: "0 auto",
             padding: "0 24px",
             textAlign: "center",
@@ -167,7 +165,7 @@ export default function ServicesGridSection() {
               }}
             >
               Send us your case details and Amazon notifications. Our team will
-              review them and tell you exactly which service you need — or
+              review them and tell you exactly which service you need - or
               whether you need one at all.
             </p>
             <Link

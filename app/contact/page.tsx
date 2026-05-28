@@ -4,7 +4,7 @@ import Footer from "@/components/layout/Footer";
 import ContactSplitSection from "@/components/sections/ContactSplitSection";
 
 export const metadata: Metadata = {
-  title: "Contact — Amazon Safety Pro",
+  title: "Contact - Amazon Safety Pro",
   description:
     "Get in touch with our team of ex-Amazonians. Response within 1 business day.",
 };

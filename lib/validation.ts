@@ -30,7 +30,7 @@ export const contactFormSchema = z.object({
     "general_question",
   ]),
   message: z.string().trim().min(10, "Please describe your issue").max(5000),
-  // Honeypot — must be empty.
+  // Honeypot - must be empty.
   website: z.string().max(0).optional().or(z.literal("")),
 });
 

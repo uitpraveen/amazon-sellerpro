@@ -102,7 +102,7 @@ export default function HeroSlider() {
           />
           {/* Top + bottom dark for nav and stats card */}
           <div className="absolute inset-0 bg-gradient-to-b from-[#0a1f15]/85 via-[#0a1f15]/40 to-[#0a1f15]/95" />
-          {/* Center darkening for text legibility (radial — lets edges show warehouse warmth) */}
+          {/* Center darkening for text legibility (radial - lets edges show warehouse warmth) */}
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_75%_60%_at_50%_42%,rgba(10,31,21,0.7)_0%,rgba(10,31,21,0.4)_70%,transparent_100%)]" />
           {/* Edge vignette for focus */}
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_45%,rgba(10,31,21,0.65)_100%)]" />
@@ -113,7 +113,7 @@ export default function HeroSlider() {
         </motion.div>
       </AnimatePresence>
 
-      {/* Main content — fluid centred zone that absorbs leftover space */}
+      {/* Main content - fluid centred zone that absorbs leftover space */}
       <div className="relative z-10 flex-1 flex items-center justify-center w-full min-h-0">
         <div
           className="max-w-7xl mx-auto w-full text-center"
@@ -153,7 +153,7 @@ export default function HeroSlider() {
                 <div className="h-px bg-[#B8860B]" style={{ width: "clamp(1.25rem, 2vw, 2rem)" }} />
               </motion.div>
 
-              {/* Headline — two stacked lines with overflow clip for slide animation */}
+              {/* Headline - two stacked lines with overflow clip for slide animation */}
               <div className="flex flex-col" style={{ gap: "clamp(0.125rem, 0.4vh, 0.5rem)" }}>
                 <div className="overflow-hidden">
                   <motion.h1
@@ -250,7 +250,7 @@ export default function HeroSlider() {
                 </Link>
               </motion.div>
 
-              {/* Stats — prominent glass card row inside hero */}
+              {/* Stats - prominent glass card row inside hero */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -310,7 +310,7 @@ export default function HeroSlider() {
         </div>
       </div>
 
-      {/* Bottom — arrows + progress bars, fixed footprint */}
+      {/* Bottom - arrows + progress bars, fixed footprint */}
       <div className="relative z-10 flex-shrink-0">
         <div
           className="flex justify-center items-center"

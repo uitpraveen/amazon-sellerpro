@@ -92,77 +92,131 @@ const fadeUp = {
 
 export default function RestrictedSlider() {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const stepRef = useRef<number>(0); // card width + gap
+  const ignoreScrollRef = useRef<boolean>(false);
+  const isPausedRef = useRef<boolean>(false);
+
   const [activeIndex, setActiveIndex] = useState(0);
+  const [maxStart, setMaxStart] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const cardStepRef = useRef<number>(0);
 
-  // Measure the actual scroll step (card width + gap) from the DOM
-  const measureCardStep = useCallback(() => {
-    const el = scrollRef.current;
-    if (!el) return 0;
-    const cards = el.querySelectorAll<HTMLElement>("[data-slide-card]");
-    if (cards.length < 2) {
-      return cards[0]?.offsetWidth ?? 280;
-    }
-    return cards[1].offsetLeft - cards[0].offsetLeft;
-  }, []);
-
-  const scrollToIndex = useCallback((index: number, smooth = true) => {
+  // Recompute step (card width + gap) and the max valid start index.
+  // The max start index is bounded so the rightmost card is never cut off:
+  //   maxStart = totalCards − floor(containerWidth / step)
+  const recompute = useCallback(() => {
     const el = scrollRef.current;
     if (!el) return;
-    const step = cardStepRef.current || measureCardStep();
-    cardStepRef.current = step;
-    const clamped = Math.max(0, Math.min(index, CATEGORIES.length - 1));
-    el.scrollTo({
-      left: clamped * step,
-      behavior: smooth ? "smooth" : "auto",
-    });
-  }, [measureCardStep]);
+    const cards = el.querySelectorAll<HTMLElement>("[data-slide-card]");
+    if (cards.length === 0) return;
+
+    const cardWidth = cards[0].offsetWidth;
+    const step =
+      cards.length >= 2 ? cards[1].offsetLeft - cards[0].offsetLeft : cardWidth;
+    stepRef.current = step;
+
+    // How many full cards fit at once (≥ 1). Use the rendered scroll width to
+    // figure out if the whole list already fits - in which case maxStart = 0.
+    const containerWidth = el.clientWidth;
+    const totalTrackWidth = el.scrollWidth;
+    let visibleCount: number;
+    if (totalTrackWidth <= containerWidth + 1) {
+      visibleCount = CATEGORIES.length;
+    } else {
+      visibleCount = Math.max(1, Math.floor(containerWidth / step));
+    }
+    const newMax = Math.max(0, CATEGORIES.length - visibleCount);
+    setMaxStart(newMax);
+    setActiveIndex((prev) => Math.min(prev, newMax));
+  }, []);
+
+  // Programmatic scroll: bound to [0, maxStart]
+  const goToIndex = useCallback(
+    (index: number) => {
+      const el = scrollRef.current;
+      if (!el || stepRef.current === 0) return;
+      const clamped = Math.max(0, Math.min(index, maxStart));
+      setActiveIndex(clamped);
+      // Ignore the next onScroll-driven index update for a tick so the manual
+      // click can't briefly flip the active dot to a stale value.
+      ignoreScrollRef.current = true;
+      el.scrollTo({ left: clamped * stepRef.current, behavior: "smooth" });
+      window.setTimeout(() => {
+        ignoreScrollRef.current = false;
+      }, 600);
+    },
+    [maxStart]
+  );
 
   const goNext = useCallback(() => {
     setActiveIndex((prev) => {
-      const next = prev + 1 >= CATEGORIES.length ? 0 : prev + 1;
-      scrollToIndex(next);
+      const next = prev >= maxStart ? 0 : prev + 1;
+      const el = scrollRef.current;
+      if (el && stepRef.current > 0) {
+        ignoreScrollRef.current = true;
+        el.scrollTo({ left: next * stepRef.current, behavior: "smooth" });
+        window.setTimeout(() => {
+          ignoreScrollRef.current = false;
+        }, 600);
+      }
       return next;
     });
-  }, [scrollToIndex]);
+  }, [maxStart]);
 
   const goPrev = useCallback(() => {
     setActiveIndex((prev) => {
-      const next = prev - 1 < 0 ? CATEGORIES.length - 1 : prev - 1;
-      scrollToIndex(next);
+      const next = prev <= 0 ? maxStart : prev - 1;
+      const el = scrollRef.current;
+      if (el && stepRef.current > 0) {
+        ignoreScrollRef.current = true;
+        el.scrollTo({ left: next * stepRef.current, behavior: "smooth" });
+        window.setTimeout(() => {
+          ignoreScrollRef.current = false;
+        }, 600);
+      }
       return next;
     });
-  }, [scrollToIndex]);
+  }, [maxStart]);
 
-  // Keep active dot in sync if the user scrolls manually
+  // Initial measure + on resize
+  useEffect(() => {
+    recompute();
+    const onResize = () => recompute();
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [recompute]);
+
+  // Keep activeIndex in sync with manual scroll, but clamp to maxStart so the
+  // dot can never highlight a position past the valid range.
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
-    cardStepRef.current = measureCardStep();
     const onScroll = () => {
-      const step = cardStepRef.current || measureCardStep();
-      const idx = Math.round(el.scrollLeft / step);
-      setActiveIndex(Math.max(0, Math.min(idx, CATEGORIES.length - 1)));
+      if (ignoreScrollRef.current) return;
+      const step = stepRef.current;
+      if (step === 0) return;
+      const raw = Math.round(el.scrollLeft / step);
+      const clamped = Math.max(0, Math.min(raw, maxStart));
+      setActiveIndex((prev) => (prev !== clamped ? clamped : prev));
     };
     el.addEventListener("scroll", onScroll, { passive: true });
-    // Re-measure on resize so the step stays accurate
-    const onResize = () => {
-      cardStepRef.current = measureCardStep();
-    };
-    window.addEventListener("resize", onResize);
-    return () => {
-      el.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onResize);
-    };
-  }, [measureCardStep]);
+    return () => el.removeEventListener("scroll", onScroll);
+  }, [maxStart]);
 
-  // Auto-slide: cycles when not hovered / focused
+  // Auto-slide - only when there are positions to cycle through
   useEffect(() => {
-    if (isPaused) return;
-    const timer = setInterval(goNext, AUTO_SLIDE_INTERVAL);
-    return () => clearInterval(timer);
-  }, [goNext, isPaused]);
+    isPausedRef.current = isPaused;
+  }, [isPaused]);
+
+  useEffect(() => {
+    if (maxStart === 0) return;
+    const timer = window.setInterval(() => {
+      if (isPausedRef.current) return;
+      goNext();
+    }, AUTO_SLIDE_INTERVAL);
+    return () => window.clearInterval(timer);
+  }, [goNext, maxStart]);
+
+  const dotCount = maxStart + 1;
 
   return (
     <section className="bg-[#1B4332] py-20 sm:py-24 md:py-32 overflow-hidden">
@@ -194,7 +248,7 @@ export default function RestrictedSlider() {
           </p>
         </motion.div>
 
-        {/* Top row: only the "View full safety guide" link (arrows moved to the bottom per client) */}
+        {/* Top row: only the "View full safety guide" link */}
         <div className="mb-6 sm:mb-8">
           <Link
             href={SAFETY_GUIDE_HREF}
@@ -208,12 +262,19 @@ export default function RestrictedSlider() {
 
         <div
           ref={scrollRef}
-          className="flex gap-5 sm:gap-6 overflow-x-auto pb-6 snap-x snap-mandatory -mx-4 px-4 sm:mx-0 sm:px-0 scroll-smooth"
-          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          className="flex gap-5 sm:gap-6 overflow-x-auto pb-6 -mx-4 px-4 sm:mx-0 sm:px-0"
+          style={{
+            scrollbarWidth: "none",
+            msOverflowStyle: "none",
+            scrollBehavior: "smooth",
+          }}
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
-          onFocus={() => setIsPaused(true)}
-          onBlur={() => setIsPaused(false)}
+          onTouchStart={() => setIsPaused(true)}
+          onTouchEnd={() => {
+            // resume after a short delay so the user can swipe without immediate auto-advance
+            window.setTimeout(() => setIsPaused(false), 1500);
+          }}
         >
           {CATEGORIES.map((cat) => {
             const Icon = cat.icon;
@@ -224,7 +285,10 @@ export default function RestrictedSlider() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="snap-start flex-shrink-0 min-w-[260px] sm:min-w-[280px]"
+                /* Sized so 4 cards (4×280 + 3×24 gap = 1192) fit cleanly
+                   inside max-w-7xl (1216 inner width after sm:px-8) without
+                   the rightmost card getting cut off. */
+                className="flex-shrink-0 w-[260px] sm:w-[280px]"
               >
                 <Link
                   href={SAFETY_GUIDE_HREF}
@@ -261,52 +325,50 @@ export default function RestrictedSlider() {
           })}
         </div>
 
-        {/* Bottom nav row: arrows + position indicator + dot pagination */}
-        <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
-          <div className="flex items-center gap-2">
-            <button
-              onClick={goPrev}
-              className="w-11 h-11 rounded-full border border-[#FAF7F2]/20 flex items-center justify-center text-[#FAF7F2]/70 hover:text-[#FAF7F2] hover:border-[#FAF7F2]/40 hover:bg-[#FAF7F2]/5 transition-colors"
-              aria-label="Previous category"
-            >
-              <ChevronLeft size={18} />
-            </button>
-            <span
-              className="text-[#FAF7F2]/60 text-xs tracking-[0.2em] tabular-nums px-1"
-              style={{ fontFamily: "var(--font-outfit)" }}
-            >
-              {String(activeIndex + 1).padStart(2, "0")} / {String(CATEGORIES.length).padStart(2, "0")}
-            </span>
-            <button
-              onClick={goNext}
-              className="w-11 h-11 rounded-full border border-[#FAF7F2]/20 flex items-center justify-center text-[#FAF7F2]/70 hover:text-[#FAF7F2] hover:border-[#FAF7F2]/40 hover:bg-[#FAF7F2]/5 transition-colors"
-              aria-label="Next category"
-            >
-              <ChevronRight size={18} />
-            </button>
-          </div>
-
-          <div className="hidden sm:block h-5 w-px bg-[#FAF7F2]/15" />
-
-          {/* Dot indicators — clickable */}
-          <div className="flex gap-1.5">
-            {CATEGORIES.map((_, i) => (
+        {/* Bottom nav: arrows + counter + dot pagination */}
+        {dotCount > 1 && (
+          <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+            <div className="flex items-center gap-2">
               <button
-                key={i}
-                onClick={() => {
-                  setActiveIndex(i);
-                  scrollToIndex(i);
-                }}
-                className={`h-1.5 rounded-full transition-all ${
-                  i === activeIndex
-                    ? "w-6 bg-[#B8860B]"
-                    : "w-1.5 bg-[#FAF7F2]/25 hover:bg-[#FAF7F2]/45"
-                }`}
-                aria-label={`Go to category ${i + 1}`}
-              />
-            ))}
+                onClick={goPrev}
+                className="w-11 h-11 rounded-full border border-[#FAF7F2]/20 flex items-center justify-center text-[#FAF7F2]/70 hover:text-[#FAF7F2] hover:border-[#FAF7F2]/40 hover:bg-[#FAF7F2]/5 transition-colors"
+                aria-label="Previous"
+              >
+                <ChevronLeft size={18} />
+              </button>
+              <span
+                className="text-[#FAF7F2]/60 text-xs tracking-[0.2em] tabular-nums px-1"
+                style={{ fontFamily: "var(--font-outfit)" }}
+              >
+                {String(activeIndex + 1).padStart(2, "0")} / {String(dotCount).padStart(2, "0")}
+              </span>
+              <button
+                onClick={goNext}
+                className="w-11 h-11 rounded-full border border-[#FAF7F2]/20 flex items-center justify-center text-[#FAF7F2]/70 hover:text-[#FAF7F2] hover:border-[#FAF7F2]/40 hover:bg-[#FAF7F2]/5 transition-colors"
+                aria-label="Next"
+              >
+                <ChevronRight size={18} />
+              </button>
+            </div>
+
+            <div className="hidden sm:block h-5 w-px bg-[#FAF7F2]/15" />
+
+            <div className="flex gap-1.5">
+              {Array.from({ length: dotCount }).map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => goToIndex(i)}
+                  className={`h-1.5 rounded-full transition-all ${
+                    i === activeIndex
+                      ? "w-6 bg-[#B8860B]"
+                      : "w-1.5 bg-[#FAF7F2]/25 hover:bg-[#FAF7F2]/45"
+                  }`}
+                  aria-label={`Go to page ${i + 1}`}
+                />
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );

@@ -47,9 +47,9 @@ export default function SoundFamiliarSection() {
         <RevealOnScroll className="mt-20" delay={0.1}>
           <div className="grid gap-12 lg:grid-cols-2">
             <p className="text-lg leading-relaxed text-[var(--ink-2)]">
-              If you have been going back and forth with Amazon — submitting
+              If you have been going back and forth with Amazon - submitting
               documents, receiving the same rejection, resubmitting, and getting
-              nowhere — you are not alone. Thousands of Amazon sellers face this
+              nowhere - you are not alone. Thousands of Amazon sellers face this
               exact situation every day. The rejections are automated. The
               messages are vague. And no one at Amazon is telling you what is
               actually wrong or what you actually need to do to fix it.
@@ -68,7 +68,7 @@ export default function SoundFamiliarSection() {
         <RevealOnScroll className="mt-12" showLine={false}>
           <p className="max-w-4xl text-xl leading-relaxed text-[var(--ink)] lg:text-2xl">
             At Amazon Safety Pro, we do what Amazon&rsquo;s automated system
-            cannot — we read between the lines. Our team of ex-Amazonians knows
+            cannot - we read between the lines. Our team of ex-Amazonians knows
             how to decode the rejection notices, identify the specific gap that
             is causing them, and build a response that actually addresses what
             Amazon&rsquo;s compliance team needs to see.{" "}

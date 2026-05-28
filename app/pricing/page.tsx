@@ -17,7 +17,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
-  title: "Pricing — Amazon Safety Pro",
+  title: "Pricing - Amazon Safety Pro",
   description:
     "Transparent, fixed-fee pricing for Amazon compliance services. Every engagement begins with a free review and a written quote.",
 };
@@ -40,7 +40,7 @@ const TIERS: Tier[] = [
   {
     name: "ASIN Classification Review & Appeal",
     tagline:
-      "Your ASIN was restricted — but was Amazon right? We investigate what triggered the classification, review and modify your listing content to remove the block, and submit the appeal to get it reinstated.",
+      "Your ASIN was restricted - but was Amazon right? We investigate what triggered the classification, review and modify your listing content to remove the block, and submit the appeal to get it reinstated.",
     icon: Search,
     features: [
       "Identify the product type and cross-reference with Amazon's policies to determine if the product is controlled or restricted",
@@ -58,7 +58,7 @@ const TIERS: Tier[] = [
   {
     name: "Document Review & Remediation",
     tagline:
-      "Amazon has told you what's wrong — but the message is unclear and you don't know exactly what to fix. We decode Amazon's rejection, identify precisely what is missing or incorrect in your documents, and remediate them so your next submission meets Amazon's requirements.",
+      "Amazon has told you what's wrong - but the message is unclear and you don't know exactly what to fix. We decode Amazon's rejection, identify precisely what is missing or incorrect in your documents, and remediate them so your next submission meets Amazon's requirements.",
     icon: FileSearch,
     features: [
       "Review the case submitted to Amazon",
@@ -66,7 +66,7 @@ const TIERS: Tier[] = [
       "Identify what is needed to resolve the rejection",
       "Line-by-line review of the seller's existing submitted documents",
       "Identify exactly what is missing or incorrect in the documents",
-      "Advise on what is needed to remediate — seller obtains the required documents",
+      "Advise on what is needed to remediate - seller obtains the required documents",
       "Review the remediated documents once received from the seller",
       "Resubmit to Amazon",
       "Follow up with Amazon until the case is resolved",
@@ -98,7 +98,7 @@ const TIERS: Tier[] = [
   {
     name: "Compliance Document Creation",
     tagline:
-      "Need a CPC, GCC, or DOC? We create fully compliant safety documents structured exactly to Amazon's submission standards — using your existing test reports and product information.",
+      "Need a CPC, GCC, or DOC? We create fully compliant safety documents structured exactly to Amazon's submission standards - using your existing test reports and product information.",
     icon: FileSignature,
     features: [
       "Review product type and applicable standards",
@@ -151,7 +151,7 @@ const STEPS = [
   {
     num: "01",
     title: "Free Review",
-    desc: "Send your product details and Amazon notifications. We review at no cost and confirm exactly which service you need — or whether you need one at all.",
+    desc: "Send your product details and Amazon notifications. We review at no cost and confirm exactly which service you need - or whether you need one at all.",
   },
   {
     num: "02",
@@ -190,7 +190,7 @@ const FAQS = [
   },
   {
     q: "Why don't you publish fixed prices for every service?",
-    a: "For most services, compliance work is highly case-specific — fees depend on product category, marketplace, document state, and the scope of remediation needed. Publishing a one-size price would either over-quote simple cases or under-deliver on complex ones. Every quote is fixed and given in writing before work starts, so there are no surprises. Two services — Compliance Document Creation ($299 per document) and Product Compliance Assessment ($399) — are offered at fixed prices.",
+    a: "For most services, compliance work is highly case-specific - fees depend on product category, marketplace, document state, and the scope of remediation needed. Publishing a one-size price would either over-quote simple cases or under-deliver on complex ones. Every quote is fixed and given in writing before work starts, so there are no surprises. Two services - Compliance Document Creation ($299 per document) and Product Compliance Assessment ($399) - are offered at fixed prices.",
   },
   {
     q: "What currencies do you accept?",
@@ -198,7 +198,7 @@ const FAQS = [
   },
   {
     q: "Is the first review really free?",
-    a: "Yes. Send your product details and any Amazon compliance notifications. Within 24 hours you'll receive an honest assessment — even if our verdict is that you don't need our services.",
+    a: "Yes. Send your product details and any Amazon compliance notifications. Within 24 hours you'll receive an honest assessment - even if our verdict is that you don't need our services.",
   },
   {
     q: "What's your refund policy?",
@@ -236,7 +236,7 @@ export default function PricingPage() {
               style={cardFont}
             >
               Compliance work is case-specific. We quote each engagement on a
-              fixed-fee basis after a free review — never an estimate, never a
+              fixed-fee basis after a free review - never an estimate, never a
               surprise.
             </p>
           </div>
@@ -388,7 +388,7 @@ export default function PricingPage() {
               style={cardFont}
             >
               All engagements are advisory in nature. We do not guarantee any
-              specific outcome from Amazon — see our Terms for details.
+              specific outcome from Amazon - see our Terms for details.
             </p>
           </div>
         </section>
@@ -555,7 +555,7 @@ export default function PricingPage() {
                 >
                   Send us your case details and any Amazon notifications.
                   Within 2 business days you&rsquo;ll have a written assessment
-                  and a clear scope of work — at no cost.
+                  and a clear scope of work - at no cost.
                 </p>
                 <div className="mt-9 flex flex-col sm:flex-row gap-3 justify-center">
                   <Link

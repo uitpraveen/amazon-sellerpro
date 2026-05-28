@@ -122,7 +122,7 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
-  title: "Amazon Safety Pro — Compliance handled by people who built the rules",
+  title: "Amazon Safety Pro - Compliance handled by people who built the rules",
   description:
     "Amazon product safety and ASIN reinstatement, led by ex-Amazonians who spent half a decade inside Amazon's product safety team.",
   keywords: [

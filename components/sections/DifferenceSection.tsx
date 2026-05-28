@@ -3,10 +3,10 @@ import RevealOnScroll from "@/components/ui/RevealOnScroll";
 import NumberMarker from "@/components/ui/NumberMarker";
 
 const ROWS = [
-  "Half a decade inside Amazon's product safety team — our group lead",
+  "Half a decade inside Amazon's product safety team - our group lead",
   "100% team of past, tenured Amazonians",
   "Serving FBA sellers, brand owners, importers and manufacturers",
-  "One clear path: from restricted to reinstated — we handle every step",
+  "One clear path: from restricted to reinstated - we handle every step",
 ];
 
 export default function DifferenceSection() {

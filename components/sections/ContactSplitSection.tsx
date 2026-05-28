@@ -10,9 +10,9 @@ const sidebarRows = [
 ];
 
 const trustPoints = [
-  "Reviewed by the team that wrote Amazon's product safety policies — we know exactly what Amazon looks for",
-  "Your case details are handled with strict confidentiality — we never share seller or product information",
-  "Honest advice, always — if your product cannot be reinstated, we will tell you upfront at no charge",
+  "Reviewed by the team that wrote Amazon's product safety policies - we know exactly what Amazon looks for",
+  "Your case details are handled with strict confidentiality - we never share seller or product information",
+  "Honest advice, always - if your product cannot be reinstated, we will tell you upfront at no charge",
 ];
 
 export default function ContactSplitSection() {
@@ -40,7 +40,7 @@ export default function ContactSplitSection() {
 
         {/* 2-column layout */}
         <div className="mt-16 grid gap-10 lg:grid-cols-12">
-          {/* Form — 8 cols */}
+          {/* Form - 8 cols */}
           <div className="lg:col-span-8">
             <div
               className="rounded-2xl p-8 sm:p-10"
@@ -55,7 +55,7 @@ export default function ContactSplitSection() {
             </div>
           </div>
 
-          {/* Sidebar — 4 cols */}
+          {/* Sidebar - 4 cols */}
           <aside className="lg:col-span-4">
             <div className="space-y-6 lg:sticky lg:top-32">
               {/* Details card */}

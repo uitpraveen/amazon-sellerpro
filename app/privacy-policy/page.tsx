@@ -10,7 +10,7 @@ import LegalDocumentLayout, {
 } from "@/components/sections/LegalDocumentLayout";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy — Amazon Safety Pro",
+  title: "Privacy Policy - Amazon Safety Pro",
   description: "How we collect, use, store, and protect your personal data.",
 };
 
@@ -89,7 +89,7 @@ const SECTIONS: LegalSection[] = [
             "Compliance documents, test reports, certificates, and safety documentation you share with us",
             "Amazon notifications, rejection notices, and case correspondence you share with us",
             "Messages and communications sent to us via contact forms, email, Zoom, or Slack",
-            "Payment information — processed securely through our third-party payment gateway; we do not store card details directly",
+            "Payment information - processed securely through our third-party payment gateway; we do not store card details directly",
           ]}
         />
         <LegalSubHeading>Data collected automatically</LegalSubHeading>
@@ -148,10 +148,10 @@ const SECTIONS: LegalSection[] = [
         </LegalP>
         <LegalBullets
           items={[
-            "Contractual necessity — processing required to deliver our services to you",
-            "Legitimate interests — analytics, service improvement, and direct marketing to relevant business audiences",
-            "Legal obligation — where we are required to process data to comply with applicable law",
-            "Consent — for the use of non-essential cookies and targeted advertising, where required",
+            "Contractual necessity - processing required to deliver our services to you",
+            "Legitimate interests - analytics, service improvement, and direct marketing to relevant business audiences",
+            "Legal obligation - where we are required to process data to comply with applicable law",
+            "Consent - for the use of non-essential cookies and targeted advertising, where required",
           ]}
         />
         <LegalP>
@@ -212,11 +212,11 @@ const SECTIONS: LegalSection[] = [
         </LegalP>
         <LegalBullets
           items={[
-            "Payment gateway providers — to process payments for our services securely",
-            "Google LLC — for website analytics (Google Analytics) and digital advertising (Google Ads)",
-            "Video and communication platforms — Zoom and Slack, used to conduct meetings and case communications",
-            "Cloud storage providers — used to securely store client documents and case files",
-            "Email and marketing tools — used for email communications and, if applicable, marketing campaigns",
+            "Payment gateway providers - to process payments for our services securely",
+            "Google LLC - for website analytics (Google Analytics) and digital advertising (Google Ads)",
+            "Video and communication platforms - Zoom and Slack, used to conduct meetings and case communications",
+            "Cloud storage providers - used to securely store client documents and case files",
+            "Email and marketing tools - used for email communications and, if applicable, marketing campaigns",
           ]}
         />
         <LegalP>
@@ -262,9 +262,9 @@ const SECTIONS: LegalSection[] = [
         </LegalP>
         <LegalBullets
           items={[
-            "Essential cookies — necessary for the website to function correctly",
-            "Analytics cookies — used by Google Analytics to collect aggregated data about how visitors use our website",
-            "Advertising cookies — used by Google Ads and other advertising platforms to serve relevant ads and measure campaign performance",
+            "Essential cookies - necessary for the website to function correctly",
+            "Analytics cookies - used by Google Analytics to collect aggregated data about how visitors use our website",
+            "Advertising cookies - used by Google Ads and other advertising platforms to serve relevant ads and measure campaign performance",
           ]}
         />
         <LegalP>
@@ -289,14 +289,14 @@ const SECTIONS: LegalSection[] = [
         </LegalP>
         <LegalBullets
           items={[
-            "Right to access — request a copy of the personal data we hold about you",
-            "Right to rectification — request correction of inaccurate or incomplete data",
-            "Right to erasure — request deletion of your personal data in certain circumstances",
-            "Right to restrict processing — request that we limit how we use your data",
-            "Right to data portability — request your data in a structured, machine-readable format",
-            "Right to object — object to certain types of processing, including direct marketing",
-            "Right to withdraw consent — where processing is based on consent, withdraw it at any time",
-            "Right to lodge a complaint — with the relevant data protection authority in your jurisdiction",
+            "Right to access - request a copy of the personal data we hold about you",
+            "Right to rectification - request correction of inaccurate or incomplete data",
+            "Right to erasure - request deletion of your personal data in certain circumstances",
+            "Right to restrict processing - request that we limit how we use your data",
+            "Right to data portability - request your data in a structured, machine-readable format",
+            "Right to object - object to certain types of processing, including direct marketing",
+            "Right to withdraw consent - where processing is based on consent, withdraw it at any time",
+            "Right to lodge a complaint - with the relevant data protection authority in your jurisdiction",
           ]}
         />
         <LegalSubHeading>Jurisdiction-specific rights</LegalSubHeading>

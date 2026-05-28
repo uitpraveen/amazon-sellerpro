@@ -18,7 +18,7 @@ export const SERVICE_INQUIRY_LABELS: Record<ServiceInquiryType, string> = {
   compliance_document_creation: "Compliance Document Creation (CPC / GCC / DOC)",
   product_compliance_assessment: "Product Compliance Assessment",
   testing_guidance: "Testing Guidance (Coming Soon)",
-  not_sure_need_advice: "Not sure — need advice",
+  not_sure_need_advice: "Not sure - need advice",
   general_question: "General question",
 };
 

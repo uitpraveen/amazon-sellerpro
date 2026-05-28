@@ -89,7 +89,7 @@ export default function StripeCheckout({
     );
   }
 
-  // Mock mode — Stripe.js can't be loaded, so we render a placeholder card
+  // Mock mode - Stripe.js can't be loaded, so we render a placeholder card
   // form that auto-completes when the user clicks "Pay (mock)".
   if (isMock || !stripePromise) {
     return (

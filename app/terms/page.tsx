@@ -10,7 +10,7 @@ import LegalDocumentLayout, {
 } from "@/components/sections/LegalDocumentLayout";
 
 export const metadata: Metadata = {
-  title: "Terms and Conditions — Amazon Safety Pro",
+  title: "Terms and Conditions - Amazon Safety Pro",
   description:
     "Terms and Conditions of Service governing the relationship between Amazon Safety Pro and clients.",
 };
@@ -281,8 +281,8 @@ const SECTIONS: LegalSection[] = [
       <>
         <LegalSubHeading>Documents we create</LegalSubHeading>
         <LegalP>
-          Any compliance documents we create for you — including CPCs, DOCs,
-          GCCs, and validation reports — are created specifically for your
+          Any compliance documents we create for you - including CPCs, DOCs,
+          GCCs, and validation reports - are created specifically for your
           product and business based on the information you provide. Upon
           receipt of full payment, you are granted a non-exclusive license to
           use these documents for the specific product and marketplace for
@@ -339,7 +339,7 @@ const SECTIONS: LegalSection[] = [
           independent third party over whose decisions we have no control or
           influence.
         </LegalP>
-        <LegalSubHeading>Best efforts — no guarantee of reinstatement</LegalSubHeading>
+        <LegalSubHeading>Best efforts - no guarantee of reinstatement</LegalSubHeading>
         <LegalP>
           We commit to applying our full professional expertise and best
           efforts to support the reinstatement of your product listing or
@@ -385,8 +385,8 @@ const SECTIONS: LegalSection[] = [
           submitted. Where Amazon makes such a request, the seller is
           responsible for obtaining and providing those additional documents
           promptly. Any costs associated with obtaining additional
-          documentation — including but not limited to laboratory testing
-          fees, certification costs, or third-party inspection fees — are the
+          documentation - including but not limited to laboratory testing
+          fees, certification costs, or third-party inspection fees - are the
           sole responsibility of the seller and are not included in our
           service fees.
         </LegalP>
@@ -478,7 +478,7 @@ const SECTIONS: LegalSection[] = [
           items={[
             "You breach any provision of these Terms",
             "You provide false, misleading, or fraudulent information or documents",
-            "Any document you have provided to us is determined, at any point, to be falsified, modified, altered, or misrepresented in any way — upon such determination, we will immediately terminate the agreement with no refund and reserve the right to report the matter to Amazon and relevant regulatory authorities",
+            "Any document you have provided to us is determined, at any point, to be falsified, modified, altered, or misrepresented in any way - upon such determination, we will immediately terminate the agreement with no refund and reserve the right to report the matter to Amazon and relevant regulatory authorities",
             "You fail to make payment in accordance with agreed terms",
             "We reasonably believe that continuing the engagement would expose us to legal, regulatory, or reputational risk",
           ]}
@@ -499,8 +499,8 @@ const SECTIONS: LegalSection[] = [
         <LegalSubHeading>Governing law</LegalSubHeading>
         <LegalP>
           These Terms and any dispute or claim arising out of or in
-          connection with them — including non-contractual disputes or claims
-          — shall be governed by and construed in accordance with the laws of
+          connection with them - including non-contractual disputes or claims
+          - shall be governed by and construed in accordance with the laws of
           India.
         </LegalP>
         <LegalSubHeading>Dispute resolution</LegalSubHeading>
@@ -616,16 +616,16 @@ export default function TermsPage() {
               website.
             </p>
             <p>
-              By making a payment for any of our services — whether through
+              By making a payment for any of our services - whether through
               our website, by direct bank transfer, or via any other payment
-              method — you confirm that you have read, understood, and agreed
+              method - you confirm that you have read, understood, and agreed
               to be bound by these Terms in full. If you do not agree with
               any part of these Terms, you must not proceed with payment or
               engagement of our services.
             </p>
             <p>
               These Terms apply to all service engagements regardless of how
-              they were initiated — online via our website contact form, or
+              they were initiated - online via our website contact form, or
               directly via email, WhatsApp, or any other communication channel.
             </p>
           </div>

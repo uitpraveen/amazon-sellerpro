@@ -2,7 +2,7 @@
  * Server-side PayPal helpers for the Orders v2 API.
  *
  * When PAYPAL_CLIENT_ID or PAYPAL_CLIENT_SECRET is missing, all functions
- * operate in MOCK mode — they return synthetic order/capture IDs and the
+ * operate in MOCK mode - they return synthetic order/capture IDs and the
  * downstream code treats them as valid. This lets the entire flow be tested
  * without real PayPal sandbox credentials.
  */

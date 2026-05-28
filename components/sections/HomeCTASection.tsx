@@ -20,15 +20,15 @@ export default function HomeCTASection() {
               </h2>
               <p className="mx-auto mt-8 max-w-3xl text-lg leading-relaxed text-[var(--ink-2)]">
                 Submit your compliance documents and Amazon notifications for a
-                free review. Our team will go through everything — your
-                rejection notices, your existing documents, your case history —
+                free review. Our team will go through everything - your
+                rejection notices, your existing documents, your case history -
                 and come back to you with a clear, honest picture of what is
                 wrong and what the path forward looks like.
               </p>
               <p className="mx-auto mt-4 max-w-3xl text-lg leading-relaxed text-[var(--ink-2)]">
                 No automated responses. No guesswork. A real ex-Amazonian will
                 review your case personally. If there is a viable path to
-                reinstatement, we will walk you through it — and set up a call
+                reinstatement, we will walk you through it - and set up a call
                 if needed.
               </p>
 

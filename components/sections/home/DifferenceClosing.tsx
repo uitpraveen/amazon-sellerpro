@@ -15,16 +15,16 @@ const stagger = {
 };
 
 const BULLETS = [
-  "Half a decade inside Amazon’s product safety team — our group lead",
+  "Half a decade inside Amazon’s product safety team - our group lead",
   "100% team of past, tenured Amazonians",
   "Serving FBA sellers, brand owners, importers and manufacturers",
-  "One clear path: from restricted to reinstated — we handle every step",
+  "One clear path: from restricted to reinstated - we handle every step",
 ];
 
 export default function DifferenceClosing() {
   return (
     <>
-      {/* The Amazon Safety Pro difference — bullet band */}
+      {/* The Amazon Safety Pro difference - bullet band */}
       <section className="bg-[#FAF7F2] py-20 sm:py-24 md:py-28 border-t border-[#E8E0D4]">
         <div className="max-w-7xl mx-auto px-4 sm:px-8">
           <motion.div
@@ -78,7 +78,7 @@ export default function DifferenceClosing() {
         </div>
       </section>
 
-      {/* Tired of rejections — full closing CTA */}
+      {/* Tired of rejections - full closing CTA */}
       <section
         className="relative overflow-hidden py-20 sm:py-24 md:py-32"
         style={{ background: "#2D2A26" }}
@@ -113,7 +113,7 @@ export default function DifferenceClosing() {
               className="text-base sm:text-lg text-[#FAF7F2]/75 leading-relaxed mb-5 max-w-2xl mx-auto"
               style={{ fontFamily: "var(--font-outfit)" }}
             >
-              Submit your case details for the review. Our team will go through everything &mdash; your rejection notices, your existing documents, your case history &mdash; and come back to you with a clear, honest picture of what is wrong and what the path forward looks like.
+              Submit your case details for the review. Our team will go through everything - your rejection notices, your existing documents, your case history - and come back to you with a clear, honest picture of what is wrong and what the path forward looks like.
             </motion.p>
 
             <motion.p
@@ -121,7 +121,7 @@ export default function DifferenceClosing() {
               className="text-base sm:text-lg text-[#FAF7F2]/75 leading-relaxed mb-10 max-w-2xl mx-auto"
               style={{ fontFamily: "var(--font-outfit)" }}
             >
-              No automated responses. No guesswork. A real ex-Amazonian will review your case personally. If there is a viable path to reinstatement, we will walk you through it &mdash; and set up a call if needed.
+              No automated responses. No guesswork. A real ex-Amazonian will review your case personally. If there is a viable path to reinstatement, we will walk you through it - and set up a call if needed.
             </motion.p>
 
             <motion.div variants={fadeUp} className="flex justify-center mb-5">

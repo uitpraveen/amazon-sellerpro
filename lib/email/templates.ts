@@ -67,7 +67,7 @@ function row(label: string, value: string | undefined): string {
 
 export function contactEmail(p: ContactEmailPayload): RenderedEmail {
   const inquiryLabel = SERVICE_INQUIRY_LABELS[p.inquiryType];
-  const subject = `New enquiry: ${p.fullName} — ${inquiryLabel}`;
+  const subject = `New enquiry: ${p.fullName} - ${inquiryLabel}`;
 
   const html = `
     <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#0A0E14;max-width:640px;background:#F7F7F4;padding:32px;">
@@ -116,7 +116,7 @@ export function contactEmail(p: ContactEmailPayload): RenderedEmail {
 }
 
 export function freeReviewEmail(p: FreeReviewEmailPayload): RenderedEmail {
-  const subject = `Free review request: ${p.fullName} — ${p.productCategory}`;
+  const subject = `Free review request: ${p.fullName} - ${p.productCategory}`;
 
   const fileList = p.fileSummaries
     .map(

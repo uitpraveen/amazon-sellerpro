@@ -22,7 +22,7 @@ const STEPS: Step[] = [
   {
     num: "01",
     title: "Understand your product",
-    desc: "We start by thoroughly reviewing your product — its category, intended use, target market, and applicable safety standards — to build a clear picture of what compliance looks like for your specific case.",
+    desc: "We start by thoroughly reviewing your product - its category, intended use, target market, and applicable safety standards - to build a clear picture of what compliance looks like for your specific case.",
     icon: Search,
   },
   {
@@ -34,19 +34,19 @@ const STEPS: Step[] = [
   {
     num: "03",
     title: "Check Amazon's policies for your product",
-    desc: "We review the specific Amazon policies applicable to your product category and marketplace to determine whether your product is required to meet additional safety requirements — and precisely what those requirements are.",
+    desc: "We review the specific Amazon policies applicable to your product category and marketplace to determine whether your product is required to meet additional safety requirements - and precisely what those requirements are.",
     icon: BookOpen,
   },
   {
     num: "04",
     title: "Decode existing compliance cases",
-    desc: "If you already have an open case with Amazon, we review the full history of Amazon's communications with you — cutting through the automated rejection language to identify exactly where your case is stuck.",
+    desc: "If you already have an open case with Amazon, we review the full history of Amazon's communications with you - cutting through the automated rejection language to identify exactly where your case is stuck.",
     icon: Eye,
   },
   {
     num: "05",
     title: "Handle all Amazon communication and submissions",
-    desc: "Our team takes over all communication with Amazon on your behalf. We manage the entire appeal and document submission process — ensuring every submission is structured correctly.",
+    desc: "Our team takes over all communication with Amazon on your behalf. We manage the entire appeal and document submission process - ensuring every submission is structured correctly.",
     icon: MessageSquare,
   },
   {
@@ -338,7 +338,7 @@ export default function ProcessFlow() {
 
   return (
     <>
-      {/* Desktop — pinned scroll, imperative motion-value driven */}
+      {/* Desktop - pinned scroll, imperative motion-value driven */}
       <section
         ref={sectionRef}
         className="hidden md:block relative bg-[#FAF7F2]"
@@ -416,7 +416,7 @@ export default function ProcessFlow() {
         </div>
       </section>
 
-      {/* Mobile — vertical timeline */}
+      {/* Mobile - vertical timeline */}
       <section className="md:hidden bg-[#FAF7F2] py-16">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div

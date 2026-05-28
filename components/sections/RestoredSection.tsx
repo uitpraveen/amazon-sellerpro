@@ -16,7 +16,7 @@ export default function RestoredSection() {
         <RevealOnScroll className="mt-12">
           <p className="max-w-3xl text-lg leading-relaxed text-[var(--ink-2)]">
             Once your documentation is in order, we don&rsquo;t stop there. Our
-            team navigates the entire reinstatement path on your behalf — from
+            team navigates the entire reinstatement path on your behalf - from
             identifying the correct reinstatement route for your stranded ASIN,
             to managing the submission and follow-up with Amazon until your
             listing is fully active again. Our team&rsquo;s insider knowledge

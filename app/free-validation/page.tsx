@@ -76,7 +76,7 @@ export default function FreeValidationPage() {
                 A real ex-Amazonian will review your case personally and come
                 back to you with a clear, honest picture of what is wrong and
                 what the path forward looks like. If there is a viable path to
-                reinstatement, we will walk you through it — and set up a call
+                reinstatement, we will walk you through it - and set up a call
                 if needed.
               </p>
               <p className="mt-6 font-[family-name:var(--font-outfit)] text-sm text-[#6B6560]">
@@ -106,15 +106,15 @@ export default function FreeValidationPage() {
             </h1>
             <p className="mt-6 max-w-3xl font-[family-name:var(--font-outfit)] text-lg leading-relaxed text-[#6B6560]">
               Submit your compliance documents and Amazon notifications for a
-              free review. Our team will go through everything — your rejection
-              notices, your existing documents, your case history — and come
+              free review. Our team will go through everything - your rejection
+              notices, your existing documents, your case history - and come
               back to you with a clear, honest picture of what is wrong and what
               the path forward looks like.
             </p>
             <p className="mt-4 max-w-3xl font-[family-name:var(--font-outfit)] text-lg leading-relaxed text-[#6B6560]">
               No automated responses. No guesswork. A real ex-Amazonian will
               review your case personally. If there is a viable path to
-              reinstatement, we will walk you through it — and set up a call if
+              reinstatement, we will walk you through it - and set up a call if
               needed.
             </p>
           </div>
@@ -148,7 +148,7 @@ export default function FreeValidationPage() {
                               key={item}
                               className="flex items-start gap-2 font-[family-name:var(--font-outfit)] text-sm leading-relaxed text-[#6B6560]"
                             >
-                              <span className="mt-0.5 text-[#B8860B]">—</span>
+                              <span className="mt-0.5 text-[#B8860B]">-</span>
                               {item}
                             </li>
                           ))}
@@ -170,7 +170,7 @@ export default function FreeValidationPage() {
                               key={item}
                               className="flex items-start gap-2 font-[family-name:var(--font-outfit)] text-sm leading-relaxed text-[#6B6560]"
                             >
-                              <span className="mt-0.5 text-[#B8860B]">—</span>
+                              <span className="mt-0.5 text-[#B8860B]">-</span>
                               {item}
                             </li>
                           ))}
@@ -271,7 +271,7 @@ export default function FreeValidationPage() {
                         Upload compliance documents (optional)
                       </FieldLabel>
                       <p className="mt-1 font-[family-name:var(--font-outfit)] text-xs text-[#6B6560]">
-                        PDF, JPG, PNG, DOC, DOCX — up to {MAX_FILE_COUNT} files, 10 MB each, 25 MB total
+                        PDF, JPG, PNG, DOC, DOCX - up to {MAX_FILE_COUNT} files, 10 MB each, 25 MB total
                       </p>
 
                       <label

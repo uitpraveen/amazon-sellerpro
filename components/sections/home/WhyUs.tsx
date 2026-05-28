@@ -6,22 +6,22 @@ const REASONS = [
   {
     num: "01",
     title: "We know what Amazon's team actually looks for",
-    desc: "Beyond what the policy pages say, we understand how Amazon's compliance reviewers evaluate submissions — what gets approved, what gets rejected, and why. That knowledge directly improves the quality and success rate of every submission we make on your behalf.",
+    desc: "Beyond what the policy pages say, we understand how Amazon's compliance reviewers evaluate submissions - what gets approved, what gets rejected, and why. That knowledge directly improves the quality and success rate of every submission we make on your behalf.",
   },
   {
     num: "02",
     title: "We spot the missing requirement others miss",
-    desc: "Many sellers are stuck not because their product is unsafe, but because one specific document, one missing test standard, or one incorrectly completed certificate is blocking their case. Our insider knowledge helps us identify that gap quickly — and fix it correctly the first time.",
+    desc: "Many sellers are stuck not because their product is unsafe, but because one specific document, one missing test standard, or one incorrectly completed certificate is blocking their case. Our insider knowledge helps us identify that gap quickly - and fix it correctly the first time.",
   },
   {
     num: "03",
     title: "We decode Amazon's language",
-    desc: "Amazon's rejection notices are written in precise, technical policy language that is easy to misread. Our team decodes them accurately — so you know exactly what is being asked, not a general guess or a misinterpretation that leads to yet another rejection.",
+    desc: "Amazon's rejection notices are written in precise, technical policy language that is easy to misread. Our team decodes them accurately - so you know exactly what is being asked, not a general guess or a misinterpretation that leads to yet another rejection.",
   },
   {
     num: "04",
     title: "We know the reinstatement path",
-    desc: "Reinstatement is not just about submitting documents — it is about submitting the right documents, structured the right way, through the right channel. Our inside experience means we know exactly how to move a case forward.",
+    desc: "Reinstatement is not just about submitting documents - it is about submitting the right documents, structured the right way, through the right channel. Our inside experience means we know exactly how to move a case forward.",
   },
 ];
 
@@ -66,7 +66,7 @@ export default function WhyUs() {
             className="text-base sm:text-lg text-[#6B6560] leading-relaxed"
             style={{ fontFamily: "var(--font-outfit)" }}
           >
-            Most compliance consultants work from the outside — reading the same policy pages you can access yourself. Amazon Safety Pro is fundamentally different. Our team spent years working inside Amazon&apos;s product safety operations, which means we bring a level of insight that no amount of external research can replicate.
+            Most compliance consultants work from the outside - reading the same policy pages you can access yourself. Amazon Safety Pro is fundamentally different. Our team spent years working inside Amazon&apos;s product safety operations, which means we bring a level of insight that no amount of external research can replicate.
           </motion.p>
         </motion.div>
 
@@ -117,7 +117,7 @@ export default function WhyUs() {
             className="text-lg sm:text-2xl text-[#2D2A26] leading-relaxed text-center italic"
             style={{ fontFamily: "var(--font-dm-serif)" }}
           >
-            Whether you are a new FBA seller preparing your first product launch, a brand owner managing a growing catalog, an importer sourcing products for multiple marketplaces, or a manufacturer responding to a compliance notice — our team brings the same depth of insider knowledge and the same commitment to getting your product compliant and your listing active.
+            Whether you are a new FBA seller preparing your first product launch, a brand owner managing a growing catalog, an importer sourcing products for multiple marketplaces, or a manufacturer responding to a compliance notice - our team brings the same depth of insider knowledge and the same commitment to getting your product compliant and your listing active.
           </p>
         </motion.div>
       </div>

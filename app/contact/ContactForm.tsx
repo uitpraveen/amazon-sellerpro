@@ -413,7 +413,7 @@ export default function ContactForm() {
             className="text-sm font-medium text-[#1B4332]"
             style={{ fontFamily: "var(--font-outfit)" }}
           >
-            Payment received — finalising your order…
+            Payment received - finalising your order…
           </span>
         </div>
       )}

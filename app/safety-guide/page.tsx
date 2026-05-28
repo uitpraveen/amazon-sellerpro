@@ -5,9 +5,9 @@ import Footer from "@/components/layout/Footer";
 import SafetyGuideTOC from "@/components/sections/SafetyGuideTOC";
 
 export const metadata: Metadata = {
-  title: "Product Safety Guide — Amazon Safety Pro",
+  title: "Product Safety Guide - Amazon Safety Pro",
   description:
-    "A complete guide to Amazon's product safety landscape — what it means, why it exists, how Amazon enforces it, and what it means for sellers.",
+    "A complete guide to Amazon's product safety landscape - what it means, why it exists, how Amazon enforces it, and what it means for sellers.",
 };
 
 const TOC = [
@@ -213,11 +213,11 @@ export default function SafetyGuidePage() {
               Product Safety Guide
             </h1>
             <p
-              className="mt-8 max-w-3xl text-lg leading-relaxed"
+              className="mt-8 text-lg leading-relaxed"
               style={{ color: "#6B6560", fontFamily: "Outfit, sans-serif" }}
             >
               Understanding Amazon&rsquo;s product safety landscape is one of
-              the most important things any seller can do — and one of the most
+              the most important things any seller can do - and one of the most
               overlooked. This guide breaks down what product safety means, why
               it exists, how Amazon enforces it, and what it means for you as a
               seller on Amazon&rsquo;s global marketplaces. Whether you are
@@ -251,17 +251,17 @@ export default function SafetyGuidePage() {
                     Product safety is the framework of standards, regulations,
                     and enforcement mechanisms designed to ensure that products
                     available to consumers do not pose an unreasonable risk of
-                    harm — whether through injury, illness, or exposure to
+                    harm - whether through injury, illness, or exposure to
                     hazardous substances. It exists at every level of the supply
                     chain, from the factory floor to the marketplace shelf, and
                     it applies to every seller regardless of size, sales volume,
                     or brand recognition.
                   </P>
 
-                  <SubHeading>Why product safety is needed — for consumers</SubHeading>
+                  <SubHeading>Why product safety is needed - for consumers</SubHeading>
                   <P>
                     For the customers buying products on Amazon, product safety
-                    is not a bureaucratic formality — it is a matter of physical
+                    is not a bureaucratic formality - it is a matter of physical
                     wellbeing. Every year, unsafe or unregulated products cause
                     thousands of preventable injuries and deaths across the
                     world. The consequences of inadequate product safety reach
@@ -272,21 +272,21 @@ export default function SafetyGuidePage() {
                     Real-world cases make this clear. E-bikes and electric
                     scooters powered by unregulated lithium batteries have caused
                     devastating fires and explosions in homes and apartments
-                    across the US and Europe — many linked to products sourced
+                    across the US and Europe - many linked to products sourced
                     through online marketplaces without adequate battery safety
-                    certification. Buckyballs — small, powerful rare-earth
-                    magnetic balls sold as desk toys — were found to be swallowed
+                    certification. Buckyballs - small, powerful rare-earth
+                    magnetic balls sold as desk toys - were found to be swallowed
                     by children, causing life-threatening internal injuries
                     requiring emergency surgery, leading to a years-long CPSC
                     enforcement action and eventual recall. Water beads, widely
                     sold as sensory toys for children, have caused serious
                     internal harm and at least one child death after being
-                    ingested — prompting regulatory action and Amazon restrictions
+                    ingested - prompting regulatory action and Amazon restrictions
                     across multiple categories.
                   </P>
                   <P>
                     These are not edge cases. They are the reason product safety
-                    regulations exist — and why Amazon enforces them actively,
+                    regulations exist - and why Amazon enforces them actively,
                     even when a product appears popular, harmless, or widely
                     available elsewhere.
                   </P>
@@ -314,9 +314,9 @@ export default function SafetyGuidePage() {
                   <P>
                     Amazon is one of the world&rsquo;s largest retail platforms
                     and maintains a rigorous, proactive product safety program.
-                    Any product that does not meet applicable safety standards —
+                    Any product that does not meet applicable safety standards -
                     or that lacks the required documentation to prove compliance
-                    — is at risk of being removed from the platform. This applies
+                    - is at risk of being removed from the platform. This applies
                     regardless of a product&rsquo;s sales history, account
                     standing, brand reputation, or how popular or trending the
                     product may be at the time.
@@ -325,12 +325,12 @@ export default function SafetyGuidePage() {
                     Amazon has demonstrated this consistently. Water beads were
                     among the most searched and best-selling sensory products on
                     the platform before Amazon restricted the category following
-                    multiple reports of child ingestion incidents — despite the
+                    multiple reports of child ingestion incidents - despite the
                     products not being formally banned by the CPSC or other
                     regulators at the time. Toothpick crossbows, a viral novelty
                     product that surged in popularity across social media, were
                     swiftly removed from Amazon&rsquo;s marketplace due to the
-                    risk of eye injury — again, ahead of formal regulatory
+                    risk of eye injury - again, ahead of formal regulatory
                     action. Neither brand recognition nor sales rank offered any
                     protection once Amazon identified a safety concern.
                   </P>
@@ -338,7 +338,7 @@ export default function SafetyGuidePage() {
                   <SubHeading>The risks of non-compliance</SubHeading>
                   <BulletList
                     items={[
-                      "Listing suppression following a compliance notification — Amazon will notify sellers of a safety or compliance issue, but suppression of the affected listing can follow immediately after that notification if the required documentation is not provided within the specified timeframe",
+                      "Listing suppression following a compliance notification - Amazon will notify sellers of a safety or compliance issue, but suppression of the affected listing can follow immediately after that notification if the required documentation is not provided within the specified timeframe",
                       "Listing removal where a product is found to present an immediate safety risk or where the seller fails to respond to compliance requests",
                       "Loss of selling privileges for repeated or serious compliance violations",
                       "Product recalls and associated legal and financial liability",
@@ -359,7 +359,7 @@ export default function SafetyGuidePage() {
                   <P>
                     However, Amazon&rsquo;s definition of &lsquo;safe&rsquo; goes
                     beyond what regulators formally require. Amazon enforces both
-                    mandatory and voluntary safety standards — and it reserves the
+                    mandatory and voluntary safety standards - and it reserves the
                     right to restrict or remove any product it determines poses a
                     risk to customers, even where no formal regulatory action has
                     been taken.
@@ -391,7 +391,7 @@ export default function SafetyGuidePage() {
                   <P>
                     Amazon does not wait for a regulator to act before restricting
                     a product. This is one of the most important and least
-                    understood aspects of selling on Amazon&rsquo;s marketplace —
+                    understood aspects of selling on Amazon&rsquo;s marketplace -
                     and it catches many sellers off guard.
                   </P>
 
@@ -401,7 +401,7 @@ export default function SafetyGuidePage() {
                       restricted by the CPSC, Health Canada, or any major EU
                       product safety regulator. However, Amazon restricts the
                       sale of these products because they have been linked to
-                      drowning incidents — the design restricts leg movement in
+                      drowning incidents - the design restricts leg movement in
                       water, creating a genuine risk for young swimmers. Amazon
                       identified the safety signal independently and acted on it,
                       regardless of the absence of formal regulatory action.
@@ -414,7 +414,7 @@ export default function SafetyGuidePage() {
                       products sold across Amazon&rsquo;s marketplaces generating
                       significant sales volumes. Amazon restricted the category
                       after identifying safety concerns around breathing
-                      obstruction in adults and children during sleep — ahead of
+                      obstruction in adults and children during sleep - ahead of
                       formal action from regulators. Popularity and sales volume
                       offered no protection once Amazon determined the product
                       presented a safety risk.
@@ -426,7 +426,7 @@ export default function SafetyGuidePage() {
                     product images, packaging images, product labels, and other
                     supporting documentation before their listings could be
                     reviewed for reinstatement. This is the standard Amazon
-                    process when a safety concern is raised — and it is exactly
+                    process when a safety concern is raised - and it is exactly
                     the kind of situation Amazon Safety Pro exists to help sellers
                     navigate.
                   </P>
@@ -470,7 +470,7 @@ export default function SafetyGuidePage() {
                     on amazon.ca must not pose an unreasonable danger to human
                     health or safety. In addition to the CCPSA&rsquo;s general
                     requirements, many product categories in Canada are subject to
-                    specific Statutory Orders and Regulations (SOR standards) —
+                    specific Statutory Orders and Regulations (SOR standards) -
                     mandatory technical regulations that set out detailed safety
                     requirements for particular product types, including
                     children&rsquo;s toys, cribs, car seats, electrical products,
@@ -489,7 +489,7 @@ export default function SafetyGuidePage() {
                   </P>
                   <BulletList
                     items={[
-                      "General Product Safety Regulation (GPSR) — applies to all consumer products not covered by a specific directive",
+                      "General Product Safety Regulation (GPSR) - applies to all consumer products not covered by a specific directive",
                       "CE marking requirements for applicable product categories",
                       "REACH regulation governing chemical substances in products",
                       "RoHS directive for electrical and electronic equipment",
@@ -563,7 +563,7 @@ export default function SafetyGuidePage() {
                     depending on which type applies to your product.
                   </P>
 
-                  <SubHeading>Gated — Pre-Approval Required</SubHeading>
+                  <SubHeading>Gated - Pre-Approval Required</SubHeading>
                   <P>
                     Some categories require sellers to apply for and receive
                     Amazon&apos;s approval before listing. Approval typically
@@ -573,7 +573,7 @@ export default function SafetyGuidePage() {
                     all applicable safety standards.
                   </P>
 
-                  <SubHeading>Restricted — Compliance Required</SubHeading>
+                  <SubHeading>Restricted - Compliance Required</SubHeading>
                   <P>
                     Restricted products can be sold on Amazon but only after meeting
                     specific compliance requirements: submitting safety documents,
@@ -585,7 +585,7 @@ export default function SafetyGuidePage() {
                     electronics, cosmetics, and food products.
                   </P>
 
-                  <SubHeading>Prohibited — No Listing Pathway</SubHeading>
+                  <SubHeading>Prohibited - No Listing Pathway</SubHeading>
                   <P>
                     Prohibited products cannot be listed on Amazon under any
                     circumstances. There is no approval process, no compliance
@@ -606,7 +606,7 @@ export default function SafetyGuidePage() {
                     safety, legal compliance, regulatory requirements from bodies
                     such as the FDA, CPSC, and FCC, marketplace trust, and
                     intellectual property protection. Importantly, Amazon does not
-                    wait for a regulator to act before restricting a product — it
+                    wait for a regulator to act before restricting a product - it
                     monitors safety signals independently and acts on them
                     proactively, as seen with water beads, mermaid tails, and mouth
                     tape, all of which Amazon restricted ahead of formal regulatory
@@ -641,7 +641,7 @@ export default function SafetyGuidePage() {
                   <P>
                     For the complete list of restricted and prohibited product
                     categories on Amazon, visit the official Amazon seller help
-                    pages. Amazon updates this list regularly — sellers should check
+                    pages. Amazon updates this list regularly - sellers should check
                     it before launching any new product.
                   </P>
                 </article>
@@ -674,7 +674,7 @@ export default function SafetyGuidePage() {
                 <article id="section-4c-iv" className="scroll-mt-32">
                   <SectionHeading
                     num="6"
-                    title="Amazon TIC Policy — Testing, Inspection and Certification"
+                    title="Amazon TIC Policy - Testing, Inspection and Certification"
                   />
 
                   <SubHeading>What is TIC?</SubHeading>
@@ -683,8 +683,8 @@ export default function SafetyGuidePage() {
                     services provided by independent, accredited third-party
                     organizations that evaluate products against applicable safety
                     standards and regulations. In the context of Amazon, TIC is
-                    the framework through which Amazon requires sellers to prove —
-                    not just claim — that their products are safe and compliant.
+                    the framework through which Amazon requires sellers to prove -
+                    not just claim - that their products are safe and compliant.
                     Under Amazon&rsquo;s TIC policy, test results and compliance
                     data must be submitted directly to Amazon by an
                     Amazon-approved TIC organization, not uploaded manually by the
@@ -703,11 +703,11 @@ export default function SafetyGuidePage() {
                   <NumberedList
                     items={[
                       "The seller navigates to Account Health, selects the affected ASIN, and clicks \"Verify your product\"",
-                      "Amazon generates a Test Request Form (TRF) ID — a unique compliance reference number that links the seller's specific ASIN to the testing submission",
+                      "Amazon generates a Test Request Form (TRF) ID - a unique compliance reference number that links the seller's specific ASIN to the testing submission",
                       "The seller selects an Amazon-approved TIC provider from the approved directory in Seller Central",
                       "The TIC provider contacts the seller with a quote covering cost and timelines, and the seller accepts and provides product samples or existing documentation",
                       "The TIC provider either conducts fresh laboratory testing or evaluates existing documentation to confirm it meets Amazon's requirements",
-                      "Upon successful verification, the TIC provider submits the results directly to Amazon via a secure integration — the seller cannot upload the results themselves",
+                      "Upon successful verification, the TIC provider submits the results directly to Amazon via a secure integration - the seller cannot upload the results themselves",
                       "Amazon reviews the submission and, if accepted, reinstates the listing",
                     ]}
                   />
@@ -729,7 +729,7 @@ export default function SafetyGuidePage() {
                     The program also covers dietary supplements, where
                     Amazon-approved TIC providers must submit compliance data
                     directly. Additional product categories are subject to TIC
-                    requirements — the full and current list of affected
+                    requirements - the full and current list of affected
                     categories and approved TIC providers is available in the TIC
                     directory within Amazon Seller Central at:{" "}
                     <a
@@ -752,7 +752,7 @@ export default function SafetyGuidePage() {
                     operating in the Amazon TIC program include SGS, Bureau
                     Veritas, Intertek, UL Solutions, NSF International, and
                     Mérieux NutriSciences, among others. Sellers must select a
-                    provider from this directory — test reports from non-listed
+                    provider from this directory - test reports from non-listed
                     laboratories, even if accredited, will not be accepted under
                     the TIC program. Labs can also be suspended or removed from
                     the approved list over time, so sellers should verify their
@@ -763,18 +763,18 @@ export default function SafetyGuidePage() {
                   <SubHeading>Key enforcement rules under TIC</SubHeading>
                   <BulletList
                     items={[
-                      "Test reports must reference the current version of the applicable standard — for example, Amazon now requires ASTM F963-23 for US toys; reports based on older versions such as ASTM F963-17 may be rejected",
-                      "The age grading on the product listing, the CPC, and the test report must all be consistent — any mismatch will result in rejection",
+                      "Test reports must reference the current version of the applicable standard - for example, Amazon now requires ASTM F963-23 for US toys; reports based on older versions such as ASTM F963-17 may be rejected",
+                      "The age grading on the product listing, the CPC, and the test report must all be consistent - any mismatch will result in rejection",
                       "Packaging, labels, warning statements, and tracking label information must align precisely with what is documented in the test report",
-                      "TIC verification is not a one-time event — Amazon requires annual re-verification for applicable categories, making compliance an ongoing operating responsibility",
-                      "Sellers cannot rely on existing test reports indefinitely — where a standard has been updated, retesting to the new version is required",
+                      "TIC verification is not a one-time event - Amazon requires annual re-verification for applicable categories, making compliance an ongoing operating responsibility",
+                      "Sellers cannot rely on existing test reports indefinitely - where a standard has been updated, retesting to the new version is required",
                     ]}
                   />
 
                   <SubHeading>What this means for sellers</SubHeading>
                   <P>
                     The TIC program represents a significant shift in how Amazon
-                    enforces compliance — moving from a self-declaration model to
+                    enforces compliance - moving from a self-declaration model to
                     a verified, third-party-led system with direct platform
                     integration. For sellers in affected categories, compliance is
                     no longer a one-time launch task. It is a recurring,
@@ -783,8 +783,8 @@ export default function SafetyGuidePage() {
                     relationships, and submission deadlines.
                   </P>
                   <P>
-                    Navigating the TIC process — especially when an ASIN has
-                    already been flagged or suppressed — is one of the areas where
+                    Navigating the TIC process - especially when an ASIN has
+                    already been flagged or suppressed - is one of the areas where
                     Amazon Safety Pro&rsquo;s insider knowledge delivers the
                     greatest advantage. We understand how the TIC workflow
                     operates within Amazon&rsquo;s systems, which providers have

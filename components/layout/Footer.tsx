@@ -75,7 +75,7 @@ export default function Footer() {
               className="text-sm text-[#FAF7F2]/55 mt-2 max-w-md leading-relaxed"
               style={linkStyle}
             >
-              Send us your product details and Amazon notifications — we&rsquo;ll review them at no cost and tell you exactly what you need.
+              Send us your product details and Amazon notifications - we&rsquo;ll review them at no cost and tell you exactly what you need.
             </p>
           </div>
           <Link
@@ -114,7 +114,7 @@ export default function Footer() {
             >
               Amazon product safety and ASIN reinstatement, delivered by
               ex-Amazonians who spent years inside the product safety team. We
-              know what Amazon&rsquo;s reviewers look for — because we were
+              know what Amazon&rsquo;s reviewers look for - because we were
               those reviewers.
             </p>
             <div

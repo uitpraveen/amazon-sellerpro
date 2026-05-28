@@ -13,7 +13,7 @@ const HEADLINE = [
   "Safety",
   "&",
   "Compliance",
-  "—",
+  "-",
   "Handled",
   "by",
   "People",
@@ -43,7 +43,7 @@ export default function HeroSection() {
         </motion.div>
 
         <div className="grid gap-12 lg:grid-cols-12">
-          {/* Left — Brand moment */}
+          {/* Left - Brand moment */}
           <div className="lg:col-span-8">
             <MonoLabel prefix="→">
               <TypeIn text="AMAZON COMPLIANCE OPS // 001" startDelay={300} />
@@ -76,11 +76,11 @@ export default function HeroSection() {
               className="mt-10 max-w-2xl text-lg leading-relaxed text-[var(--ink-2)] sm:text-xl"
             >
               Amazon Safety Pro is led by ex-Amazonians who spent half a decade
-              inside Amazon&rsquo;s product safety team — not just reading the
+              inside Amazon&rsquo;s product safety team - not just reading the
               policies, but writing, enforcing, and refining them. We know
               exactly what Amazon&rsquo;s compliance team looks for because we
               were that team. Now we put that insider knowledge to work for
-              sellers like you — guiding you from restricted to reinstated.
+              sellers like you - guiding you from restricted to reinstated.
             </motion.p>
 
             <motion.div
@@ -95,7 +95,7 @@ export default function HeroSection() {
             </motion.div>
           </div>
 
-          {/* Right — Transmission sidebar */}
+          {/* Right - Transmission sidebar */}
           <motion.div
             initial={{ opacity: 0, x: 24 }}
             animate={{ opacity: 1, x: 0 }}

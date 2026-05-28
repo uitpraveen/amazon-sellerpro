@@ -31,18 +31,18 @@ const TEAM_ITEMS: TeamItem[] = [
       <>
         <p>
           Our group lead is a tenured Amazon product safety professional who
-          spent half a decade shaping compliance policy from within — including
+          spent half a decade shaping compliance policy from within - including
           creating policies that are live and actively enforced on Amazon&apos;s
           platform today. Prior to Amazon, our lead brought extensive experience
           from the toys and children&apos;s products industry, one of the most
           rigorously regulated product spaces in global retail. That combination
-          — deep industry knowledge followed by years at the heart of
-          Amazon&apos;s product safety team — means our clients benefit from
+          - deep industry knowledge followed by years at the heart of
+          Amazon&apos;s product safety team - means our clients benefit from
           expertise that spans both sides of the compliance equation.
         </p>
         <p className="mt-4">
           Beyond policy enforcement, our group lead was directly involved in
-          reshaping Amazon&apos;s seller-facing help pages — rewriting and
+          reshaping Amazon&apos;s seller-facing help pages - rewriting and
           restructuring content to give sellers clearer, more actionable
           guidance on compliance requirements. This included modifying the
           error and blurb messages sellers receive when their listings are
@@ -55,7 +55,7 @@ const TEAM_ITEMS: TeamItem[] = [
         </p>
         <ul className="mt-3 space-y-1.5 pl-1">
           {[
-            "Children's Sleepwear — refocused to target the correct product types",
+            "Children's Sleepwear - refocused to target the correct product types",
             "Teethers and teething products",
             "Children's toys",
             "Water beads",
@@ -75,7 +75,7 @@ const TEAM_ITEMS: TeamItem[] = [
         </ul>
         <p className="mt-4">
           When Amazon&apos;s compliance system flags your product, sends you a
-          blurb, or requests documentation — there is a strong chance our team
+          blurb, or requests documentation - there is a strong chance our team
           had a hand in writing that very requirement. That is the depth of
           insider knowledge Amazon Safety Pro brings to your case.
         </p>
@@ -91,13 +91,13 @@ const TEAM_ITEMS: TeamItem[] = [
       <>
         <p>
           Every member of the Amazon Safety Pro team has worked directly inside
-          Amazon — not in an advisory capacity, but hands-on, validating real
+          Amazon - not in an advisory capacity, but hands-on, validating real
           seller compliance documents, reviewing real cases, and making real
           decisions on whether products met Amazon&apos;s safety standards.
         </p>
         <p className="mt-4">
           Our specialists did not just observe Amazon&apos;s compliance process
-          — they were an active part of it. They reviewed seller-submitted
+          - they were an active part of it. They reviewed seller-submitted
           documentation, assessed product safety evidence, and in many cases,
           worked directly on improving the policies and processes that govern
           how Amazon evaluates seller compliance today. The changes they
@@ -107,7 +107,7 @@ const TEAM_ITEMS: TeamItem[] = [
         <p className="mt-4">
           That on-the-ground experience is what our clients benefit from. When
           you submit your compliance documents to Amazon Safety Pro, the person
-          reviewing them has done exactly this before — at Amazon, at scale,
+          reviewing them has done exactly this before - at Amazon, at scale,
           for real.
         </p>
       </>
@@ -134,7 +134,7 @@ const TEAM_ITEMS: TeamItem[] = [
     body: (
       <p>
         We actively monitor Amazon policy updates so our clients stay compliant
-        as requirements change — never caught off guard, always one step ahead.
+        as requirements change - never caught off guard, always one step ahead.
       </p>
     ),
     Icon: RefreshCw,
@@ -224,7 +224,7 @@ export default function AboutDossierSection() {
               ))}
             </motion.div>
 
-            {/* Brief pull-quote — moved directly under the "Who we are" stats, no "The brief." header */}
+            {/* Brief pull-quote - moved directly under the "Who we are" stats, no "The brief." header */}
             <motion.div
               variants={fadeUp}
               className="mt-12 lg:mt-16 rounded-2xl border-l-4 border-[#B8860B] bg-[#FFFDF9] px-6 sm:px-10 py-7 sm:py-9"
@@ -233,7 +233,7 @@ export default function AboutDossierSection() {
                 className="text-xl sm:text-2xl lg:text-3xl text-[#2D2A26] leading-snug"
                 style={{ fontFamily: "var(--font-dm-serif)" }}
               >
-                Amazon Safety Pro exists for one reason — to give Amazon
+                Amazon Safety Pro exists for one reason - to give Amazon
                 sellers the compliance expertise they need to protect their
                 listings, recover their revenue, and build a business that
                 stays compliant for the long term. We are not consultants who
@@ -274,7 +274,7 @@ export default function AboutDossierSection() {
                 style={{ fontFamily: "var(--font-outfit)" }}
               >
                 Amazon sellers face one of the most complex and consequential
-                compliance environments in global e-commerce — and far too
+                compliance environments in global e-commerce - and far too
                 many of them are navigating it without the right support. The
                 cost is real: lost revenue, suppressed listings, stranded
                 inventory, and suspended accounts that could have been avoided
@@ -291,7 +291,7 @@ export default function AboutDossierSection() {
                 Sellers who had received compliance notices they could not
                 decode, submitted appeals that kept getting rejected, and had
                 no clear path to reinstatement. The support available to them
-                was minimal — and the gap between what sellers needed and what
+                was minimal - and the gap between what sellers needed and what
                 they were getting was impossible to ignore.
               </motion.p>
               <motion.p
@@ -300,7 +300,7 @@ export default function AboutDossierSection() {
                 style={{ fontFamily: "var(--font-outfit)" }}
               >
                 Amazon Safety Pro exists to close that gap. We bring expert
-                compliance consultation directly to sellers — giving them the
+                compliance consultation directly to sellers - giving them the
                 clarity, the documentation, and the strategic guidance they
                 need to protect their listings, recover their revenue, and
                 build a business that stays compliant for the long term.
@@ -327,7 +327,11 @@ export default function AboutDossierSection() {
 
               <motion.div
                 variants={stagger}
-                className="mt-10 grid gap-6 sm:grid-cols-2 sm:auto-rows-fr"
+                /* No `auto-rows-fr`: each grid row sizes to its own content,
+                   so the short 03/04 row no longer stretches to match the
+                   tall 01/02 row (which causes ugly empty space at the
+                   bottom of the short cards). */
+                className="mt-10 grid gap-6 sm:grid-cols-2"
               >
                 {TEAM_ITEMS.map((item) => {
                   const Icon = item.Icon;
@@ -406,7 +410,7 @@ export default function AboutDossierSection() {
                 style={{ fontFamily: "var(--font-outfit)" }}
               >
                 Amazon Safety Pro supports sellers across seven Amazon
-                marketplaces — bringing the same depth of insider knowledge to
+                marketplaces - bringing the same depth of insider knowledge to
                 every jurisdiction we operate in.
               </motion.p>
 
@@ -446,7 +450,7 @@ export default function AboutDossierSection() {
               </motion.div>
             </motion.div>
 
-            {/* Mission — centered closing block */}
+            {/* Mission - centered closing block */}
             <motion.div
               initial="hidden"
               whileInView="visible"
@@ -473,7 +477,7 @@ export default function AboutDossierSection() {
                 Our mission.
               </motion.h2>
 
-              {/* Mission quote — dark green card */}
+              {/* Mission quote - dark green card */}
               <motion.div
                 variants={fadeUp}
                 className="relative mt-10 mx-auto max-w-3xl rounded-2xl border border-[#B8860B]/30 bg-[#1B4332] px-8 py-10 sm:px-12 sm:py-14 overflow-hidden"
@@ -490,8 +494,8 @@ export default function AboutDossierSection() {
                   className="relative z-10 text-xl sm:text-2xl italic text-[#FAF7F2] leading-snug"
                   style={{ fontFamily: "var(--font-dm-serif)" }}
                 >
-                  To empower every Amazon seller — regardless of size or
-                  experience — with the expert compliance knowledge and support
+                  To empower every Amazon seller - regardless of size or
+                  experience - with the expert compliance knowledge and support
                   they need to build a safe, sustainable, and thriving business
                   on Amazon.
                 </p>
@@ -504,7 +508,7 @@ export default function AboutDossierSection() {
               >
                 We measure our success by yours. When your listings stay live,
                 your products meet every standard, and your business keeps
-                growing — that&rsquo;s what Amazon Safety Pro is here for.
+                growing - that&rsquo;s what Amazon Safety Pro is here for.
               </motion.p>
             </motion.div>
 

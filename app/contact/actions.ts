@@ -66,7 +66,7 @@ export async function submitContactForm(
     };
   }
 
-  // Honeypot tripped — silently succeed.
+  // Honeypot tripped - silently succeed.
   if (parsed.data.website) {
     return { ok: true };
   }
