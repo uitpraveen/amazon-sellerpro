@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
@@ -82,7 +82,8 @@ const CATEGORIES: Category[] = [
   { icon: XCircle, name: "Prohibited Products", note: "Not Permitted for sale in Amazon" },
 ];
 
-const SAFETY_GUIDE_HREF = "/safety-guide#section-4a";
+const SAFETY_GUIDE_HREF = "/safety-guide#section-4c-ii";
+const AUTO_SLIDE_INTERVAL = 4500;
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -92,38 +93,76 @@ const fadeUp = {
 export default function RestrictedSlider() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
+  const [isPaused, setIsPaused] = useState(false);
+  const cardStepRef = useRef<number>(0);
 
-  // Snap-scroll one card at a time
-  const scrollByOne = (dir: "left" | "right") => {
+  // Measure the actual scroll step (card width + gap) from the DOM
+  const measureCardStep = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return 0;
+    const cards = el.querySelectorAll<HTMLElement>("[data-slide-card]");
+    if (cards.length < 2) {
+      return cards[0]?.offsetWidth ?? 280;
+    }
+    return cards[1].offsetLeft - cards[0].offsetLeft;
+  }, []);
+
+  const scrollToIndex = useCallback((index: number, smooth = true) => {
     const el = scrollRef.current;
     if (!el) return;
-    const card = el.querySelector<HTMLElement>("[data-slide-card]");
-    const cardWidth = card?.offsetWidth ?? 280;
-    const gap = 24; // gap-6
-    el.scrollBy({
-      left: dir === "left" ? -(cardWidth + gap) : cardWidth + gap,
-      behavior: "smooth",
+    const step = cardStepRef.current || measureCardStep();
+    cardStepRef.current = step;
+    const clamped = Math.max(0, Math.min(index, CATEGORIES.length - 1));
+    el.scrollTo({
+      left: clamped * step,
+      behavior: smooth ? "smooth" : "auto",
     });
-  };
+  }, [measureCardStep]);
 
+  const goNext = useCallback(() => {
+    setActiveIndex((prev) => {
+      const next = prev + 1 >= CATEGORIES.length ? 0 : prev + 1;
+      scrollToIndex(next);
+      return next;
+    });
+  }, [scrollToIndex]);
+
+  const goPrev = useCallback(() => {
+    setActiveIndex((prev) => {
+      const next = prev - 1 < 0 ? CATEGORIES.length - 1 : prev - 1;
+      scrollToIndex(next);
+      return next;
+    });
+  }, [scrollToIndex]);
+
+  // Keep active dot in sync if the user scrolls manually
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
+    cardStepRef.current = measureCardStep();
     const onScroll = () => {
-      const card = el.querySelector<HTMLElement>("[data-slide-card]");
-      const cardWidth = card?.offsetWidth ?? 280;
-      const gap = 24;
-      const idx = Math.round(el.scrollLeft / (cardWidth + gap));
-      setActiveIndex(idx);
-      setCanScrollLeft(el.scrollLeft > 8);
-      setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 8);
+      const step = cardStepRef.current || measureCardStep();
+      const idx = Math.round(el.scrollLeft / step);
+      setActiveIndex(Math.max(0, Math.min(idx, CATEGORIES.length - 1)));
     };
     el.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-    return () => el.removeEventListener("scroll", onScroll);
-  }, []);
+    // Re-measure on resize so the step stays accurate
+    const onResize = () => {
+      cardStepRef.current = measureCardStep();
+    };
+    window.addEventListener("resize", onResize);
+    return () => {
+      el.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
+    };
+  }, [measureCardStep]);
+
+  // Auto-slide: cycles when not hovered / focused
+  useEffect(() => {
+    if (isPaused) return;
+    const timer = setInterval(goNext, AUTO_SLIDE_INTERVAL);
+    return () => clearInterval(timer);
+  }, [goNext, isPaused]);
 
   return (
     <section className="bg-[#1B4332] py-20 sm:py-24 md:py-32 overflow-hidden">
@@ -155,7 +194,8 @@ export default function RestrictedSlider() {
           </p>
         </motion.div>
 
-        <div className="flex justify-between items-center mb-6 sm:mb-8">
+        {/* Top row: only the "View full safety guide" link (arrows moved to the bottom per client) */}
+        <div className="mb-6 sm:mb-8">
           <Link
             href={SAFETY_GUIDE_HREF}
             className="group inline-flex items-center gap-2 text-[#B8860B] hover:text-[#FAF7F2] text-sm font-semibold transition-colors"
@@ -164,30 +204,16 @@ export default function RestrictedSlider() {
             View full safety guide
             <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
           </Link>
-          <div className="flex gap-2">
-            <button
-              onClick={() => scrollByOne("left")}
-              disabled={!canScrollLeft}
-              className="w-12 h-12 rounded-full border border-[#FAF7F2]/20 flex items-center justify-center text-[#FAF7F2]/60 hover:text-[#FAF7F2] hover:border-[#FAF7F2]/40 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-              aria-label="Scroll left"
-            >
-              <ChevronLeft size={20} />
-            </button>
-            <button
-              onClick={() => scrollByOne("right")}
-              disabled={!canScrollRight}
-              className="w-12 h-12 rounded-full border border-[#FAF7F2]/20 flex items-center justify-center text-[#FAF7F2]/60 hover:text-[#FAF7F2] hover:border-[#FAF7F2]/40 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-              aria-label="Scroll right"
-            >
-              <ChevronRight size={20} />
-            </button>
-          </div>
         </div>
 
         <div
           ref={scrollRef}
           className="flex gap-5 sm:gap-6 overflow-x-auto pb-6 snap-x snap-mandatory -mx-4 px-4 sm:mx-0 sm:px-0 scroll-smooth"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onFocus={() => setIsPaused(true)}
+          onBlur={() => setIsPaused(false)}
         >
           {CATEGORIES.map((cat) => {
             const Icon = cat.icon;
@@ -235,18 +261,51 @@ export default function RestrictedSlider() {
           })}
         </div>
 
-        {/* Dot indicators */}
-        <div className="flex justify-center gap-1.5 mt-6 sm:mt-8">
-          {CATEGORIES.map((_, i) => (
+        {/* Bottom nav row: arrows + position indicator + dot pagination */}
+        <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+          <div className="flex items-center gap-2">
+            <button
+              onClick={goPrev}
+              className="w-11 h-11 rounded-full border border-[#FAF7F2]/20 flex items-center justify-center text-[#FAF7F2]/70 hover:text-[#FAF7F2] hover:border-[#FAF7F2]/40 hover:bg-[#FAF7F2]/5 transition-colors"
+              aria-label="Previous category"
+            >
+              <ChevronLeft size={18} />
+            </button>
             <span
-              key={i}
-              className={`h-1.5 rounded-full transition-all ${
-                i === activeIndex
-                  ? "w-6 bg-[#B8860B]"
-                  : "w-1.5 bg-[#FAF7F2]/25"
-              }`}
-            />
-          ))}
+              className="text-[#FAF7F2]/60 text-xs tracking-[0.2em] tabular-nums px-1"
+              style={{ fontFamily: "var(--font-outfit)" }}
+            >
+              {String(activeIndex + 1).padStart(2, "0")} / {String(CATEGORIES.length).padStart(2, "0")}
+            </span>
+            <button
+              onClick={goNext}
+              className="w-11 h-11 rounded-full border border-[#FAF7F2]/20 flex items-center justify-center text-[#FAF7F2]/70 hover:text-[#FAF7F2] hover:border-[#FAF7F2]/40 hover:bg-[#FAF7F2]/5 transition-colors"
+              aria-label="Next category"
+            >
+              <ChevronRight size={18} />
+            </button>
+          </div>
+
+          <div className="hidden sm:block h-5 w-px bg-[#FAF7F2]/15" />
+
+          {/* Dot indicators — clickable */}
+          <div className="flex gap-1.5">
+            {CATEGORIES.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => {
+                  setActiveIndex(i);
+                  scrollToIndex(i);
+                }}
+                className={`h-1.5 rounded-full transition-all ${
+                  i === activeIndex
+                    ? "w-6 bg-[#B8860B]"
+                    : "w-1.5 bg-[#FAF7F2]/25 hover:bg-[#FAF7F2]/45"
+                }`}
+                aria-label={`Go to category ${i + 1}`}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>

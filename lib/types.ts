@@ -34,14 +34,8 @@ export const AMAZON_MARKETPLACES = [
   { value: "se", label: "Sweden (amazon.se)" },
   { value: "pl", label: "Poland (amazon.pl)" },
   { value: "in", label: "India (amazon.in)" },
-  { value: "jp", label: "Japan (amazon.co.jp)" },
   { value: "sg", label: "Singapore (amazon.sg)" },
-  { value: "ae", label: "UAE (amazon.ae)" },
-  { value: "sa", label: "Saudi Arabia (amazon.sa)" },
   { value: "au", label: "Australia (amazon.com.au)" },
-  { value: "mx", label: "Mexico (amazon.com.mx)" },
-  { value: "br", label: "Brazil (amazon.com.br)" },
-  { value: "multiple", label: "Multiple marketplaces" },
 ] as const;
 
 export type AmazonMarketplace = typeof AMAZON_MARKETPLACES[number]["value"];

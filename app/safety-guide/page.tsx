@@ -553,26 +553,96 @@ export default function SafetyGuidePage() {
 
                 {/* 4c-ii */}
                 <article id="section-4c-ii" className="scroll-mt-32">
-                  <SectionHeading num="4" title="Restricted products" />
+                  <SectionHeading num="4" title="Restricted Products" />
                   <P>
                     Amazon maintains a list of restricted products that may not be
                     sold on the platform, or may only be sold with prior approval.
-                    Categories include but are not limited to:
+                    The term &lsquo;restricted&rsquo; covers three distinct
+                    situations and understanding the difference matters, because the
+                    consequences and the options available to you are very different
+                    depending on which type applies to your product.
                   </P>
-                  <BulletList
-                    items={[
-                      "Certain pesticides and plant and soil amendments",
-                      "Drugs and drug paraphernalia",
-                      "Surveillance and tracking devices",
-                      "Certain laser products",
-                      "Recalled products",
-                      "Certain medical devices requiring regulatory approval",
-                    ]}
-                  />
+
+                  <SubHeading>Gated — Pre-Approval Required</SubHeading>
                   <P>
-                    Sellers who attempt to list restricted products without the
-                    appropriate approvals risk immediate listing removal and
-                    potential account action.
+                    Some categories require sellers to apply for and receive
+                    Amazon&apos;s approval before listing. Approval typically
+                    involves meeting performance criteria, providing supplier
+                    documentation, and in some cases paying an application fee.
+                    Being approved does not override the requirement to comply with
+                    all applicable safety standards.
+                  </P>
+
+                  <SubHeading>Restricted — Compliance Required</SubHeading>
+                  <P>
+                    Restricted products can be sold on Amazon but only after meeting
+                    specific compliance requirements: submitting safety documents,
+                    obtaining certifications, or meeting labeling standards. The
+                    listing will remain suppressed until the required compliance
+                    information is provided and verified. This covers the majority
+                    of product categories with safety or regulatory requirements,
+                    including children&apos;s products, dietary supplements,
+                    electronics, cosmetics, and food products.
+                  </P>
+
+                  <SubHeading>Prohibited — No Listing Pathway</SubHeading>
+                  <P>
+                    Prohibited products cannot be listed on Amazon under any
+                    circumstances. There is no approval process, no compliance
+                    document that will unlock the listing, and no appeal pathway.
+                    Common examples include mad honey, cylindrical lithium-ion
+                    batteries, powerful magnets such as Buckyballs, infant inclined
+                    sleep products, and water beads.
+                  </P>
+                  <P>
+                    Attempting to list a prohibited product will result in immediate
+                    removal. Repeated attempts can lead to account suspension and
+                    permanent loss of selling privileges.
+                  </P>
+
+                  <SubHeading>Why Amazon Restricts Products</SubHeading>
+                  <P>
+                    Amazon restricts products for five core reasons: consumer
+                    safety, legal compliance, regulatory requirements from bodies
+                    such as the FDA, CPSC, and FCC, marketplace trust, and
+                    intellectual property protection. Importantly, Amazon does not
+                    wait for a regulator to act before restricting a product — it
+                    monitors safety signals independently and acts on them
+                    proactively, as seen with water beads, mermaid tails, and mouth
+                    tape, all of which Amazon restricted ahead of formal regulatory
+                    action.
+                  </P>
+
+                  <SubHeading>Consequences of Selling a Restricted Product</SubHeading>
+                  <P>
+                    If Amazon determines that you have listed or sold a restricted
+                    or prohibited product, the consequences can be immediate. These
+                    include listing suppression or removal, financial losses on
+                    inventory already procured, storage and warehouse charges for
+                    unsellable stock, product destruction charges, compensation
+                    claims from injured customers, and regulatory scrutiny from the
+                    CPSC, FDA, or other federal and state agencies.
+                  </P>
+
+                  <SubHeading>What If Your Product Has Been Incorrectly Restricted?</SubHeading>
+                  <P>
+                    Amazon&apos;s automated systems are not perfect. Products are
+                    sometimes restricted due to incorrect classification, listing
+                    content issues, or keyword triggers that do not accurately
+                    reflect what the product is. Common causes include product
+                    titles or bullet points containing terms that trigger a
+                    restricted category, images that resemble a restricted product
+                    type, or a product name that resembles a controlled substance or
+                    prohibited item. If you believe your product has been
+                    incorrectly restricted, the classification and listing content
+                    should be reviewed before submitting any appeal.
+                  </P>
+
+                  <P>
+                    For the complete list of restricted and prohibited product
+                    categories on Amazon, visit the official Amazon seller help
+                    pages. Amazon updates this list regularly — sellers should check
+                    it before launching any new product.
                   </P>
                 </article>
 

@@ -223,6 +223,24 @@ export default function AboutDossierSection() {
                 </div>
               ))}
             </motion.div>
+
+            {/* Brief pull-quote — moved directly under the "Who we are" stats, no "The brief." header */}
+            <motion.div
+              variants={fadeUp}
+              className="mt-12 lg:mt-16 rounded-2xl border-l-4 border-[#B8860B] bg-[#FFFDF9] px-6 sm:px-10 py-7 sm:py-9"
+            >
+              <p
+                className="text-xl sm:text-2xl lg:text-3xl text-[#2D2A26] leading-snug"
+                style={{ fontFamily: "var(--font-dm-serif)" }}
+              >
+                Amazon Safety Pro exists for one reason — to give Amazon
+                sellers the compliance expertise they need to protect their
+                listings, recover their revenue, and build a business that
+                stays compliant for the long term. We are not consultants who
+                learned Amazon&apos;s rules by reading help pages.{" "}
+                <span className="italic">We are the people who wrote them.</span>
+              </p>
+            </motion.div>
           </motion.div>
         </div>
       </section>
@@ -231,43 +249,6 @@ export default function AboutDossierSection() {
       <section className="bg-[#FAF7F2] py-16 lg:py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-12">
           <div className="space-y-20">
-
-            {/* Introduction */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={stagger}
-            >
-              <motion.div variants={fadeUp} className="mb-6">
-                <SectionDivider />
-              </motion.div>
-              <motion.h2
-                variants={fadeUp}
-                className="text-3xl sm:text-4xl lg:text-5xl text-[#2D2A26] leading-tight"
-                style={{ fontFamily: "var(--font-dm-serif)" }}
-              >
-                The brief.
-              </motion.h2>
-
-              {/* Pull-quote card with new copy */}
-              <motion.div
-                variants={fadeUp}
-                className="mt-8 max-w-4xl rounded-2xl border-l-4 border-[#B8860B] bg-[#FFFDF9] px-8 py-7"
-              >
-                <p
-                  className="text-xl sm:text-2xl text-[#2D2A26] leading-snug"
-                  style={{ fontFamily: "var(--font-dm-serif)" }}
-                >
-                  Amazon Safety Pro exists for one reason — to give Amazon
-                  sellers the compliance expertise they need to protect their
-                  listings, recover their revenue, and build a business that
-                  stays compliant for the long term. We are not consultants who
-                  learned Amazon&apos;s rules by reading help pages.{" "}
-                  <span className="italic">We are the people who wrote them.</span>
-                </p>
-              </motion.div>
-            </motion.div>
 
             {/* Origin */}
             <motion.div
@@ -289,7 +270,7 @@ export default function AboutDossierSection() {
 
               <motion.p
                 variants={fadeUp}
-                className="mt-8 max-w-3xl text-lg leading-relaxed text-[#6B6560]"
+                className="mt-8 text-lg leading-relaxed text-[#6B6560]"
                 style={{ fontFamily: "var(--font-outfit)" }}
               >
                 Amazon sellers face one of the most complex and consequential
@@ -301,7 +282,7 @@ export default function AboutDossierSection() {
               </motion.p>
               <motion.p
                 variants={fadeUp}
-                className="mt-6 max-w-3xl text-lg leading-relaxed text-[#6B6560]"
+                className="mt-6 text-lg leading-relaxed text-[#6B6560]"
                 style={{ fontFamily: "var(--font-outfit)" }}
               >
                 What pushed us to act was hearing it directly from sellers. At
@@ -315,7 +296,7 @@ export default function AboutDossierSection() {
               </motion.p>
               <motion.p
                 variants={fadeUp}
-                className="mt-6 max-w-3xl text-lg leading-relaxed text-[#6B6560]"
+                className="mt-6 text-lg leading-relaxed text-[#6B6560]"
                 style={{ fontFamily: "var(--font-outfit)" }}
               >
                 Amazon Safety Pro exists to close that gap. We bring expert
@@ -346,7 +327,7 @@ export default function AboutDossierSection() {
 
               <motion.div
                 variants={stagger}
-                className="mt-10 grid gap-6 sm:grid-cols-2"
+                className="mt-10 grid gap-6 sm:grid-cols-2 sm:auto-rows-fr"
               >
                 {TEAM_ITEMS.map((item) => {
                   const Icon = item.Icon;
@@ -354,7 +335,7 @@ export default function AboutDossierSection() {
                     <motion.div
                       key={item.num}
                       variants={fadeUp}
-                      className="group relative flex flex-col rounded-2xl border border-[#E8E0D4] bg-white p-7 sm:p-8 border-l-4 border-l-[#B8860B] transition-shadow hover:shadow-[0_8px_24px_rgba(45,42,38,0.06)]"
+                      className="group relative flex flex-col rounded-2xl border border-[#E8E0D4] bg-white p-7 sm:p-8 border-l-4 border-l-[#B8860B] transition-shadow hover:shadow-[0_8px_24px_rgba(45,42,38,0.06)] h-full"
                     >
                       <div className="flex items-start justify-between gap-4 mb-5">
                         <div className="flex items-center gap-4">
@@ -387,8 +368,12 @@ export default function AboutDossierSection() {
                         {item.title}
                       </h3>
                       <div
-                        className="text-[#6B6560] leading-relaxed text-base sm:text-lg space-y-0"
-                        style={{ fontFamily: "var(--font-outfit)" }}
+                        className="flex-1 min-h-0 text-[#6B6560] leading-relaxed text-base sm:text-lg space-y-0 overflow-y-auto pr-2 sm:max-h-[420px] scrollbar-thin"
+                        style={{
+                          fontFamily: "var(--font-outfit)",
+                          scrollbarWidth: "thin",
+                          scrollbarColor: "#B8860B40 transparent",
+                        }}
                       >
                         {item.body}
                       </div>
@@ -417,7 +402,7 @@ export default function AboutDossierSection() {
               </motion.h2>
               <motion.p
                 variants={fadeUp}
-                className="mt-6 max-w-3xl text-lg leading-relaxed text-[#6B6560]"
+                className="mt-6 text-lg leading-relaxed text-[#6B6560]"
                 style={{ fontFamily: "var(--font-outfit)" }}
               >
                 Amazon Safety Pro supports sellers across seven Amazon

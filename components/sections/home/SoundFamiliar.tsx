@@ -4,28 +4,17 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { AlertTriangle } from "lucide-react";
 
-type Blurb = {
-  topPara: string;
-  bottomPara: string;
-};
-
-const BLURBS: Blurb[] = [
-  {
-    topPara:
-      "We are not able to validate the compliance documents you submitted, and your application to sell the following ASIN ABCD1234EF has been declined.",
-    bottomPara:
-      "We have reviewed all the documents provided for ASIN ABCD1234EF. However, we still have unmet compliance requirements. If you are unable to fulfill your compliance requirements as outlined below, we will be unable to proceed further with the compliance validation and will remove your product. ………………………………………… This case now will be closed but we welcome you to re-open this case as soon as you are able to provide the required compliance documents.",
-  },
-  {
-    topPara: "",
-    bottomPara:
-      "The product & packaging images submitted for your product does not correctly show all of the information that we require to proceed with our review process ……………………………. This case now will be closed but we welcome you to re-open this case as soon as you are able to provide the required compliance documents.",
-  },
-  {
-    topPara: "",
-    bottomPara:
-      "We are contacting you because the test report TR123456 submitted for your product has conflicting information. Specifically, the tests and outcome on the summary page of the test report does not match the information on the details page of the report …………. To move forward with the approvals process, please submit a full test report with the correct information listed for each product.",
-  },
+// Each entry below renders as a separate blurb card.
+// Per client: split each "message" into two cards (no dotted line separator).
+const BLURBS: string[] = [
+  // Message 1 — split into two cards
+  "We are not able to validate the compliance documents you submitted, and your application to sell the following ASIN ABCD1234EF has been declined.",
+  "We have reviewed all the documents provided for ASIN ABCD1234EF. However, we still have unmet compliance requirements. If you are unable to fulfill your compliance requirements as outlined below, we will be unable to proceed further with the compliance validation and will remove your product. This case now will be closed but we welcome you to re-open this case as soon as you are able to provide the required compliance documents.",
+  // Message 2 — split into two cards
+  "The product & packaging images submitted for your product does not correctly show all of the information that we require to proceed with our review process.",
+  "This case now will be closed but we welcome you to re-open this case as soon as you are able to provide the required compliance documents.",
+  // Message 3 — single blurb (no split needed per client comments)
+  "We are contacting you because the test report TR123456 submitted for your product has conflicting information. Specifically, the tests and outcome on the summary page of the test report does not match the information on the details page of the report. To move forward with the approvals process, please submit a full test report with the correct information listed for each product.",
 ];
 
 const fadeUp = {
@@ -35,7 +24,7 @@ const fadeUp = {
 
 const stagger = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.12 } },
+  visible: { transition: { staggerChildren: 0.1 } },
 };
 
 export default function SoundFamiliar() {
@@ -79,7 +68,7 @@ export default function SoundFamiliar() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="space-y-5"
+          className="space-y-4 sm:space-y-5"
         >
           {BLURBS.map((blurb, i) => (
             <motion.div
@@ -88,17 +77,12 @@ export default function SoundFamiliar() {
               className="flex items-start gap-3 bg-white border-l-[3px] border-[#9B1C1C] rounded-r-lg px-4 sm:px-8 py-4 sm:py-5"
             >
               <AlertTriangle size={18} className="text-[#9B1C1C] mt-1 shrink-0" />
-              <div
-                className="flex-1 text-[#2D2A26] text-base sm:text-lg leading-relaxed italic space-y-3"
+              <p
+                className="flex-1 text-[#2D2A26] text-base sm:text-lg leading-relaxed italic"
                 style={{ fontFamily: "var(--font-outfit)" }}
               >
-                {blurb.topPara && <p>&ldquo;{blurb.topPara}&rdquo;</p>}
-                <p>
-                  {blurb.topPara ? "" : "“"}
-                  {blurb.bottomPara}
-                  {"”"}
-                </p>
-              </div>
+                &ldquo;{blurb}&rdquo;
+              </p>
             </motion.div>
           ))}
         </motion.div>
@@ -108,10 +92,12 @@ export default function SoundFamiliar() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.4, duration: 0.7 }}
-          className="mt-10 sm:mt-14 text-center text-[#2D2A26] max-w-3xl mx-auto leading-relaxed text-lg sm:text-xl font-bold"
+          className="mt-10 sm:mt-14 text-center text-[#6B6560] max-w-2xl mx-auto leading-relaxed text-base sm:text-lg"
           style={{ fontFamily: "var(--font-outfit)" }}
         >
-          You are not alone, Amazon Safety Pro is there to guide you to navigate through the process.
+          If you have been going back and forth with Amazon — submitting
+          documents, receiving the same rejection, resubmitting, and getting
+          nowhere — you are not alone.
         </motion.p>
       </div>
     </section>

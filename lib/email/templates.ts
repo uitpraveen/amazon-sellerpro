@@ -1,4 +1,24 @@
-import { SERVICE_INQUIRY_LABELS, type ServiceInquiryType } from "@/lib/types";
+import {
+  SERVICE_INQUIRY_LABELS,
+  AMAZON_MARKETPLACES,
+  type ServiceInquiryType,
+} from "@/lib/types";
+
+const MARKETPLACE_LABEL_BY_VALUE: Record<string, string> = Object.fromEntries(
+  AMAZON_MARKETPLACES.map((m) => [m.value, m.label])
+);
+
+function formatMarketplaces(raw: string | undefined): string | undefined {
+  if (!raw) return undefined;
+  const codes = raw
+    .split(",")
+    .map((c) => c.trim())
+    .filter(Boolean);
+  if (codes.length === 0) return undefined;
+  return codes
+    .map((code) => MARKETPLACE_LABEL_BY_VALUE[code] ?? code)
+    .join(", ");
+}
 
 export interface ContactEmailPayload {
   fullName: string;
@@ -60,7 +80,7 @@ export function contactEmail(p: ContactEmailPayload): RenderedEmail {
           ${row("Email", p.email)}
           ${row("Phone", p.phone)}
           ${row("Seller ID / URL", p.amazonSellerId)}
-          ${row("Amazon marketplace", p.amazonMarketplace)}
+          ${row("Amazon marketplace", formatMarketplaces(p.amazonMarketplace))}
           ${row("Product category", p.productCategory)}
           ${row("Inquiry type", inquiryLabel)}
         </table>
@@ -80,7 +100,9 @@ export function contactEmail(p: ContactEmailPayload): RenderedEmail {
     `Email: ${p.email}`,
     p.phone ? `Phone: ${p.phone}` : null,
     p.amazonSellerId ? `Seller ID / URL: ${p.amazonSellerId}` : null,
-    p.amazonMarketplace ? `Amazon marketplace: ${p.amazonMarketplace}` : null,
+    formatMarketplaces(p.amazonMarketplace)
+      ? `Amazon marketplace: ${formatMarketplaces(p.amazonMarketplace)}`
+      : null,
     `Product category: ${p.productCategory}`,
     `Inquiry type: ${inquiryLabel}`,
     "",

@@ -1,0 +1,65 @@
+name: Deploy to Vercel (Production)
+
+# Triggers on every push to main.
+# Builds the project once in CI and uploads the prebuilt artifact to Vercel —
+# faster + uses less of the Vercel team's build minutes than letting Vercel
+# build remotely.
+
+on:
+  push:
+    branches:
+      - main
+  # Lets you manually re-run a deploy from the Actions tab without pushing.
+  workflow_dispatch:
+
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Pull Vercel environment info
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: npx vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
+
+      - name: Build project
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: npx vercel build --prod --token="$VERCEL_TOKEN"
+
+      - name: Deploy prebuilt artifact to Vercel
+        id: deploy
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          url=$(npx vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN")
+          echo "Deployed: $url"
+          echo "deployment_url=$url" >> "$GITHUB_OUTPUT"
+
+      - name: Summary
+        env:
+          DEPLOYMENT_URL: ${{ steps.deploy.outputs.deployment_url }}
+        run: |
+          {
+            echo "## Production deployment"
+            echo ""
+            echo "URL: $DEPLOYMENT_URL"
+            echo ""
+            echo "Live at: https://www.amazonsafetypro.com"
+          } >> "$GITHUB_STEP_SUMMARY"

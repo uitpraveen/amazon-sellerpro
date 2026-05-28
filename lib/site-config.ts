@@ -5,8 +5,7 @@
 export const siteConfig = {
   businessName: "Amazon Safety Pro",
 
-  // TODO: replace before launch
-  contactEmail: "TODO@amazonsafetypro.com",
+  contactEmail: "contact@amazonsafetypro.com",
   websiteUrl: "TODO",
   whatsappNumber: "TODO",
   privacyLastUpdated: "TODO",

@@ -7,7 +7,7 @@ import {
   type FormEvent,
 } from "react";
 import { useSearchParams } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ChevronDown, Check } from "lucide-react";
 import { submitContactForm, type ContactActionResult } from "./actions";
 import {
   SERVICE_INQUIRY_LABELS,
@@ -52,6 +52,7 @@ export default function ContactForm() {
 
   const [inquiryType, setInquiryType] =
     useState<ServiceInquiryType>(initialInquiry);
+  const [marketplaces, setMarketplaces] = useState<string[]>([]);
   const [paymentStage, setPaymentStage] = useState<PaymentStage>("idle");
   const [paymentError, setPaymentError] = useState<string | null>(null);
 
@@ -196,23 +197,21 @@ export default function ContactForm() {
           }
         />
 
-        <SelectField
+        <MultiMarketplaceField
           label="Amazon marketplace"
           name="amazonMarketplace"
           required
-          value={undefined}
-          defaultValue=""
-          placeholder="Select an Amazon marketplace"
-          onChange={() => {}}
+          values={marketplaces}
+          onChange={setMarketplaces}
+          options={AMAZON_MARKETPLACES.map((m) => ({
+            value: m.value,
+            label: m.label,
+          }))}
           error={
             state && !state.ok
               ? state.fieldErrors?.amazonMarketplace
               : undefined
           }
-          options={AMAZON_MARKETPLACES.map((m) => ({
-            value: m.value,
-            label: m.label,
-          }))}
         />
 
         <Field
@@ -548,6 +547,150 @@ function SelectField({
           ▼
         </span>
       </div>
+      {error && <FieldError>{error}</FieldError>}
+    </div>
+  );
+}
+
+function MultiMarketplaceField({
+  label,
+  name,
+  required,
+  values,
+  onChange,
+  options,
+  error,
+}: {
+  label: string;
+  name: string;
+  required?: boolean;
+  values: string[];
+  onChange: (next: string[]) => void;
+  options: { value: string; label: string }[];
+  error?: string;
+}) {
+  const [open, setOpen] = useState(false);
+
+  function toggle(value: string) {
+    if (values.includes(value)) {
+      onChange(values.filter((v) => v !== value));
+    } else {
+      onChange([...values, value]);
+    }
+  }
+
+  const valueString = values.join(",");
+  const summary =
+    values.length === 0
+      ? "Select one or more marketplaces"
+      : values.length === 1
+      ? options.find((o) => o.value === values[0])?.label ?? values[0]
+      : `${values.length} marketplaces selected`;
+
+  return (
+    <div>
+      <FieldLabel htmlFor={name} required={required}>
+        {label}
+      </FieldLabel>
+      {/* Hidden input so the form picks up the comma-separated value */}
+      <input type="hidden" name={name} value={valueString} />
+
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        className="mt-1.5 block w-full rounded-lg border px-4 py-3 pr-10 text-left text-base transition-colors focus:outline-none relative"
+        style={{
+          fontFamily: "var(--font-outfit)",
+          color: values.length === 0 ? "#9B9590" : "#2D2A26",
+          backgroundColor: "#FAF7F2",
+          borderColor: error ? "#9B1C1C" : open ? "#B8860B" : "#E8E0D4",
+        }}
+      >
+        {summary}
+        <ChevronDown
+          size={16}
+          className={`pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 transition-transform ${
+            open ? "rotate-180" : ""
+          }`}
+          style={{ color: "#6B6560" }}
+        />
+      </button>
+
+      {/* Selected chips */}
+      {values.length > 0 && (
+        <div className="mt-2 flex flex-wrap gap-1.5">
+          {values.map((v) => {
+            const opt = options.find((o) => o.value === v);
+            return (
+              <span
+                key={v}
+                className="inline-flex items-center gap-1 rounded-full bg-[#B8860B]/10 text-[#B8860B] text-xs px-2.5 py-1"
+                style={{ fontFamily: "var(--font-outfit)" }}
+              >
+                {opt?.label.split(" (")[0] ?? v}
+                <button
+                  type="button"
+                  onClick={() => toggle(v)}
+                  className="ml-0.5 text-[#B8860B]/80 hover:text-[#B8860B]"
+                  aria-label={`Remove ${opt?.label ?? v}`}
+                >
+                  ×
+                </button>
+              </span>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Dropdown panel */}
+      {open && (
+        <div
+          className="mt-2 rounded-lg border bg-white shadow-lg max-h-64 overflow-y-auto"
+          style={{
+            borderColor: "#E8E0D4",
+            fontFamily: "var(--font-outfit)",
+          }}
+          role="listbox"
+        >
+          {options.map((opt) => {
+            const checked = values.includes(opt.value);
+            return (
+              <button
+                type="button"
+                key={opt.value}
+                onClick={() => toggle(opt.value)}
+                aria-selected={checked}
+                role="option"
+                className="flex items-center gap-3 w-full text-left px-4 py-2.5 text-sm transition-colors hover:bg-[#FAF7F2]"
+                style={{ color: "#2D2A26" }}
+              >
+                <span
+                  className="flex-shrink-0 w-4 h-4 rounded border flex items-center justify-center"
+                  style={{
+                    borderColor: checked ? "#B8860B" : "#9B9590",
+                    backgroundColor: checked ? "#B8860B" : "transparent",
+                  }}
+                >
+                  {checked && <Check size={11} strokeWidth={3} color="#fff" />}
+                </span>
+                <span>{opt.label}</span>
+              </button>
+            );
+          })}
+          <div className="px-4 py-2.5 border-t" style={{ borderColor: "#E8E0D4" }}>
+            <button
+              type="button"
+              onClick={() => setOpen(false)}
+              className="text-xs font-semibold tracking-wider uppercase text-[#B8860B] hover:text-[#a07609]"
+            >
+              Done
+            </button>
+          </div>
+        </div>
+      )}
+
       {error && <FieldError>{error}</FieldError>}
     </div>
   );

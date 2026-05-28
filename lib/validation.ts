@@ -12,11 +12,12 @@ export const contactFormSchema = z.object({
   email: z.string().trim().email("Please enter a valid email address").max(200),
   phone: z.string().trim().max(40).optional().or(z.literal("")),
   amazonSellerId: z.string().trim().max(200).optional().or(z.literal("")),
+  // Multi-select: comma-separated marketplace codes (e.g. "us,uk,de")
   amazonMarketplace: z
     .string()
     .trim()
-    .min(1, "Please select an Amazon marketplace")
-    .max(40),
+    .min(1, "Please select at least one Amazon marketplace")
+    .max(200),
   productCategory: z.string().trim().min(1, "Product category is required").max(120),
   inquiryType: z.enum([
     "asin_classification_review",
