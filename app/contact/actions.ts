@@ -2,8 +2,8 @@
 
 import { headers } from "next/headers";
 import { contactFormSchema } from "@/lib/validation";
-import { contactEmail } from "@/lib/email/templates";
-import { sendLeadEmail } from "@/lib/email/resend";
+import { contactEmail, contactConfirmationEmail } from "@/lib/email/templates";
+import { sendLeadEmail, sendEmail } from "@/lib/email/resend";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { siteConfig } from "@/lib/site-config";
 import type { ServiceInquiryType } from "@/lib/types";
@@ -156,5 +156,24 @@ export async function submitContactForm(
       error: `We couldn't send your message. Please email us directly at ${siteConfig.contactEmail}.`,
     };
   }
+
+  // Courtesy acknowledgement to the customer. Best-effort: a failure here must
+  // not fail the submission, since the lead has already reached the inbox.
+  const confirmation = contactConfirmationEmail({
+    fullName: parsed.data.fullName,
+    inquiryType: parsed.data.inquiryType,
+    message: parsed.data.message,
+  });
+  const ack = await sendEmail({
+    to: parsed.data.email,
+    subject: confirmation.subject,
+    html: confirmation.html,
+    text: confirmation.text,
+    replyTo: siteConfig.contactEmail,
+  });
+  if (!ack.ok) {
+    console.error("Contact confirmation email failed:", ack.error);
+  }
+
   return { ok: true };
 }

@@ -115,6 +115,55 @@ export function contactEmail(p: ContactEmailPayload): RenderedEmail {
   return { subject, html, text };
 }
 
+export interface ContactConfirmationPayload {
+  fullName: string;
+  inquiryType: ServiceInquiryType;
+  message: string;
+}
+
+export function contactConfirmationEmail(
+  p: ContactConfirmationPayload
+): RenderedEmail {
+  const inquiryLabel = SERVICE_INQUIRY_LABELS[p.inquiryType];
+  const firstName = p.fullName.trim().split(/\s+/)[0] || p.fullName;
+  const subject = "We've received your enquiry - Amazon Safety Pro";
+
+  const html = `
+    <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#0A0E14;max-width:640px;background:#F7F7F4;padding:32px;">
+      <div style="border:1px solid #D8D6CF;padding:24px;background:#FFF;">
+        <div style="font-family:ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.18em;color:#1F40FF;">→ AMAZON SAFETY PRO</div>
+        <h2 style="margin:8px 0 16px;font-size:24px;font-weight:900;color:#0A0E14;">Thanks, ${escapeHtml(firstName)}. We've got it.</h2>
+        <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#0A0E14;">
+          Thanks for reaching out to Amazon Safety Pro. We've received your enquiry
+          (<strong>${escapeHtml(inquiryLabel)}</strong>) and a member of our team will get back to you within one business day.
+        </p>
+        <div style="margin-top:8px;border-top:1px solid #D8D6CF;padding-top:16px;">
+          <div style="font-family:ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.18em;color:#5A6173;margin-bottom:8px;">YOUR MESSAGE</div>
+          <p style="margin:0;white-space:pre-wrap;font-size:14px;line-height:1.6;color:#5A6173;">${escapeHtml(p.message)}</p>
+        </div>
+        <p style="margin:24px 0 0;font-size:13px;line-height:1.6;color:#5A6173;">
+          If you need to add anything, just reply to this email.<br />
+          — The Amazon Safety Pro team
+        </p>
+      </div>
+    </div>
+  `.trim();
+
+  const text = [
+    `Thanks, ${firstName}. We've got it.`,
+    "",
+    `Thanks for reaching out to Amazon Safety Pro. We've received your enquiry (${inquiryLabel}) and a member of our team will get back to you within one business day.`,
+    "",
+    "Your message:",
+    p.message,
+    "",
+    "If you need to add anything, just reply to this email.",
+    "— The Amazon Safety Pro team",
+  ].join("\n");
+
+  return { subject, html, text };
+}
+
 export function freeReviewEmail(p: FreeReviewEmailPayload): RenderedEmail {
   const subject = `Free review request: ${p.fullName} - ${p.productCategory}`;
 
