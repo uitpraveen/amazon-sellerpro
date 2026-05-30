@@ -181,3 +181,15 @@ textarea:focus,
 select:focus {
   outline: none;
 }
+
+/*
+ * PayPal Hosted Buttons render their own product name + price + "Standard fee"
+ * block above the payment buttons. The pricing card already shows the cost, so
+ * hide that redundant text and keep only the buttons. These are PayPal's stable
+ * semantic class names (the buttons themselves render inside an iframe).
+ */
+[id^="paypal-container-"] .item-header,
+[id^="paypal-container-"] .item-description,
+[id^="paypal-container-"] h3.no-vertical-margin {
+  display: none !important;
+}
