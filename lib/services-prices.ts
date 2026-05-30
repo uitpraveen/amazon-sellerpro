@@ -2,13 +2,15 @@ import type { ServiceInquiryType } from "@/lib/types";
 
 /**
  * Inquiry types that require payment before submission.
- * Only Compliance Document Creation and Product Compliance Assessment
- * have fixed prices; all other services route through Send Enquiry.
+ *
+ * Payment is now handled exclusively by PayPal Hosted Buttons on the pricing
+ * page (see components/PayPalHostedButton.tsx), so no service is gated behind
+ * the in-form custom checkout. Keeping this map empty disables the legacy
+ * Stripe/PayPal checkout + server-side verification while leaving the contact
+ * form to send all submissions as plain enquiries.
  */
-export const SERVICE_PRICES_USD: Partial<Record<ServiceInquiryType, number>> = {
-  compliance_document_creation: 299,
-  product_compliance_assessment: 399,
-};
+export const SERVICE_PRICES_USD: Partial<Record<ServiceInquiryType, number>> =
+  {};
 
 export const CURRENCY = "USD";
 

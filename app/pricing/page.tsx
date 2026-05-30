@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import PayPalHostedButton from "@/components/PayPalHostedButton";
 
 export const metadata: Metadata = {
   title: "Pricing - Amazon Safety Pro",
@@ -34,6 +35,7 @@ type Tier = {
   highlighted?: boolean;
   badge?: string;
   comingSoon?: boolean;
+  paypalHostedButtonId?: string;
 };
 
 const TIERS: Tier[] = [
@@ -111,6 +113,7 @@ const TIERS: Tier[] = [
     subLabel: "Fixed-fee per document · agreed before work begins",
     ctaHref: "/contact?inquiry=compliance_document_creation",
     ctaLabel: "Pay & Submit",
+    paypalHostedButtonId: "8ZNE9YPHP2LLL",
   },
   {
     name: "Product Compliance Assessment",
@@ -127,6 +130,7 @@ const TIERS: Tier[] = [
     subLabel: "Fixed-fee · agreed before work begins",
     ctaHref: "/contact?inquiry=product_compliance_assessment",
     ctaLabel: "Pay & Submit",
+    paypalHostedButtonId: "5HDSEULJT3SRJ",
   },
   {
     name: "Testing Guidance",
@@ -361,6 +365,10 @@ export default function PricingPage() {
                       >
                         {tier.ctaLabel}
                       </span>
+                    ) : tier.paypalHostedButtonId ? (
+                      <PayPalHostedButton
+                        hostedButtonId={tier.paypalHostedButtonId}
+                      />
                     ) : (
                       <Link
                         href={tier.ctaHref}
