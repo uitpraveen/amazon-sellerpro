@@ -3,6 +3,7 @@
 import {
   useState,
   useRef,
+  useEffect,
   useTransition,
   type FormEvent,
 } from "react";
@@ -22,6 +23,8 @@ import {
 import PayPalCheckout from "@/components/PayPalCheckout";
 import StripeCheckout from "@/components/StripeCheckout";
 import { getActiveProvider } from "@/lib/payment-provider";
+import PayPalHostedButton from "@/components/PayPalHostedButton";
+import { getHostedButtonId } from "@/lib/paypal-buttons";
 
 const INQUIRY_OPTIONS: ServiceInquiryType[] = [
   "asin_classification_review",
@@ -59,6 +62,7 @@ export default function ContactForm() {
   const price = getServicePrice(inquiryType);
   const requiresPayment = isPaidService(inquiryType);
   const isTestingGuidance = inquiryType === "testing_guidance";
+  const hostedButtonId = getHostedButtonId(inquiryType);
 
   function runSubmit(formData: FormData) {
     startTransition(async () => {
@@ -283,6 +287,28 @@ export default function ContactForm() {
             Testing Guidance is launching shortly. Submit your details and we
             will notify you as soon as the service is available.
           </p>
+        </div>
+      )}
+
+      {hostedButtonId && (
+        <div
+          className="rounded-xl border border-[#E8E0D4] bg-white p-5 shadow-sm"
+          style={{ fontFamily: "var(--font-outfit)" }}
+        >
+          <p className="text-[10px] font-semibold tracking-[0.22em] uppercase text-[#B8860B] mb-1">
+            Payment
+          </p>
+          <h3
+            className="text-lg text-[#2D2A26] mb-1"
+            style={{ fontFamily: "var(--font-dm-serif)" }}
+          >
+            {SERVICE_INQUIRY_LABELS[inquiryType]}
+          </h3>
+          <p className="text-sm text-[#6B6560] mb-4">
+            Pay securely for this service below. You can also send your details
+            using the form, and we&apos;ll be in touch.
+          </p>
+          <PayPalHostedButton hostedButtonId={hostedButtonId} />
         </div>
       )}
 
@@ -570,6 +596,27 @@ function MultiMarketplaceField({
   error?: string;
 }) {
   const [open, setOpen] = useState(false);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    function onPointerDown(e: MouseEvent | TouchEvent) {
+      if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    }
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") setOpen(false);
+    }
+    document.addEventListener("mousedown", onPointerDown);
+    document.addEventListener("touchstart", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", onPointerDown);
+      document.removeEventListener("touchstart", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [open]);
 
   function toggle(value: string) {
     if (values.includes(value)) {
@@ -588,7 +635,7 @@ function MultiMarketplaceField({
       : `${values.length} marketplaces selected`;
 
   return (
-    <div>
+    <div ref={wrapperRef}>
       <FieldLabel htmlFor={name} required={required}>
         {label}
       </FieldLabel>

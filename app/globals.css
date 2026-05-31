@@ -193,3 +193,27 @@ select:focus {
 [id^="paypal-container-"] h3.no-vertical-margin {
   display: none !important;
 }
+
+/*
+ * Navbar responsive visibility.
+ * Tailwind's `lg:flex` / `lg:hidden` utilities are not reliably overriding the
+ * base `hidden` utility in this build (a v4 cascade-layer ordering quirk), which
+ * left the navbar showing nothing but its top accent line. These unlayered rules
+ * win over the layered utilities and restore the correct desktop/mobile split.
+ */
+@media (min-width: 1024px) {
+  header .nav-desktop {
+    display: flex !important;
+  }
+  header .nav-mobile {
+    display: none !important;
+  }
+}
+@media (max-width: 1023.98px) {
+  header .nav-desktop {
+    display: none !important;
+  }
+  header .nav-mobile {
+    display: flex !important;
+  }
+}

@@ -52,7 +52,7 @@ export default function Navbar() {
         />
 
         {/* Desktop */}
-        <div className="hidden lg:flex items-center justify-between max-w-7xl mx-auto px-6 xl:px-10">
+        <div className="nav-desktop hidden lg:flex items-center justify-between max-w-7xl mx-auto px-6 xl:px-10">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 py-5 group">
             <div
@@ -141,7 +141,7 @@ export default function Navbar() {
         </div>
 
         {/* Mobile */}
-        <div className="flex lg:hidden items-center justify-between px-4 py-3">
+        <div className="nav-mobile flex lg:hidden items-center justify-between px-4 py-3">
           <Link href="/" className="flex items-center gap-2">
             <div
               className={`flex items-center justify-center w-9 h-9 rounded-lg transition-colors duration-300 shrink-0 ${
