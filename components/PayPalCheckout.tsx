@@ -15,6 +15,7 @@ export interface PayPalCheckoutProps {
   amount: number;
   onSuccess: (captureId: string, orderId: string) => void;
   onError?: (message: string) => void;
+  disabled?: boolean;
 }
 
 type Status = "idle" | "processing" | "error";
@@ -24,6 +25,7 @@ export default function PayPalCheckout({
   amount,
   onSuccess,
   onError,
+  disabled = false,
 }: PayPalCheckoutProps) {
   const clientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
   const isMockMode = !clientId || clientId === "MOCK";
@@ -35,6 +37,7 @@ export default function PayPalCheckout({
         amount={amount}
         onSuccess={onSuccess}
         onError={onError}
+        disabled={disabled}
       />
     );
   }
@@ -51,6 +54,7 @@ export default function PayPalCheckout({
         inquiryType={inquiryType}
         onSuccess={onSuccess}
         onError={onError}
+        disabled={disabled}
       />
     </PayPalScriptProvider>
   );
@@ -60,13 +64,17 @@ function RealPayPalButtons({
   inquiryType,
   onSuccess,
   onError,
+  disabled,
 }: {
   inquiryType: ServiceInquiryType;
   onSuccess: (captureId: string, orderId: string) => void;
   onError?: (message: string) => void;
+  disabled?: boolean;
 }) {
   return (
     <PayPalButtons
+      disabled={disabled}
+      forceReRender={[disabled]}
       style={{
         layout: "vertical",
         color: "gold",
@@ -118,11 +126,13 @@ function MockPayPalButton({
   amount,
   onSuccess,
   onError,
+  disabled,
 }: {
   inquiryType: ServiceInquiryType;
   amount: number;
   onSuccess: (captureId: string, orderId: string) => void;
   onError?: (message: string) => void;
+  disabled?: boolean;
 }) {
   const [status, setStatus] = useState<Status>("idle");
   const [errMsg, setErrMsg] = useState<string | null>(null);
@@ -185,7 +195,7 @@ function MockPayPalButton({
       <button
         type="button"
         onClick={handleMockPay}
-        disabled={status === "processing"}
+        disabled={status === "processing" || disabled}
         className="w-full inline-flex items-center justify-center gap-2 bg-[#B8860B] hover:bg-[#daa520] disabled:opacity-60 disabled:cursor-not-allowed text-[#1f1c19] px-6 py-3.5 rounded-lg text-sm font-semibold tracking-wider uppercase transition-colors"
         style={cardFont}
       >

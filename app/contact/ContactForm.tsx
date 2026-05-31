@@ -8,7 +8,7 @@ import {
   type FormEvent,
 } from "react";
 import { useSearchParams } from "next/navigation";
-import { ArrowLeft, ChevronDown, Check } from "lucide-react";
+import { ChevronDown, Check } from "lucide-react";
 import { submitContactForm, type ContactActionResult } from "./actions";
 import {
   SERVICE_INQUIRY_LABELS,
@@ -21,10 +21,6 @@ import {
   formatPrice,
 } from "@/lib/services-prices";
 import PayPalCheckout from "@/components/PayPalCheckout";
-import StripeCheckout from "@/components/StripeCheckout";
-import { getActiveProvider } from "@/lib/payment-provider";
-import PayPalHostedButton from "@/components/PayPalHostedButton";
-import { getHostedButtonId } from "@/lib/paypal-buttons";
 
 const INQUIRY_OPTIONS: ServiceInquiryType[] = [
   "asin_classification_review",
@@ -38,8 +34,6 @@ const INQUIRY_OPTIONS: ServiceInquiryType[] = [
 ];
 
 const VALID_INQUIRIES: ServiceInquiryType[] = [...INQUIRY_OPTIONS];
-
-type PaymentStage = "idle" | "paying" | "paid";
 
 export default function ContactForm() {
   const search = useSearchParams();
@@ -56,13 +50,13 @@ export default function ContactForm() {
   const [inquiryType, setInquiryType] =
     useState<ServiceInquiryType>(initialInquiry);
   const [marketplaces, setMarketplaces] = useState<string[]>([]);
-  const [paymentStage, setPaymentStage] = useState<PaymentStage>("idle");
   const [paymentError, setPaymentError] = useState<string | null>(null);
+  // Whether all mandatory fields are currently filled - gates the pay button.
+  const [formValid, setFormValid] = useState(false);
 
   const price = getServicePrice(inquiryType);
   const requiresPayment = isPaidService(inquiryType);
   const isTestingGuidance = inquiryType === "testing_guidance";
-  const hostedButtonId = getHostedButtonId(inquiryType);
 
   function runSubmit(formData: FormData) {
     startTransition(async () => {
@@ -71,28 +65,27 @@ export default function ContactForm() {
     });
   }
 
+  function refreshValidity() {
+    if (!formRef.current) {
+      setFormValid(false);
+      return;
+    }
+    setFormValid(validateLocally(new FormData(formRef.current)));
+  }
+
+  // Re-check validity when the controlled fields (marketplaces, inquiry) change;
+  // free-text fields are re-checked via the form's onInput handler.
+  useEffect(() => {
+    refreshValidity();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [marketplaces, inquiryType]);
+
   function handleFormSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!formRef.current) return;
-    const formData = new FormData(formRef.current);
-    const selected = (formData.get("inquiryType")?.toString() ??
-      "general_question") as ServiceInquiryType;
-
-    if (isPaidService(selected) && paymentStage === "idle") {
-      if (!validateLocally(formData)) {
-        setState({
-          ok: false,
-          error: "Please fill in all required fields before continuing to payment.",
-        });
-        return;
-      }
-      setState(null);
-      setPaymentError(null);
-      setPaymentStage("paying");
-      return;
-    }
-
-    runSubmit(formData);
+    // Paid services submit only after a successful PayPal capture.
+    if (requiresPayment) return;
+    runSubmit(new FormData(formRef.current));
   }
 
   function handlePayPalSuccess(captureId: string, orderId: string) {
@@ -100,23 +93,12 @@ export default function ContactForm() {
     const formData = new FormData(formRef.current);
     formData.set("paypalCaptureId", captureId);
     formData.set("paypalOrderId", orderId);
-    setPaymentStage("paid");
-    runSubmit(formData);
-  }
-
-  function handleStripeSuccess(paymentIntentId: string) {
-    if (!formRef.current) return;
-    const formData = new FormData(formRef.current);
-    formData.set("stripePaymentIntentId", paymentIntentId);
-    setPaymentStage("paid");
     runSubmit(formData);
   }
 
   function handlePaymentError(msg: string) {
     setPaymentError(msg);
   }
-
-  const activeProvider = getActiveProvider();
 
   if (state?.ok) {
     return (
@@ -149,6 +131,7 @@ export default function ContactForm() {
     <form
       ref={formRef}
       onSubmit={handleFormSubmit}
+      onInput={refreshValidity}
       className="space-y-6"
       noValidate
     >
@@ -163,7 +146,7 @@ export default function ContactForm() {
       />
 
       <fieldset
-        disabled={paymentStage !== "idle"}
+        disabled={isPending}
         className="space-y-6 disabled:opacity-60"
       >
         <Field
@@ -268,13 +251,6 @@ export default function ContactForm() {
         </div>
       </fieldset>
 
-      {requiresPayment && (
-        <PricePanel
-          inquiryType={inquiryType}
-          price={price ?? 0}
-        />
-      )}
-
       {isTestingGuidance && (
         <div
           className="rounded-xl border border-[#B8860B]/30 bg-[#B8860B]/[0.04] p-5"
@@ -287,28 +263,6 @@ export default function ContactForm() {
             Testing Guidance is launching shortly. Submit your details and we
             will notify you as soon as the service is available.
           </p>
-        </div>
-      )}
-
-      {hostedButtonId && (
-        <div
-          className="rounded-xl border border-[#E8E0D4] bg-white p-5 shadow-sm"
-          style={{ fontFamily: "var(--font-outfit)" }}
-        >
-          <p className="text-[10px] font-semibold tracking-[0.22em] uppercase text-[#B8860B] mb-1">
-            Payment
-          </p>
-          <h3
-            className="text-lg text-[#2D2A26] mb-1"
-            style={{ fontFamily: "var(--font-dm-serif)" }}
-          >
-            {SERVICE_INQUIRY_LABELS[inquiryType]}
-          </h3>
-          <p className="text-sm text-[#6B6560] mb-4">
-            Pay securely for this service below. You can also send your details
-            using the form, and we&apos;ll be in touch.
-          </p>
-          <PayPalHostedButton hostedButtonId={hostedButtonId} />
         </div>
       )}
 
@@ -329,34 +283,7 @@ export default function ContactForm() {
         </div>
       )}
 
-      {paymentStage === "idle" && (
-        <div className="flex items-center gap-5 pt-2">
-          <button
-            type="submit"
-            disabled={isPending}
-            className="inline-block rounded-full px-8 py-3.5 text-sm font-semibold text-white transition-colors disabled:opacity-60"
-            style={{
-              fontFamily: "var(--font-outfit)",
-              backgroundColor: isPending ? "#9A7209" : "#B8860B",
-              cursor: isPending ? "not-allowed" : "pointer",
-            }}
-          >
-            {isPending
-              ? "Sending…"
-              : requiresPayment
-              ? `Continue to payment · ${formatPrice(price ?? 0)}`
-              : "Send Enquiry"}
-          </button>
-          <span
-            className="text-xs"
-            style={{ fontFamily: "var(--font-outfit)", color: "#6B6560" }}
-          >
-            Secure · No trackers
-          </span>
-        </div>
-      )}
-
-      {paymentStage === "paying" && price != null && (
+      {requiresPayment && price != null ? (
         <div className="rounded-2xl border border-[#E8E0D4] bg-white p-6 shadow-lg shadow-[#1B4332]/5">
           <div className="flex items-center justify-between mb-5">
             <div>
@@ -389,20 +316,40 @@ export default function ContactForm() {
             </div>
           </div>
 
-          {activeProvider === "stripe" ? (
-            <StripeCheckout
-              inquiryType={inquiryType}
-              amount={price}
-              onSuccess={handleStripeSuccess}
-              onError={handlePaymentError}
-            />
+          {!formValid && (
+            <div
+              className="mb-4 rounded-lg border border-[#E8E0D4] bg-[#FAF7F2] px-4 py-3"
+              style={{ fontFamily: "var(--font-outfit)" }}
+            >
+              <p className="text-sm text-[#6B6560]">
+                Please complete all required fields above to enable payment.
+              </p>
+            </div>
+          )}
+
+          {isPending ? (
+            <div className="flex items-center gap-3 py-2">
+              <span
+                className="inline-block h-2 w-2 rounded-full bg-[#1B4332] animate-pulse"
+                aria-hidden
+              />
+              <span
+                className="text-sm font-medium text-[#1B4332]"
+                style={{ fontFamily: "var(--font-outfit)" }}
+              >
+                Payment received - submitting your details…
+              </span>
+            </div>
           ) : (
-            <PayPalCheckout
-              inquiryType={inquiryType}
-              amount={price}
-              onSuccess={handlePayPalSuccess}
-              onError={handlePaymentError}
-            />
+            <div className={!formValid ? "opacity-50" : undefined}>
+              <PayPalCheckout
+                inquiryType={inquiryType}
+                amount={price}
+                onSuccess={handlePayPalSuccess}
+                onError={handlePaymentError}
+                disabled={!formValid}
+              />
+            </div>
           )}
 
           {paymentError && (
@@ -414,32 +361,33 @@ export default function ContactForm() {
             </p>
           )}
 
-          <button
-            type="button"
-            onClick={() => {
-              setPaymentStage("idle");
-              setPaymentError(null);
-            }}
-            className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold tracking-wider uppercase text-[#6B6560] hover:text-[#B8860B] transition-colors"
+          <p
+            className="mt-4 text-xs text-[#6B6560]"
             style={{ fontFamily: "var(--font-outfit)" }}
           >
-            <ArrowLeft size={12} strokeWidth={2.5} />
-            Back to edit details
-          </button>
+            Secure · No trackers · You&apos;ll be charged once and your details
+            are sent to us automatically on success.
+          </p>
         </div>
-      )}
-
-      {paymentStage === "paid" && (
-        <div className="flex items-center gap-3 pt-2">
-          <span
-            className="inline-block h-2 w-2 rounded-full bg-[#1B4332] animate-pulse"
-            aria-hidden
-          />
-          <span
-            className="text-sm font-medium text-[#1B4332]"
-            style={{ fontFamily: "var(--font-outfit)" }}
+      ) : (
+        <div className="flex items-center gap-5 pt-2">
+          <button
+            type="submit"
+            disabled={isPending}
+            className="inline-block rounded-full px-8 py-3.5 text-sm font-semibold text-white transition-colors disabled:opacity-60"
+            style={{
+              fontFamily: "var(--font-outfit)",
+              backgroundColor: isPending ? "#9A7209" : "#B8860B",
+              cursor: isPending ? "not-allowed" : "pointer",
+            }}
           >
-            Payment received - finalising your order…
+            {isPending ? "Sending…" : "Send Enquiry"}
+          </button>
+          <span
+            className="text-xs"
+            style={{ fontFamily: "var(--font-outfit)", color: "#6B6560" }}
+          >
+            Secure · No trackers
           </span>
         </div>
       )}
@@ -779,34 +727,3 @@ function FieldError({ children }: { children: React.ReactNode }) {
   );
 }
 
-function PricePanel({
-  inquiryType,
-  price,
-}: {
-  inquiryType: ServiceInquiryType;
-  price: number;
-}) {
-  return (
-    <div
-      className="rounded-xl border border-[#B8860B]/25 bg-[#B8860B]/[0.04] p-5 flex items-center justify-between gap-4"
-      style={{ fontFamily: "var(--font-outfit)" }}
-    >
-      <div>
-        <p className="text-[10px] font-semibold tracking-[0.22em] uppercase text-[#B8860B]">
-          Service Fee
-        </p>
-        <p className="text-sm text-[#2D2A26] mt-1">
-          {SERVICE_INQUIRY_LABELS[inquiryType]}
-        </p>
-      </div>
-      <div className="text-right">
-        <p className="text-2xl text-[#2D2A26] font-medium" style={{ fontFamily: "var(--font-dm-serif)" }}>
-          {formatPrice(price)}
-        </p>
-        <p className="text-[10px] text-[#6B6560] tracking-wider uppercase">
-          Pay on continue
-        </p>
-      </div>
-    </div>
-  );
-}
