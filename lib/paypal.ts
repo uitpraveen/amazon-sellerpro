@@ -161,13 +161,22 @@ export async function capturePayPalOrder(
       payer?: { email_address?: string };
     };
     if (!res.ok) {
+      console.error("[paypal] capture failed", res.status, JSON.stringify(data));
+      const detail = (
+        data as { details?: Array<{ issue?: string; description?: string }> }
+      ).details?.[0];
       return {
         ok: false,
-        error: data.message || `PayPal capture failed (${res.status})`,
+        error:
+          detail?.description ||
+          detail?.issue ||
+          data.message ||
+          `PayPal capture failed (${res.status})`,
       };
     }
     const capture = data.purchase_units?.[0]?.payments?.captures?.[0];
     if (!capture || capture.status !== "COMPLETED") {
+      console.error("[paypal] capture not completed", JSON.stringify(data));
       return {
         ok: false,
         error: `Payment not completed (status: ${capture?.status ?? "unknown"})`,

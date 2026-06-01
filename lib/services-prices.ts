@@ -8,7 +8,7 @@ import type { ServiceInquiryType } from "@/lib/types";
  * verifies the capture server-side before the enquiry email is sent.
  */
 export const SERVICE_PRICES_USD: Partial<Record<ServiceInquiryType, number>> = {
-  compliance_document_creation: 299,
+  compliance_document_creation: 1, // TEMP: $1 for live payment test - restore to 299 before production
   product_compliance_assessment: 399,
 };
 
