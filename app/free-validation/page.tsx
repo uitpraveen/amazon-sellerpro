@@ -1,10 +1,11 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { Upload, X, CheckCircle2, FileText } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { formatFileSize } from "@/lib/utils";
+import { pushDataLayer } from "@/lib/gtm";
 import {
   ACCEPTED_FILE_EXTENSIONS,
   MAX_FILE_SIZE,
@@ -20,6 +21,26 @@ export default function FreeValidationPage() {
     FreeReviewActionResult | null,
     FormData
   >(submitFreeReview, null);
+
+  // Non-PII metadata captured at submit time for the GTM conversion event
+  // (the form unmounts on success, so we can't read inputs after).
+  const submittedMeta = useRef<{ productCategory: string; fileCount: number }>({
+    productCategory: "",
+    fileCount: 0,
+  });
+  const conversionFired = useRef(false);
+
+  useEffect(() => {
+    if (state?.ok && !conversionFired.current) {
+      conversionFired.current = true;
+      pushDataLayer({
+        event: "free_validation_submitted",
+        form: "free_validation",
+        product_category: submittedMeta.current.productCategory || undefined,
+        file_count: submittedMeta.current.fileCount,
+      });
+    }
+  }, [state]);
 
   function addFiles(newFiles: FileList | null) {
     if (!newFiles) return;
@@ -51,6 +72,10 @@ export default function FreeValidationPage() {
   function handleSubmit(formData: FormData) {
     formData.delete("documents");
     files.forEach((f) => formData.append("documents", f));
+    submittedMeta.current = {
+      productCategory: formData.get("productCategory")?.toString() ?? "",
+      fileCount: files.length,
+    };
     formAction(formData);
   }
 

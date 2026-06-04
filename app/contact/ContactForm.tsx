@@ -23,6 +23,7 @@ import {
 import PayPalCheckout, {
   type PayPalCaptureResult,
 } from "@/components/PayPalCheckout";
+import { pushDataLayer } from "@/lib/gtm";
 
 const INQUIRY_OPTIONS: ServiceInquiryType[] = [
   "asin_classification_review",
@@ -64,6 +65,15 @@ export default function ContactForm() {
     startTransition(async () => {
       const result = await submitContactForm(null, formData);
       setState(result);
+      if (result.ok) {
+        // Non-paid enquiry conversion (paid path fires in handlePayPalSuccess).
+        pushDataLayer({
+          event: "contact_form_submitted",
+          form: "contact",
+          service: inquiryType,
+          paid: false,
+        });
+      }
     });
   }
 
@@ -100,6 +110,16 @@ export default function ContactForm() {
       );
     }
     setState({ ok: true });
+    // Paid conversion - includes value/currency + payment reference (no PII).
+    pushDataLayer({
+      event: "contact_form_submitted",
+      form: "contact",
+      service: inquiryType,
+      paid: true,
+      value: price ?? undefined,
+      currency: "USD",
+      payment_reference: result.captureId,
+    });
   }
 
   // Current contact-form values, sent with the PayPal capture so the server
