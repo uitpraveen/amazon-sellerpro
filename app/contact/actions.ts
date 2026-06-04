@@ -2,16 +2,11 @@
 
 import { headers } from "next/headers";
 import { contactFormSchema } from "@/lib/validation";
-import { contactEmail, contactConfirmationEmail } from "@/lib/email/templates";
-import { sendLeadEmail, sendEmail } from "@/lib/email/resend";
+import { sendContactLead, type PaymentInfo } from "@/lib/email/contact-lead";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { siteConfig } from "@/lib/site-config";
 import type { ServiceInquiryType } from "@/lib/types";
-import {
-  getServicePrice,
-  isPaidService,
-  formatPrice,
-} from "@/lib/services-prices";
+import { isPaidService } from "@/lib/services-prices";
 import { verifyPayPalCapture } from "@/lib/paypal";
 import { verifyStripePaymentIntent } from "@/lib/stripe";
 
@@ -76,14 +71,7 @@ export async function submitContactForm(
   const stripePaymentIntentId =
     formData.get("stripePaymentIntentId")?.toString() ?? "";
 
-  let paymentInfo:
-    | {
-        provider: "paypal" | "stripe";
-        reference: string;
-        secondary?: string;
-        amount: string;
-      }
-    | undefined;
+  let paymentInfo: PaymentInfo | undefined;
 
   if (isPaidService(parsed.data.inquiryType)) {
     if (stripePaymentIntentId) {
@@ -122,57 +110,12 @@ export async function submitContactForm(
     }
   }
 
-  const expectedAmount = getServicePrice(parsed.data.inquiryType);
-  const rendered = contactEmail({
-    fullName: parsed.data.fullName,
-    businessName: parsed.data.businessName,
-    email: parsed.data.email,
-    phone: parsed.data.phone || undefined,
-    amazonSellerId: parsed.data.amazonSellerId || undefined,
-    amazonMarketplace: parsed.data.amazonMarketplace || undefined,
-    productCategory: parsed.data.productCategory,
-    inquiryType: parsed.data.inquiryType,
-    message: paymentInfo
-      ? `${parsed.data.message}\n\n---\nPayment: ${
-          expectedAmount != null ? formatPrice(expectedAmount) : "USD"
-        } via ${paymentInfo.provider === "stripe" ? "Stripe" : "PayPal"}\n${
-          paymentInfo.provider === "stripe"
-            ? `PaymentIntent: ${paymentInfo.reference}`
-            : `Order ID: ${paymentInfo.secondary ?? ""}\nCapture ID: ${paymentInfo.reference}`
-        }`
-      : parsed.data.message,
-  });
-
-  const result = await sendLeadEmail({
-    subject: rendered.subject,
-    html: rendered.html,
-    text: rendered.text,
-    replyTo: parsed.data.email,
-  });
-
-  if (!result.ok) {
+  const sent = await sendContactLead(parsed.data, paymentInfo);
+  if (!sent.ok) {
     return {
       ok: false,
       error: `We couldn't send your message. Please email us directly at ${siteConfig.contactEmail}.`,
     };
-  }
-
-  // Courtesy acknowledgement to the customer. Best-effort: a failure here must
-  // not fail the submission, since the lead has already reached the inbox.
-  const confirmation = contactConfirmationEmail({
-    fullName: parsed.data.fullName,
-    inquiryType: parsed.data.inquiryType,
-    message: parsed.data.message,
-  });
-  const ack = await sendEmail({
-    to: parsed.data.email,
-    subject: confirmation.subject,
-    html: confirmation.html,
-    text: confirmation.text,
-    replyTo: siteConfig.contactEmail,
-  });
-  if (!ack.ok) {
-    console.error("Contact confirmation email failed:", ack.error);
   }
 
   return { ok: true };

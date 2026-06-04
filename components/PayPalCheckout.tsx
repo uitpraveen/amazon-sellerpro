@@ -10,12 +10,22 @@ import { formatPrice } from "@/lib/services-prices";
 
 const cardFont = { fontFamily: "var(--font-outfit)" };
 
+export interface PayPalCaptureResult {
+  captureId: string;
+  orderId: string;
+  /** Whether the server emailed the lead in the same step as the capture. */
+  leadSent: boolean;
+}
+
 export interface PayPalCheckoutProps {
   inquiryType: ServiceInquiryType;
   amount: number;
-  onSuccess: (captureId: string, orderId: string) => void;
+  onSuccess: (result: PayPalCaptureResult) => void;
   onError?: (message: string) => void;
   disabled?: boolean;
+  /** Returns the current contact-form fields, sent with the capture so the
+   *  server records the lead atomically with the payment. */
+  getFormFields?: () => Record<string, string>;
 }
 
 type Status = "idle" | "processing" | "error";
@@ -26,6 +36,7 @@ export default function PayPalCheckout({
   onSuccess,
   onError,
   disabled = false,
+  getFormFields,
 }: PayPalCheckoutProps) {
   const clientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
   const isMockMode = !clientId || clientId === "MOCK";
@@ -38,6 +49,7 @@ export default function PayPalCheckout({
         onSuccess={onSuccess}
         onError={onError}
         disabled={disabled}
+        getFormFields={getFormFields}
       />
     );
   }
@@ -55,6 +67,7 @@ export default function PayPalCheckout({
         onSuccess={onSuccess}
         onError={onError}
         disabled={disabled}
+        getFormFields={getFormFields}
       />
     </PayPalScriptProvider>
   );
@@ -65,11 +78,13 @@ function RealPayPalButtons({
   onSuccess,
   onError,
   disabled,
+  getFormFields,
 }: {
   inquiryType: ServiceInquiryType;
-  onSuccess: (captureId: string, orderId: string) => void;
+  onSuccess: (result: PayPalCaptureResult) => void;
   onError?: (message: string) => void;
   disabled?: boolean;
+  getFormFields?: () => Record<string, string>;
 }) {
   return (
     <PayPalButtons
@@ -101,18 +116,26 @@ function RealPayPalButtons({
         const res = await fetch("/api/paypal/capture-order", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ orderId: data.orderID }),
+          body: JSON.stringify({
+            orderId: data.orderID,
+            form: getFormFields?.(),
+          }),
         });
         const captured = (await res.json()) as {
           captureId?: string;
           orderId?: string;
+          leadSent?: boolean;
           error?: string;
         };
         if (!res.ok || !captured.captureId) {
           onError?.(captured.error || "Capture failed");
           return;
         }
-        onSuccess(captured.captureId, captured.orderId || data.orderID);
+        onSuccess({
+          captureId: captured.captureId,
+          orderId: captured.orderId || data.orderID,
+          leadSent: !!captured.leadSent,
+        });
       }}
       onError={(err) => {
         onError?.(err instanceof Error ? err.message : "PayPal error");
@@ -127,12 +150,14 @@ function MockPayPalButton({
   onSuccess,
   onError,
   disabled,
+  getFormFields,
 }: {
   inquiryType: ServiceInquiryType;
   amount: number;
-  onSuccess: (captureId: string, orderId: string) => void;
+  onSuccess: (result: PayPalCaptureResult) => void;
   onError?: (message: string) => void;
   disabled?: boolean;
+  getFormFields?: () => Record<string, string>;
 }) {
   const [status, setStatus] = useState<Status>("idle");
   const [errMsg, setErrMsg] = useState<string | null>(null);
@@ -157,17 +182,25 @@ function MockPayPalButton({
       const capRes = await fetch("/api/paypal/capture-order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ orderId: createData.orderId }),
+        body: JSON.stringify({
+          orderId: createData.orderId,
+          form: getFormFields?.(),
+        }),
       });
       const capData = (await capRes.json()) as {
         captureId?: string;
         orderId?: string;
+        leadSent?: boolean;
         error?: string;
       };
       if (!capRes.ok || !capData.captureId) {
         throw new Error(capData.error || "Mock capture failed");
       }
-      onSuccess(capData.captureId, capData.orderId || createData.orderId);
+      onSuccess({
+        captureId: capData.captureId,
+        orderId: capData.orderId || createData.orderId!,
+        leadSent: !!capData.leadSent,
+      });
     } catch (err) {
       const m = err instanceof Error ? err.message : "Mock payment failed";
       setErrMsg(m);

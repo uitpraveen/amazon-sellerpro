@@ -20,7 +20,9 @@ import {
   isPaidService,
   formatPrice,
 } from "@/lib/services-prices";
-import PayPalCheckout from "@/components/PayPalCheckout";
+import PayPalCheckout, {
+  type PayPalCaptureResult,
+} from "@/components/PayPalCheckout";
 
 const INQUIRY_OPTIONS: ServiceInquiryType[] = [
   "asin_classification_review",
@@ -88,12 +90,27 @@ export default function ContactForm() {
     runSubmit(new FormData(formRef.current));
   }
 
-  function handlePayPalSuccess(captureId: string, orderId: string) {
-    if (!formRef.current) return;
-    const formData = new FormData(formRef.current);
-    formData.set("paypalCaptureId", captureId);
-    formData.set("paypalOrderId", orderId);
-    runSubmit(formData);
+  // The capture endpoint records the lead in the same server step as the
+  // payment, so on success we just show the confirmation - no second submit.
+  function handlePayPalSuccess(result: PayPalCaptureResult) {
+    if (!result.leadSent) {
+      console.error(
+        "Payment captured but lead email may have failed:",
+        result.captureId
+      );
+    }
+    setState({ ok: true });
+  }
+
+  // Current contact-form values, sent with the PayPal capture so the server
+  // can email the lead atomically with the payment.
+  function getFormFields(): Record<string, string> {
+    const fields: Record<string, string> = {};
+    if (!formRef.current) return fields;
+    for (const [k, v] of new FormData(formRef.current).entries()) {
+      if (typeof v === "string") fields[k] = v;
+    }
+    return fields;
   }
 
   function handlePaymentError(msg: string) {
@@ -348,6 +365,7 @@ export default function ContactForm() {
                 onSuccess={handlePayPalSuccess}
                 onError={handlePaymentError}
                 disabled={!formValid}
+                getFormFields={getFormFields}
               />
             </div>
           )}
