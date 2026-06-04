@@ -97,7 +97,19 @@ export default function ContactForm() {
     if (!formRef.current) return;
     // Paid services submit only after a successful PayPal capture.
     if (requiresPayment) return;
-    runSubmit(new FormData(formRef.current));
+    const formData = new FormData(formRef.current);
+    // Client-side validation: block the server round-trip on invalid input and
+    // show inline errors instantly.
+    const fieldErrors = clientFieldErrors(formData);
+    if (Object.keys(fieldErrors).length > 0) {
+      setState({
+        ok: false,
+        error: "Please correct the errors below and try again.",
+        fieldErrors,
+      });
+      return;
+    }
+    runSubmit(formData);
   }
 
   // The capture endpoint records the lead in the same server step as the
@@ -434,21 +446,31 @@ export default function ContactForm() {
 }
 
 function validateLocally(formData: FormData): boolean {
-  const required = [
-    "fullName",
-    "businessName",
-    "email",
-    "amazonMarketplace",
-    "productCategory",
-    "message",
-  ];
-  for (const k of required) {
-    const v = formData.get(k)?.toString().trim();
-    if (!v) return false;
-  }
-  const email = formData.get("email")?.toString() ?? "";
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return false;
-  return true;
+  return Object.keys(clientFieldErrors(formData)).length === 0;
+}
+
+// Mirrors the server-side contactFormSchema's required rules so the form can
+// validate and show per-field errors without a server round-trip.
+function clientFieldErrors(formData: FormData): Record<string, string> {
+  const errors: Record<string, string> = {};
+  const val = (k: string) => formData.get(k)?.toString().trim() ?? "";
+
+  if (val("fullName").length < 2)
+    errors.fullName = "Please enter your full name";
+  if (!val("businessName")) errors.businessName = "Business name is required";
+
+  const email = val("email");
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+    errors.email = "Please enter a valid email address";
+
+  if (!val("amazonMarketplace"))
+    errors.amazonMarketplace = "Please select at least one Amazon marketplace";
+  if (!val("productCategory"))
+    errors.productCategory = "Product category is required";
+  if (val("message").length < 10)
+    errors.message = "Please describe your issue (at least 10 characters)";
+
+  return errors;
 }
 
 function Field({
