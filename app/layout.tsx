@@ -25,6 +25,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-MN8CZ49R');`;
 
+// Windows high-DPI display scaling (125/150/175%) makes the site render too
+// large. Counter it with a CSS zoom on desktop Windows, and expose the factor
+// as --ui-scale so full-viewport sections can compensate (calc(100svh/scale))
+// and keep filling the screen + keep scroll math correct. Scale stays 1 on
+// Mac/normal displays, so they are unaffected.
+const UI_SCALE_FIX = `(function(){function a(){try{var win=navigator.userAgent.indexOf('Windows')!==-1;var d=window.devicePixelRatio||1;var w=window.innerWidth||document.documentElement.clientWidth;var e=document.documentElement;var s=1;if(win&&w>=1024){if(d>=1.7){s=0.7;}else if(d>=1.4){s=0.8;}else if(d>=1.2){s=0.9;}}e.style.zoom=s===1?'':String(s);e.style.setProperty('--ui-scale',String(s));}catch(err){}}a();window.addEventListener('resize',a);})();`;
+
 const geist = Geist({
   subsets: ["latin"],
   display: "swap",
@@ -153,6 +160,9 @@ export default function RootLayout({
           {GTM_SNIPPET}
         </Script>
         {/* End Google Tag Manager */}
+        <Script id="ui-scale-fix" strategy="beforeInteractive">
+          {UI_SCALE_FIX}
+        </Script>
       </head>
       <body className="bg-[var(--paper)] text-[var(--ink)] antialiased">
         {/* Google Tag Manager (noscript) */}

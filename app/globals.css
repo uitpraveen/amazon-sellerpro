@@ -22,6 +22,10 @@
   --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", monospace;
   --font-display: var(--font-dm-serif), Georgia, serif;
+
+  /* Set by the UI-scale script on Windows high-DPI; 1 everywhere else. Used by
+     full-viewport sections to stay full-height under the document zoom. */
+  --ui-scale: 1;
 }
 
 @theme inline {

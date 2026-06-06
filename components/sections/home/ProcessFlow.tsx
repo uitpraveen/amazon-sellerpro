@@ -342,9 +342,12 @@ export default function ProcessFlow() {
       <section
         ref={sectionRef}
         className="hidden md:block relative bg-[#FAF7F2]"
-        style={{ height: `${N * 50}vh` }}
+        style={{ height: `calc(${N * 50}vh / var(--ui-scale, 1))` }}
       >
-        <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
+        <div
+          className="sticky top-0 flex flex-col justify-center overflow-hidden"
+          style={{ height: "calc(100vh / var(--ui-scale, 1))" }}
+        >
           <div className="absolute inset-0 bg-gradient-to-b from-[#FAF7F2] via-white to-[#FAF7F2] pointer-events-none" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(184,134,11,0.04),transparent_60%)] pointer-events-none" />
 

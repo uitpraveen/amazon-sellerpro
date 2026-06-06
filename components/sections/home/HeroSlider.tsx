@@ -80,7 +80,10 @@ export default function HeroSlider() {
   return (
     <section
       className="relative w-full flex flex-col overflow-hidden"
-      style={{ height: "100svh" }}
+      // Divide by --ui-scale so that after the document zoom on Windows high-DPI
+      // the hero still fills the full visual viewport (calc resolves to 100svh
+      // when --ui-scale is 1, i.e. Mac/normal displays).
+      style={{ height: "calc(100svh / var(--ui-scale, 1))" }}
     >
       {/* Background images with Ken Burns zoom */}
       <AnimatePresence mode="sync">
