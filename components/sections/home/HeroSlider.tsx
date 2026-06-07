@@ -27,7 +27,7 @@ const SLIDES = [
     subtitle: "Interactive Self-Guide",
     headlineParts: ["Not sure what", "you need?"],
     body: "Walk through our interactive Self-Guide and identify in minutes exactly what compliance requirements apply to your product.",
-    image: "/images/hero/shield-protect.jpg",
+    image: "/images/hero/self-guide.png",
     primaryCta: { label: "Open Self-Guide", href: "/self-guide" },
     secondaryCta: { label: "Read Safety Guide", href: "/safety-guide" },
   },

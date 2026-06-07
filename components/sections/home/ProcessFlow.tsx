@@ -3,7 +3,7 @@
 import { useRef, useMemo, useEffect } from "react";
 import {
   motion,
-  useScroll,
+  useMotionValue,
   useTransform,
   useMotionValueEvent,
   type MotionValue,
@@ -321,18 +321,48 @@ export default function ProcessFlow() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const ranges = useStepRanges();
 
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end end"],
-  });
+  // Manual scroll progress computed entirely in client-space (getBoundingClientRect
+  // + innerHeight). This ratio is dimensionless, so it is immune to the document
+  // `zoom` applied on Windows high-DPI, and depends only on scroll POSITION - never
+  // on scroll velocity or wheel granularity - so it is identical across trackpad,
+  // mouse, Windows and Mac. (Replaces framer's useScroll, whose target-offset math
+  // is distorted by CSS zoom.)
+  const scrollYProgress = useMotionValue(0);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    let raf = 0;
+    const measure = () => {
+      raf = 0;
+      const rect = el.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const range = rect.height - vh;
+      const p = range > 0 ? -rect.top / range : 0;
+      scrollYProgress.set(p < 0 ? 0 : p > 1 ? 1 : p);
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(measure);
+    };
+    measure();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, [scrollYProgress]);
 
   const progressBarWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   const goToStep = (i: number) => {
     const el = sectionRef.current;
     if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const range = rect.height - window.innerHeight;
     const center = (i + 0.5) / N;
-    const target = el.offsetTop + center * (el.offsetHeight - window.innerHeight);
+    const target = window.scrollY + rect.top + center * range;
     window.scrollTo({ top: target, behavior: "smooth" });
   };
 
