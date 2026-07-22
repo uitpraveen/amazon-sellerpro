@@ -152,6 +152,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      // The ui-scale-fix script below runs beforeInteractive and sets
+      // `zoom` + `--ui-scale` on this <html> element from client-only signals
+      // (devicePixelRatio, innerWidth, userAgent) that can't be computed on the
+      // server. That legitimately makes the client <html> differ from the SSR
+      // markup, so we suppress the hydration warning for this element's own
+      // attributes (does not affect children).
+      suppressHydrationWarning
       className={`${geist.variable} ${geistMono.variable} ${fraunces.variable} ${bricolage.variable} ${playfair.variable} ${lora.variable} ${inter.variable} ${dmSans.variable} ${dmSerif.variable} ${jakarta.variable} ${syne.variable} ${outfit.variable} ${manrope.variable} ${nunito.variable}`}
     >
       <head>

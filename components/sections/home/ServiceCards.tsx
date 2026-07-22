@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Search, FileSearch, ShieldAlert, FileSignature, ArrowRight } from "lucide-react";
+import { Search, RotateCcw, FileSearch, ShieldAlert, FileSignature, Megaphone, ArrowRight } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 type Service = {
@@ -18,6 +18,12 @@ const SERVICES: Service[] = [
     title: "ASIN Classification Review & Appeal",
     desc: "Your ASIN was restricted - but was Amazon right? We investigate what triggered the classification, review and modify your listing content to remove the block, and submit the appeal to get it reinstated.",
     href: "/services#asin-classification-review",
+  },
+  {
+    icon: RotateCcw,
+    title: "Amazon Account Reinstatement",
+    desc: "Your Amazon seller account has been suspended and every day offline costs you revenue. We diagnose the suspension, build your appeal, fix your listings, and follow up with Amazon until your account is back live.",
+    href: "/services#amazon-account-reinstatement",
   },
   {
     icon: FileSearch,
@@ -36,6 +42,12 @@ const SERVICES: Service[] = [
     title: "Compliance Document Creation",
     desc: "Need a CPC, GCC, or DOC? We create fully compliant safety documents structured exactly to Amazon's submission standards - using your existing test reports and product information.",
     href: "/services#compliance-document-creation",
+  },
+  {
+    icon: Megaphone,
+    title: "Amazon Sponsored Ads Management",
+    desc: "Get your products in front of ready-to-buy customers. We manage your Sponsored Products, Sponsored Brands, and Sponsored Display campaigns alongside full listing optimisation so your ads convert and your organic rank grows.",
+    href: "/services#amazon-sponsored-ads-management",
   },
 ];
 

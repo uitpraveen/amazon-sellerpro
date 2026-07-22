@@ -27,10 +27,12 @@ import { pushDataLayer } from "@/lib/gtm";
 
 const INQUIRY_OPTIONS: ServiceInquiryType[] = [
   "asin_classification_review",
+  "amazon_account_reinstatement",
   "document_review_remediation",
   "safety_incident_reinstatement",
   "compliance_document_creation",
   "product_compliance_assessment",
+  "amazon_sponsored_ads_management",
   "testing_guidance",
   "not_sure_need_advice",
   "general_question",

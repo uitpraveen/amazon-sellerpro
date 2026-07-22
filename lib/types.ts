@@ -3,20 +3,24 @@
 
 export type ServiceInquiryType =
   | "asin_classification_review"
+  | "amazon_account_reinstatement"
   | "document_review_remediation"
   | "safety_incident_reinstatement"
   | "compliance_document_creation"
   | "product_compliance_assessment"
+  | "amazon_sponsored_ads_management"
   | "testing_guidance"
   | "not_sure_need_advice"
   | "general_question";
 
 export const SERVICE_INQUIRY_LABELS: Record<ServiceInquiryType, string> = {
   asin_classification_review: "ASIN Classification Review & Appeal",
+  amazon_account_reinstatement: "Amazon Account Reinstatement",
   document_review_remediation: "Document Review & Remediation",
   safety_incident_reinstatement: "Safety Incident ASIN Reinstatement",
   compliance_document_creation: "Compliance Document Creation (CPC / GCC / DOC)",
   product_compliance_assessment: "Product Compliance Assessment",
+  amazon_sponsored_ads_management: "Amazon Sponsored Ads Management",
   testing_guidance: "Testing Guidance (Coming Soon)",
   not_sure_need_advice: "Not sure - need advice",
   general_question: "General question",

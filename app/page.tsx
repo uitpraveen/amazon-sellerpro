@@ -4,6 +4,7 @@ import HeroSlider from "@/components/sections/home/HeroSlider";
 import SoundFamiliar from "@/components/sections/home/SoundFamiliar";
 import ServiceCards from "@/components/sections/home/ServiceCards";
 import RestrictedSlider from "@/components/sections/home/RestrictedSlider";
+import SuspensionReasons from "@/components/sections/home/SuspensionReasons";
 import ProcessFlow from "@/components/sections/home/ProcessFlow";
 import WhyUs from "@/components/sections/home/WhyUs";
 import HomeCTA from "@/components/sections/home/HomeCTA";
@@ -19,6 +20,7 @@ export default function HomePage() {
         <HomeCTA />
         <ServiceCards />
         <RestrictedSlider />
+        <SuspensionReasons />
         <ProcessFlow />
         <WhyUs />
         <DifferenceClosing />

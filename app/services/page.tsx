@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ServicesGridSection from "@/components/sections/ServicesGridSection";
+import ReinstatementProcess from "@/components/sections/services/ReinstatementProcess";
 
 export const metadata: Metadata = {
   title: "Services - Amazon Safety Pro",
@@ -15,6 +16,7 @@ export default function ServicesPage() {
       <Navbar />
       <main>
         <ServicesGridSection />
+        <ReinstatementProcess />
       </main>
       <Footer />
     </>

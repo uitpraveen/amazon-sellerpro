@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import {
   Search,
+  RotateCcw,
   FileSearch,
   ShieldAlert,
   FileSignature,
   ClipboardCheck,
+  Megaphone,
   FlaskConical,
   Check,
   ArrowRight,
@@ -56,6 +58,28 @@ const TIERS: Tier[] = [
     ctaLabel: "Send Enquiry",
   },
   {
+    name: "Amazon Account Reinstatement",
+    tagline:
+      "Your Amazon seller account has been suspended and every day offline costs you revenue. We diagnose the suspension, build your appeal, fix your listings, and follow up with Amazon until your account is back live.",
+    icon: RotateCcw,
+    features: [
+      "Diagnosis of suspension type and enforcement trigger",
+      "Root cause analysis and review of prior appeal history",
+      "Tailored Plan of Action (POA), not a template",
+      "Evidence and document gathering as required",
+      "Listing content fixes where content contributed to the suspension",
+      "Submission through the correct Seller Central channel",
+      "Active follow up and escalation where required",
+      "Account health monitoring available on request",
+    ],
+    priceLabel: "Custom Quote",
+    subLabel: "Complex cases quoted individually · fixed-fee agreed before work begins",
+    ctaHref: "/contact?inquiry=amazon_account_reinstatement",
+    ctaLabel: "Send Enquiry",
+    highlighted: true,
+    badge: "Most Requested",
+  },
+  {
     name: "Document Review & Remediation",
     tagline:
       "Amazon has told you what's wrong - but the message is unclear and you don't know exactly what to fix. We decode Amazon's rejection, identify precisely what is missing or incorrect in your documents, and remediate them so your next submission meets Amazon's requirements.",
@@ -75,8 +99,6 @@ const TIERS: Tier[] = [
     subLabel: "Fixed-fee · agreed before work begins",
     ctaHref: "/contact?inquiry=document_review_remediation",
     ctaLabel: "Send Enquiry",
-    highlighted: true,
-    badge: "Most Requested",
   },
   {
     name: "Safety Incident ASIN Reinstatement",
@@ -126,6 +148,24 @@ const TIERS: Tier[] = [
     priceLabel: "$399",
     subLabel: "Fixed-fee · agreed before work begins",
     ctaHref: "/contact?inquiry=product_compliance_assessment",
+    ctaLabel: "Send Enquiry",
+  },
+  {
+    name: "Amazon Sponsored Ads Management",
+    tagline:
+      "Get your products in front of ready-to-buy customers. We manage your Sponsored Products, Sponsored Brands, and Sponsored Display campaigns alongside full listing optimisation so your ads convert and your organic rank grows.",
+    icon: Megaphone,
+    features: [
+      "Sponsored Products, Sponsored Brands, and Sponsored Display campaign setup and management",
+      "Keyword research, bid management, and budget optimisation",
+      "Negative keyword management to eliminate wasted spend",
+      "Monthly performance reporting with ACoS, ROAS, and conversion metrics",
+      "Product title, bullet points, description, and backend keyword optimisation",
+      "Ongoing listing and campaign updates based on performance data",
+    ],
+    priceLabel: "Custom Quote",
+    subLabel: "Monthly retainer · scope and fee agreed before work begins",
+    ctaHref: "/contact?inquiry=amazon_sponsored_ads_management",
     ctaLabel: "Send Enquiry",
   },
   {

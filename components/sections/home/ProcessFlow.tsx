@@ -18,7 +18,7 @@ type Step = {
   icon: LucideIcon;
 };
 
-const STEPS: Step[] = [
+const COMPLIANCE_STEPS: Step[] = [
   {
     num: "01",
     title: "Understand your product",
@@ -57,8 +57,6 @@ const STEPS: Step[] = [
   },
 ];
 
-const N = STEPS.length;
-
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } },
@@ -80,14 +78,15 @@ type StepRange = {
   indicatorColor: [string, string, string];
 };
 
-function useStepRanges(): StepRange[] {
+function useStepRanges(steps: Step[]): StepRange[] {
   return useMemo(() => {
+    const N = steps.length;
     const span = 1 / N;
     // Brief crossfade at slot boundaries: each step is fully visible across its
     // slot, then crossfades with the neighbor over a narrow window (~4% of a
     // slot) centered on the boundary. Fast transition, no dead zone.
     const C = span * 0.04;
-    return STEPS.map((_, i) => {
+    return steps.map((_, i) => {
       const boundaryLeft = i * span;
       const boundaryRight = (i + 1) * span;
       const center = (i + 0.5) * span;
@@ -141,7 +140,7 @@ function useStepRanges(): StepRange[] {
         indicatorColor,
       };
     });
-  }, []);
+  }, [steps]);
 }
 
 function StepBlock({
@@ -262,11 +261,13 @@ function IconBlock({
 
 function IndicatorBlock({
   i,
+  num,
   scrollYProgress,
   ranges,
   onClick,
 }: {
   i: number;
+  num: string;
   scrollYProgress: MotionValue<number>;
   ranges: StepRange[];
   onClick: () => void;
@@ -306,7 +307,7 @@ function IndicatorBlock({
         className="text-xs font-semibold"
         style={{ opacity: 0.25, color: "#2D2A26" }}
       >
-        {STEPS[i].num}
+        {num}
       </span>
       <div
         ref={lineRef}
@@ -317,9 +318,19 @@ function IndicatorBlock({
   );
 }
 
-export default function ProcessFlow() {
+export default function ProcessFlow({
+  steps = COMPLIANCE_STEPS,
+  eyebrow = "How We Work",
+  title = "Our Process",
+}: {
+  steps?: Step[];
+  eyebrow?: string;
+  title?: string;
+}) {
+  const STEPS = steps;
+  const N = steps.length;
   const sectionRef = useRef<HTMLDivElement>(null);
-  const ranges = useStepRanges();
+  const ranges = useStepRanges(steps);
 
   // Manual scroll progress computed entirely in client-space (getBoundingClientRect
   // + innerHeight). This ratio is dimensionless, so it is immune to the document
@@ -386,23 +397,24 @@ export default function ProcessFlow() {
               className="text-[#B8860B] text-xs 2xl:text-sm tracking-[0.25em] uppercase mb-2"
               style={{ fontFamily: "var(--font-outfit)" }}
             >
-              How We Work
+              {eyebrow}
             </p>
             <h2
               className="text-3xl lg:text-4xl 2xl:text-5xl text-[#2D2A26]"
               style={{ fontFamily: "var(--font-dm-serif)" }}
             >
-              Our Process
+              {title}
             </h2>
           </div>
 
           <div className="relative z-10 px-8">
             <div className="max-w-7xl mx-auto w-full grid grid-cols-12 gap-8 lg:gap-16 items-center">
               <div className="col-span-2 flex flex-col gap-5">
-                {STEPS.map((_, i) => (
+                {STEPS.map((s, i) => (
                   <IndicatorBlock
                     key={i}
                     i={i}
+                    num={s.num}
                     scrollYProgress={scrollYProgress}
                     ranges={ranges}
                     onClick={() => goToStep(i)}
@@ -464,14 +476,14 @@ export default function ProcessFlow() {
               className="text-[#B8860B] text-xs tracking-[0.2em] uppercase mb-3"
               style={{ fontFamily: "var(--font-outfit)" }}
             >
-              How We Work
+              {eyebrow}
             </motion.p>
             <motion.h2
               variants={fadeUp}
               className="text-2xl text-[#2D2A26]"
               style={{ fontFamily: "var(--font-dm-serif)" }}
             >
-              Our Process
+              {title}
             </motion.h2>
           </motion.div>
 

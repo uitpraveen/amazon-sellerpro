@@ -21,10 +21,12 @@ export const contactFormSchema = z.object({
   productCategory: z.string().trim().min(1, "Product category is required").max(120),
   inquiryType: z.enum([
     "asin_classification_review",
+    "amazon_account_reinstatement",
     "document_review_remediation",
     "safety_incident_reinstatement",
     "compliance_document_creation",
     "product_compliance_assessment",
+    "amazon_sponsored_ads_management",
     "testing_guidance",
     "not_sure_need_advice",
     "general_question",
